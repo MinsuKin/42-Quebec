@@ -1,0 +1,6 @@
+Credentials cache: API:EB261D5E-6595-4E64-BBDC-BE834394F7F3
+        Principal: minkim@42QUEBEC.COM
+
+  Issued                Expires               Principal
+Feb 10 09:41:51 2021  Feb 10 19:41:51 2021  krbtgt/42QUEBEC.COM@42QUEBEC.COM
+Feb 10 09:41:53 2021  Feb 10 19:41:51 2021  HTTP/student-storage.42quebec.com@42QUEBEC.COM
