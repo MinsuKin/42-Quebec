@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "unistd.h": "c",
+        "stdio.h": "c",
+        "sstream": "c",
+        "bitset": "c",
+        "functional": "c",
+        "iterator": "c",
+        "memory": "c",
+        "stdlib.h": "c"
+    }
+}

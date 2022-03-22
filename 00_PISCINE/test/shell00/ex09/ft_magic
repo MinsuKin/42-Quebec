@@ -1,0 +1,11 @@
+#!/bin/bash
+namee=`grep -r -l '' *`
+name=($namee)
+num=`ls -l | grep ^- | wc -l`
+txt=`grep -r -h '' * | cut -b 42`
+tx=($txt)
+for ((i=0; i<$num; i++)); do
+	if [ "${tx[$num]}" == "4" ]; then
+    	echo ${name[$num]}
+	fi
+done
