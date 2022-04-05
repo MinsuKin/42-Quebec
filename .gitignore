@@ -7,8 +7,9 @@
 /dataSources/
 /dataSources.local.xml
 
-/.idea/
+.idea
 
-/.vscode/
+.vscode
+.vscode/
 
-/.DS_Store
+.DS_Store
