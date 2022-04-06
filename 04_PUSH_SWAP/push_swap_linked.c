@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/04 21:40:56 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/05 20:42:22 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 
 int	ft_isspace(int c)
 {
@@ -56,12 +57,22 @@ typedef struct	s_args
 	long long all;
 	int mid;
 	int len;
+	int cnt;
+	int ra;
+	int rb;
+	int pa;
+	int pb;
 }				t_args;
 void	init_args(t_args *args)
 {
 	args->all = 0;
 	args->mid = 0;
 	args->len = 0;
+	args->cnt = 0;
+	args->ra = 0;
+	args->rb = 0;
+	args->pa = 0;
+	args->pb = 0;
 }
 typedef struct Node {
 	int data;
@@ -201,21 +212,214 @@ void reverse_rotate_ab(Node *ahead, Node *bhead)
 	write(1, "rrr\n", 4);
 }
 
-void init_div(Node *ahead, Node *bhead, t_args *args)
+void ft_two(Node *ahead)
 {
-	int i;
-	i = 0;
-    while (i < args->len)
-    {
-		if (ahead->next->data < args->mid)
+	if (ahead->next->data > ahead->next->next->data)
+		swap_a(ahead);
+}
+
+void ft_three(Node *ahead)
+{
+	if (ahead->next->data > ahead->next->next->data)
+	{
+		if (ahead->next->data > ahead->prev->data)
+			rotate_a(ahead);
+		if (ahead->next->data > ahead->next->next->data)	
+			swap_a(ahead);
+	}
+	else
+	{
+		if (ahead->next->data > ahead->prev->data)
+			reverse_rotate_a(ahead);
+		else
 		{
-			args->all = args->all - ahead->next->data;
+			if (ahead->next->next->data > ahead->prev->data)
+			{
+				swap_a(ahead);
+				rotate_a(ahead);
+			}
+		}
+	}
+}
+
+int find_sml(Node *ahead)
+{
+	int sml;
+	Node *p;
+
+	sml = INT_MAX;
+	p = ahead->next;
+	while (p != ahead)
+	{
+		if (sml > p->data)
+		{
+			sml = p->data;
+		}
+		p = p->next;
+	}
+	return sml;
+}
+
+int find_big(Node *ahead)
+{
+	int big;
+	Node *p;
+
+	big = INT_MIN;
+	p = ahead->next;
+	while (p != ahead)
+	{
+		if (big < p->data)
+		{
+			big = p->data;
+		}
+		p = p->next;
+	}
+	return big;
+}
+
+void ft_four(Node *ahead, Node *bhead)
+{
+	int sml;
+
+	sml = find_sml(ahead);
+	while (1)
+	{
+		if (ahead->next->data == sml)
+		{
 			push_b(ahead, bhead);
+			break;
+		}
+		rotate_a(ahead);
+	}
+	ft_three(ahead);
+	push_a(ahead, bhead);
+}
+
+void ft_five(Node *ahead, Node *bhead, t_args *args)
+{
+	int sml;
+	int big;
+
+	sml = find_sml(ahead);
+	big = find_big(ahead);
+	args->cnt = 0;
+	while (args->cnt != 2)
+	{
+		if (ahead->next->data == sml || ahead->next->data == big)
+		{
+			push_b(ahead, bhead);
+			args->cnt++;
+		}
+		if (ahead->next->data == sml || ahead->next->data == big)
+		{
+			push_b(ahead, bhead);
+			args->cnt++;
+		}
+		if (args->cnt == 2)
+			break;
+		rotate_a(ahead);
+	}
+	ft_three(ahead);
+	push_a(ahead, bhead);
+	if (bhead->next->data == big)
+	{
+		push_a(ahead, bhead);
+		rotate_a(ahead);
+	}
+	else
+	{
+		rotate_a(ahead);
+		push_a(ahead, bhead);
+	}
+}
+
+void atob(Node *ahead, Node *bhead, t_args *args);
+void btoa(Node *ahead, Node *bhead, t_args *args);
+
+void atob(Node *ahead, Node *bhead, t_args *args)
+{
+	if (args->len <= 5)
+	{
+		if (args->len == 2)
+			ft_two(ahead);
+		else if (args->len == 3)
+			ft_three(ahead);
+		else if (args->len == 4)
+			ft_four(ahead, bhead);
+		else if (args->len == 5)
+			ft_five(ahead, bhead, args);
+		return;
+	}
+	args->cnt = 0;
+	while (args->cnt < args->len)
+	{
+		if (ahead->next->data > args->mid)
+		{
+			rotate_a(ahead);
+			args->ra++;
 		}
 		else
-			rotate_a(ahead);
-		i++;
-    }
+		{
+			push_b(ahead, bhead);
+			args->pb++;
+		}
+		args->cnt++;
+	}
+	args->cnt = 0;
+	while (args->cnt < args->ra)
+	{
+		reverse_rotate_a(ahead);
+		args->cnt++;
+	}
+	args->mid = ahead->prev->data;
+	args->len = args->ra;
+	args->ra = 0;
+	atob(ahead, bhead, args);
+	args->len = args->pb;
+	args->pb = 0;
+	btoa(ahead, bhead, args);
+}
+
+void btoa(Node *ahead, Node *bhead, t_args *args)
+{
+	if (args->len <= 2)
+	{
+		ft_two(ahead);
+		return;
+	}
+	args->cnt = 0;
+	while (args->cnt < args->len)
+	{
+		if (bhead->next->data < bhead->prev->data)
+		{
+			rotate_b(bhead);
+			args->rb++;
+		}
+		else
+		{
+			push_a(ahead, bhead);
+			args->pa++;
+		}
+		args->cnt++;
+	}
+	args->cnt = 0;
+	while (args->cnt < args->rb)
+	{
+		reverse_rotate_b(bhead);
+		args->cnt++;
+	}
+	args->len = args->pa;
+	args->pa = 0;
+	atob(ahead, bhead, args);
+	args->len = args->rb;
+	args->rb = 0;
+	btoa(ahead, bhead, args);
+}
+
+void ft_sorted(Node *ahead, Node *bhead, t_args *args)
+{
+	atob(ahead, bhead, args);
 }
 
 // 메인
@@ -242,10 +446,18 @@ int		main(int ac, char **av)
 	
 	// 중간값 구하기
 	args->mid = args->all / args->len;
-	printf("%d\n", args->mid);
+	// printf("%d\n", args->sml);
 
-    init_div(ahead, bhead, args);
-	printf("%lld\n", args->all);
+    if (args->len == 2)
+		ft_two(ahead);
+	else if (args->len == 3)
+		ft_three(ahead);
+	else if (args->len == 4)
+		ft_four(ahead, bhead);
+	else if (args->len == 5)
+		ft_five(ahead, bhead, args);
+	else
+		ft_sorted(ahead, bhead, args);
     
 	print_list(ahead);
 	print_list(bhead);
