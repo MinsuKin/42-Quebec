@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_linked.c                                 :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/06 20:55:24 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/11 22:00:17 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+// #include "push_swap.h"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -50,6 +50,16 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (sign * n);
+}
+
+int	ft_isalpha(int c)
+{
+	return (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'));
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
 
 typedef struct Node {
@@ -95,7 +105,16 @@ void delete_tail(Node *tail, Node *removed) {
 	removed->prev->next = removed->next;
 	free(removed);
 }
-
+void ft_free(Node *phead)
+{
+	Node *p;
+	p = phead->next;
+	while (p != phead) 
+	{
+		p = p->next;
+		free(p->prev);
+	}
+}
 // sa : swap a - 스택 a의 가장 위에 있는 두 원소(혹은 첫 번쨰 원소와 두 번째 원소)의 위치를 서로 바꾼다.
 void swap_a(Node *head)
 {
@@ -200,18 +219,18 @@ void ft_three(Node *ahead)
 {
 	if (ahead->next->data > ahead->next->next->data)
 	{
-		if (ahead->next->data > ahead->prev->data)
+		if (ahead->next->data > ahead->next->next->next->data)
 			rotate_a(ahead);
 		if (ahead->next->data > ahead->next->next->data)	
 			swap_a(ahead);
 	}
 	else
 	{
-		if (ahead->next->data > ahead->prev->data)
+		if (ahead->next->data > ahead->next->next->next->data)
 			reverse_rotate_a(ahead);
 		else
 		{
-			if (ahead->next->next->data > ahead->prev->data)
+			if (ahead->next->next->data > ahead->next->next->next->data)
 			{
 				swap_a(ahead);
 				rotate_a(ahead);
@@ -220,47 +239,71 @@ void ft_three(Node *ahead)
 	}
 }
 
-int find_sml(Node *ahead)
+int find_sml(Node *ahead, int size)
 {
+	int cnt;
 	int sml;
 	Node *p;
 
+	cnt = 0;
 	sml = INT_MAX;
 	p = ahead->next;
-	while (p != ahead)
+	while (cnt < size)
 	{
 		if (sml > p->data)
 		{
 			sml = p->data;
 		}
 		p = p->next;
+		cnt++;
 	}
 	return sml;
 }
 
-int find_big(Node *ahead)
+int find_big(Node *ahead, int size)
 {
+	int cnt;
 	int big;
 	Node *p;
 
+	cnt = 0;
 	big = INT_MIN;
 	p = ahead->next;
-	while (p != ahead)
+	while (cnt < size)
 	{
 		if (big < p->data)
 		{
 			big = p->data;
 		}
 		p = p->next;
+		cnt++;
 	}
 	return big;
+}
+
+int find_mid(Node *ahead, int size)
+{
+	int cnt;
+	int all;
+	Node *p;
+
+	cnt = 0;
+	all = 0;
+	p = ahead->next;
+	while (cnt < size)
+	{
+		all += p->data;
+		p = p->next;
+		cnt++;
+	}
+	return all / size;
 }
 
 void ft_four(Node *ahead, Node *bhead)
 {
 	int sml;
 
-	sml = find_sml(ahead);
+	sml = find_sml(ahead, 4);
 	while (1)
 	{
 		if (ahead->next->data == sml)
@@ -276,13 +319,13 @@ void ft_four(Node *ahead, Node *bhead)
 
 void ft_five(Node *ahead, Node *bhead)
 {
+	int cnt;
 	int sml;
 	int big;
-	int cnt;
 
+	sml = find_sml(ahead, 5);
+	big = find_big(ahead, 5);
 	cnt = 0;
-	sml = find_sml(ahead);
-	big = find_big(ahead);
 	while (cnt != 2)
 	{
 		if (ahead->next->data == sml || ahead->next->data == big)
@@ -311,6 +354,99 @@ void ft_five(Node *ahead, Node *bhead)
 		rotate_a(ahead);
 		push_a(ahead, bhead);
 	}
+}
+
+void atob(Node *ahead, Node *bhead, int size);
+void btoa(Node *ahead, Node *bhead, int size);
+
+void atob(Node *ahead, Node *bhead, int size)
+{
+	
+	int cnt;
+	int ra;
+	int pb;
+	int mid;
+	
+	if (size <= 2)
+	{
+		if (size == 2)
+			ft_two(ahead);
+		return;
+	}
+	ra = 0;
+	pb = 0;
+	cnt = 0;
+	mid = find_mid(ahead, size);
+	while (cnt < size)
+	{
+		if (ahead->next->data > mid)
+		{
+			rotate_a(ahead);
+			ra++;
+		}
+		else
+		{
+			push_b(ahead, bhead);
+			pb++;
+		}
+		cnt++;
+	}
+	cnt = 0;
+	while (cnt < ra)
+	{
+		reverse_rotate_a(ahead);
+		cnt++;
+	}
+	atob(ahead, bhead, ra);
+	btoa(ahead, bhead, pb);
+}
+
+void btoa(Node *ahead, Node *bhead, int size)
+{
+	int rb;
+	int pa;
+	int cnt;
+	int mid;
+
+	if (size <= 2)
+	{
+		if (size == 1)
+			push_a(ahead, bhead);
+		else if (size == 2)
+		{
+			ft_two(bhead);
+			swap_b(bhead);
+			push_a(ahead, bhead);
+			push_a(ahead, bhead);
+		}
+		return;
+	}
+	rb = 0;
+	pa = 0;
+	cnt = 0;
+	mid = find_mid(bhead, size);
+	while (cnt < size)
+	{
+		if (bhead->next->data < mid)
+		{
+			rotate_b(bhead);
+			rb++;
+		}
+		else
+		{
+			push_a(ahead, bhead);
+			pa++;
+		}
+		cnt++;
+	}
+	cnt = 0;
+	while (cnt < rb)
+	{
+		reverse_rotate_b(bhead);
+		cnt++;
+	}
+	atob(ahead, bhead, pa);
+	btoa(ahead, bhead, rb);
 }
 
 void quickSort(int arr[], int L, int R)
@@ -343,114 +479,137 @@ void quickSort(int arr[], int L, int R)
 	quickSort(arr, left, R);    // 오른쪽 배열 재귀적으로 반복 
 }
 
-void ft_sorted(Node *ahead, Node *bhead, int arr[], int len)
+void ft_sorted(Node *ahead, Node *bhead, int size, int arr[])
 {
-	int chunk = len / 3;
-	int last = len - 1;
-
-	// int chunk3 = arr[chunk*3];
-	// int chunk5 = arr[len-1];
+	int chunk = size / 3;
+	int last = size - 1;
 
 	Node *p = ahead->next;
 
 	int pb = 0;
-	while (1)
+	int i = 1;
+	int all;
+	int pbb;
+	int mid;
+	while (i <= 2)
 	{
-		if (p->data == arr[last] || p->data == arr[0])
-			rotate_a(ahead);
-		else if (p->data < arr[chunk])
+		all = 0;
+		pbb = 0;
+		while (1)
 		{
-			push_b(ahead, bhead);
-			pb++;
+			if (p->data == arr[last] || p->data == arr[0])
+				rotate_a(ahead);
+			else if (p->data < arr[chunk * i])
+			{
+				all += ahead->next->data;
+				push_b(ahead, bhead);
+				pb++;
+				pbb++;
+			}
+			else
+				rotate_a(ahead);
+			p = p->next;
+			if (pb == chunk * i - 1)
+				break;
 		}
-		else
-			rotate_a(ahead);
-		p = p->next;
-		if (pb == chunk - 1)
-			break;
-	}
-	while (1)
-	{
-		if (p->data == arr[last] || p->data == arr[0])
-			rotate_a(ahead);
-		else if (p->data < arr[chunk * 2])
+		mid = all / pbb;
+		while (pbb--)
 		{
-			push_b(ahead, bhead);
-			pb++;
+			if (bhead->next->data < mid)
+				rotate_b(bhead);
 		}
-		else
-			rotate_a(ahead);
-		p = p->next;
-		if (pb == chunk * 2 - 1)
-			break;
+		i++;
 	}
-	while (1)
-	{
-		if (p->data == arr[last] || p->data == arr[0])
-			rotate_a(ahead);
-		else if (p->data < arr[last])
-		{
-			push_b(ahead, bhead);
-			pb++;
-		}
-		else
-			rotate_a(ahead);
-		p = p->next;
-		if (pb == last - 2)
-			break;
-	}
-
+	// while (1)
+	// {
+	// 	if (p->data == arr[last] || p->data == arr[0])
+	// 		rotate_a(ahead);
+	// 	else if (p->data < arr[last])
+	// 	{
+	// 		push_b(ahead, bhead);
+	// 		pb++;
+	// 	}
+	// 	else
+	// 		rotate_a(ahead);
+	// 	p = p->next;
+	// 	if (pb == last - 1)
+	// 		break;
+	// }
 }
 
 // 메인
 int		main(int ac, char **av)
 {
     int i;
-    int len;
-    Node *ahead = (Node *)malloc(sizeof(Node));
-    Node *bhead = (Node *)malloc(sizeof(Node));
-	
-    init(ahead);
-    init(bhead);
+	int j;
+	int size;
+    Node *a = (Node *)malloc(sizeof(Node));
+    Node *b = (Node *)malloc(sizeof(Node));
+    
+    init(a);
+    init(b);
 
     i = 1;
-	len = 0;
-	
+	size = 0;
+
     while (i < ac)
     {
-        insert(ahead->prev, ft_atoi(av[i]));
-        i++;
-        len++;
+		j = 0;
+		while (av[i][j])
+		{
+			if (ft_isdigit(av[i][j]) || av[i][j] == '-')
+			{
+				insert(a->prev, ft_atoi(&av[i][j]));
+				size++;
+				while (ft_isdigit(av[i][j]) || av[i][j] == '-')
+					j++;
+				j--;
+			}
+			j++;
+		}
+		i++;
     }
 
-	int arr[len];
-	Node *p = ahead->next;
+	int arr[size];
+	Node *p = a->next;
 
 	i = 0;
-	while (i < len)
+	while (i < size)
 	{
 		arr[i] = p->data;
 		i++;
 		p = p->next;
 	}
 
-	quickSort(arr, 0, len-1);
+	quickSort(arr, 0, size-1);
 
-    if (len == 2)
-		ft_two(ahead);
-	else if (len == 3)
-		ft_three(ahead);
-	else if (len == 4)
-		ft_four(ahead, bhead);
-	else if (len == 5)
-		ft_five(ahead, bhead);
+	// i = 0;
+	// while(arr[i])
+	// {
+	// 	printf("%d ", arr[i]);
+	// 	i++;
+	// }
+	// printf("\n");
+	
+    if (size == 2)
+		ft_two(a);
+	else if (size == 3)
+		ft_three(a);
+	else if (size == 4)
+		ft_four(a, b);
+	else if (size == 5)
+		ft_five(a, b);
 	else
-		ft_sorted(ahead, bhead, arr, len);
+		ft_sorted(a, b, size, arr);
     
-	print_list(ahead);
-	print_list(bhead);
 
-    free(ahead);
-    free(bhead);
+	print_list(a);
+	print_list(b);
+
+	ft_free(a);
+	ft_free(b);
+
+    free(a);
+    free(b);
 	return (0);
 }
