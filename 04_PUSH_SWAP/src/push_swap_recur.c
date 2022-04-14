@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_recur.c                                  :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/09 13:31:10 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/11 21:07:23 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+// #include "push_swap.h"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -52,6 +52,16 @@ int	ft_atoi(const char *str)
 	return (sign * n);
 }
 
+int	ft_isalpha(int c)
+{
+	return (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'));
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
 typedef struct Node {
 	int data;
 	struct Node *prev;
@@ -65,11 +75,11 @@ void init(Node *phead) {
 // 이중 연결리스트 상태 출력
 void print_list(Node *phead) {
 	Node *p;
-    // printf("%d | ", phead->data);
+    printf("%d | ", phead->data);
 	for (p = phead->next; p != phead; p = p->next) {
 		printf("%d | ", p->data);
 	}
-	// printf("%d | ", p->data);
+	printf("%d | ", p->data);
 	printf("\n");
 }
 // push
@@ -95,7 +105,16 @@ void delete_tail(Node *tail, Node *removed) {
 	removed->prev->next = removed->next;
 	free(removed);
 }
-
+void ft_free(Node *phead)
+{
+	Node *p;
+	p = phead->next;
+	while (p != phead) 
+	{
+		p = p->next;
+		free(p->prev);
+	}
+}
 // sa : swap a - 스택 a의 가장 위에 있는 두 원소(혹은 첫 번쨰 원소와 두 번째 원소)의 위치를 서로 바꾼다.
 void swap_a(Node *head)
 {
@@ -439,38 +458,59 @@ void ft_sorted(Node *ahead, Node *bhead, int size)
 int		main(int ac, char **av)
 {
     int i;
+	int j;
 	int size;
-    Node *ahead = (Node *)malloc(sizeof(Node));
-    Node *bhead = (Node *)malloc(sizeof(Node));
+    Node *a = (Node *)malloc(sizeof(Node));
+    Node *b = (Node *)malloc(sizeof(Node));
     
-    init(ahead);
-    init(bhead);
+    init(a);
+    init(b);
 
     i = 1;
 	size = 0;
 
     while (i < ac)
     {
-        insert(ahead->prev, ft_atoi(av[i]));
-        size++;
-        i++;
+		j = 0;
+		while (av[i][j])
+		{
+			if (ft_isdigit(av[i][j]) || av[i][j] == '-')
+			{
+				insert(a->prev, ft_atoi(&av[i][j]));
+				size++;
+				while (ft_isdigit(av[i][j]) || av[i][j] == '-')
+					j++;
+				j--;
+			}
+			j++;
+		}
+		i++;
     }
-
+    // while (i < ac)
+    // {
+    //     insert(a->prev, ft_atoi(av[i]));
+    //     size++;
+    //     i++;
+    // }
     if (size == 2)
-		ft_two(ahead);
+		ft_two(a);
 	else if (size == 3)
-		ft_three(ahead);
+		ft_three(a);
 	else if (size == 4)
-		ft_four(ahead, bhead);
+		ft_four(a, b);
 	else if (size == 5)
-		ft_five(ahead, bhead);
+		ft_five(a, b);
 	else
-		ft_sorted(ahead, bhead, size);
+		ft_sorted(a, b, size);
     
-	print_list(ahead);
-	print_list(bhead);
 
-    free(ahead);
-    free(bhead);
+	// print_list(a);
+	// print_list(b);
+
+	ft_free(a);
+	ft_free(b);
+
+    free(a);
+    free(b);
 	return (0);
 }
