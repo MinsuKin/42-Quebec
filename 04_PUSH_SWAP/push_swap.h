@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/14 18:33:23 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/14 21:22:19 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void delete(Node *head, Node *removed);
 void delete_tail(Node *tail, Node *removed);
 void ft_free(Node *phead);
 
-void swap_a(Node *head);
-void swap_b(Node *head);
+void swap_a(Node *ahead);
+void swap_b(Node *bhead);
 void swap_ab(Node *ahead, Node *bhead);
 void push_a(Node *ahead, Node *bhead);
 void push_b(Node *ahead, Node *bhead);
@@ -48,7 +48,6 @@ void reverse_rotate_ab(Node *ahead, Node *bhead);
 
 void ft_two(Node *ahead);
 void ft_two_b(Node *bhead);
-void ft_three(Node *ahead);
 void ft_three(Node *ahead);
 void ft_three_a(Node *ahead, Node *bhead);
 void ft_three_b(Node *ahead, Node *bhead);
