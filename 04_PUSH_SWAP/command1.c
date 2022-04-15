@@ -6,28 +6,28 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:41:54 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/14 18:32:49 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/14 21:22:15 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // sa : swap a - 스택 a의 가장 위에 있는 두 원소(혹은 첫 번쨰 원소와 두 번째 원소)의 위치를 서로 바꾼다.
-void swap_a(Node *head)
+void swap_a(Node *ahead)
 {
 	int tmp;
-	tmp = head->next->data;
-	head->next->data = head->next->next->data;
-	head->next->next->data = tmp;
+	tmp = ahead->next->data;
+	ahead->next->data = ahead->next->next->data;
+	ahead->next->next->data = tmp;
 	write(1, "sa\n", 3);
 }
 // sb : swap b - 스택 b의 가장 위에 있는 두 원소(혹은 첫 번쨰 원소와 두 번째 원소)의 위치를 서로 바꾼다.
-void swap_b(Node *head)
+void swap_b(Node *bhead)
 {
 	int tmp;
-	tmp = head->next->data;
-	head->next->data = head->next->next->data;
-	head->next->next->data = tmp;
+	tmp = bhead->next->data;
+	bhead->next->data = bhead->next->next->data;
+	bhead->next->next->data = tmp;
 	write(1, "sb\n", 3);
 }
 // ss : sa와 sb를 동시에 실행한다.
