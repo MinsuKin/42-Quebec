@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/16 17:09:34 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 11:35:34 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,8 +414,8 @@ void btoa(Node *ahead, Node *bhead, int size)
 			push_a(ahead, bhead);
 		else if (size == 2)
 		{
-			ft_two(ahead, bhead);
-			swap_b(ahead, bhead);
+			ft_two(ahead);
+			swap_b(bhead);
 			push_a(ahead, bhead);
 			push_a(ahead, bhead);
 		}
@@ -429,7 +429,7 @@ void btoa(Node *ahead, Node *bhead, int size)
 	{
 		if (bhead->next->data < mid)
 		{
-			rotate_b(ahead, bhead);
+			rotate_b(bhead);
 			rb++;
 		}
 		else
@@ -442,7 +442,7 @@ void btoa(Node *ahead, Node *bhead, int size)
 	cnt = 0;
 	while (cnt < rb)
 	{
-		reverse_rotate_b(ahead, bhead);
+		reverse_rotate_b(bhead);
 		cnt++;
 	}
 	atob(ahead, bhead, pa);
@@ -516,7 +516,7 @@ void ft_sorted(Node *ahead, Node *bhead, int size, int arr[])
 		while (pbb--)
 		{
 			if (bhead->next->data < mid)
-				rotate_b(ahead, bhead);
+				rotate_b(bhead);
 		}
 		i++;
 	}
@@ -541,7 +541,6 @@ void ft_sorted(Node *ahead, Node *bhead, int size, int arr[])
 int		main(int ac, char **av)
 {
     int i;
-	int j;
 	int size;
     Node *a = (Node *)malloc(sizeof(Node));
     Node *b = (Node *)malloc(sizeof(Node));
@@ -554,19 +553,8 @@ int		main(int ac, char **av)
 
     while (i < ac)
     {
-		j = 0;
-		while (av[i][j])
-		{
-			if (ft_isdigit(av[i][j]) || av[i][j] == '-')
-			{
-				insert(a->prev, ft_atoi(&av[i][j]));
-				size++;
-				while (ft_isdigit(av[i][j]) || av[i][j] == '-')
-					j++;
-				j--;
-			}
-			j++;
-		}
+		insert(a->prev, ft_atoi(av[i]));
+		size++;
 		i++;
     }
 
@@ -583,28 +571,28 @@ int		main(int ac, char **av)
 
 	quickSort(arr, 0, size-1);
 
-	// i = 0;
-	// while(arr[i])
-	// {
-	// 	printf("%d ", arr[i]);
-	// 	i++;
-	// }
-	// printf("\n");
+	i = 0;
+	while(arr[i])
+	{
+		printf("%d ", arr[i]);
+		i++;
+	}
+	printf("\n");
 	
-    if (size == 2)
-		ft_two(a);
-	else if (size == 3)
-		ft_three(a);
-	else if (size == 4)
-		ft_four(a, b);
-	else if (size == 5)
-		ft_five(a, b);
-	else
-		ft_sorted(a, b, size, arr);
+    // if (size == 2)
+	// 	ft_two(a);
+	// else if (size == 3)
+	// 	ft_three(a);
+	// else if (size == 4)
+	// 	ft_four(a, b);
+	// else if (size == 5)
+	// 	ft_five(a, b);
+	// else
+	// 	ft_sorted(a, b, size, arr);
     
 
-	print_list(a);
-	print_list(b);
+	// print_list(a);
+	// print_list(b);
 
 	ft_free(a);
 	ft_free(b);
