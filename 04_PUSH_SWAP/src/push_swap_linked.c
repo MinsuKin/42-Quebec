@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push_swap_linked.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/11 22:00:17 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/16 17:09:34 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,8 +414,8 @@ void btoa(Node *ahead, Node *bhead, int size)
 			push_a(ahead, bhead);
 		else if (size == 2)
 		{
-			ft_two(bhead);
-			swap_b(bhead);
+			ft_two(ahead, bhead);
+			swap_b(ahead, bhead);
 			push_a(ahead, bhead);
 			push_a(ahead, bhead);
 		}
@@ -429,7 +429,7 @@ void btoa(Node *ahead, Node *bhead, int size)
 	{
 		if (bhead->next->data < mid)
 		{
-			rotate_b(bhead);
+			rotate_b(ahead, bhead);
 			rb++;
 		}
 		else
@@ -442,7 +442,7 @@ void btoa(Node *ahead, Node *bhead, int size)
 	cnt = 0;
 	while (cnt < rb)
 	{
-		reverse_rotate_b(bhead);
+		reverse_rotate_b(ahead, bhead);
 		cnt++;
 	}
 	atob(ahead, bhead, pa);
@@ -516,7 +516,7 @@ void ft_sorted(Node *ahead, Node *bhead, int size, int arr[])
 		while (pbb--)
 		{
 			if (bhead->next->data < mid)
-				rotate_b(bhead);
+				rotate_b(ahead, bhead);
 		}
 		i++;
 	}
