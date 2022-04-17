@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/14 21:22:19 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 09:20:10 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,27 @@ void delete(Node *head, Node *removed);
 void delete_tail(Node *tail, Node *removed);
 void ft_free(Node *phead);
 
+void print_cmd(Node *ahead, int cmd);
 void swap_a(Node *ahead);
-void swap_b(Node *bhead);
+void swap_b(Node *ahead, Node *bhead);
 void swap_ab(Node *ahead, Node *bhead);
 void push_a(Node *ahead, Node *bhead);
 void push_b(Node *ahead, Node *bhead);
 void rotate_a(Node *ahead);
-void rotate_b(Node *bhead);
+void rotate_b(Node *ahead, Node *bhead);
 void rotate_ab(Node *ahead, Node *bhead);
 void reverse_rotate_a(Node *ahead);
-void reverse_rotate_b(Node *bhead);
+void reverse_rotate_b(Node *ahead, Node *bhead);
 void reverse_rotate_ab(Node *ahead, Node *bhead);
 
 void ft_two(Node *ahead);
-void ft_two_b(Node *bhead);
+void ft_two_b(Node *ahead, Node *bhead);
 void ft_three(Node *ahead);
 void ft_three_a(Node *ahead, Node *bhead);
 void ft_three_b(Node *ahead, Node *bhead);
 void ft_four(Node *ahead, Node *bhead);
+void ft_four_a(Node *ahead, Node *bhead);
+void ft_four_b(Node *ahead, Node *bhead);
 void ft_five(Node *ahead, Node *bhead);
 
 int find_sml(Node *ahead, int size);
@@ -62,6 +65,5 @@ int find_two_third(Node *ahead, int size);
 
 void atob(Node *ahead, Node *bhead, int size);
 void btoa(Node *ahead, Node *bhead, int size);
-void ft_sorted(Node *ahead, Node *bhead, int size);
 
 #endif
