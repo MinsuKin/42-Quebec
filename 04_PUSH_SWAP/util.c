@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:38:19 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/17 10:36:01 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 16:08:50 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	res = sign * n;
-	if (res < -2147483648 || res > 2147483647)
-		return 0;
 	return ((int)res);
 }
 
@@ -76,6 +74,6 @@ int	ft_check_num(const char *str)
 	}
 	res = sign * n;
 	if (res < -2147483648 || res > 2147483647)
-		return 1;
+		return (1);
 	return (0);
 }

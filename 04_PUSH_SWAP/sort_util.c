@@ -6,17 +6,17 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:41:58 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/14 15:07:28 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 16:18:02 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int find_sml(Node *ahead, int size)
+int	find_sml(t_node *ahead, int size)
 {
-	int cnt;
-	int sml;
-	Node *p;
+	int		cnt;
+	int		sml;
+	t_node	*p;
 
 	cnt = 0;
 	sml = INT_MAX;
@@ -30,14 +30,14 @@ int find_sml(Node *ahead, int size)
 		p = p->next;
 		cnt++;
 	}
-	return sml;
+	return (sml);
 }
 
-int find_big(Node *ahead, int size)
+int	find_big(t_node *ahead, int size)
 {
-	int cnt;
-	int big;
-	Node *p;
+	int		cnt;
+	int		big;
+	t_node	*p;
 
 	cnt = 0;
 	big = INT_MIN;
@@ -51,14 +51,14 @@ int find_big(Node *ahead, int size)
 		p = p->next;
 		cnt++;
 	}
-	return big;
+	return (big);
 }
 
-int find_mid(Node *ahead, int size)
+int	find_mid(t_node *ahead, int size)
 {
-	int cnt;
-	int all;
-	Node *p;
+	int		cnt;
+	int		all;
+	t_node	*p;
 
 	cnt = 0;
 	all = 0;
@@ -69,28 +69,29 @@ int find_mid(Node *ahead, int size)
 		p = p->next;
 		cnt++;
 	}
-	return all / size;
+	return (all / size);
 }
 
-int find_one_third(Node *ahead, int size)
+int	find_one_third(t_node *ahead, int size)
 {
-	int res;
-	int mid;
-	int sml;
+	int	res;
+	int	mid;
+	int	sml;
 
 	mid = find_mid(ahead, size);
 	sml = find_sml(ahead, size);
 	res = (mid + sml) / 2;
-	return res;
+	return (res);
 }
-int find_two_third(Node *ahead, int size)
+
+int	find_two_third(t_node *ahead, int size)
 {
-	int res;
-	int mid;
-	int big;
+	int	res;
+	int	mid;
+	int	big;
 
 	mid = find_mid(ahead, size);
 	big = find_big(ahead, size);
 	res = (mid + big) / 2;
-	return res;
+	return (res);
 }
