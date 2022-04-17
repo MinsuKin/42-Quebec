@@ -6,142 +6,88 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:48:06 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/16 17:51:31 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 18:31:05 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void atob(Node *ahead, Node *bhead, int size)
+void	atob(t_node *ahead, t_node *bhead, int size, int cnt)
 {
-	
-	int cnt;
-	int ra;
-	int rb;
-	int pb;
-	
+	int	ra;
+	int	rb;
+	int	pb;
+	int	one_third;
+	int	two_third;
+
 	if (size <= 4)
 	{
-		if (size == 4)
-			ft_four_a(ahead, bhead);
-		else if (size == 3)
-			ft_three_a(ahead, bhead);
-		else if (size == 2)
-			ft_two(ahead);
-		return;
+		atob_exit(ahead, bhead, size);
+		return ;
 	}
 	ra = 0;
 	rb = 0;
 	pb = 0;
-	cnt = 0;
-    int one_third = find_one_third(ahead, size);
-    int two_third = find_two_third(ahead, size);
-	while (cnt < size)
+	one_third = find_one_third(ahead, size);
+	two_third = find_two_third(ahead, size);
+	while (size--)
 	{
 		if (ahead->next->data >= two_third)
-		{
-			rotate_a(ahead);
-			ra++;
-		}
+			ra = ra_util(ahead, ra);
 		else
 		{
-			push_b(ahead, bhead);
-			pb++;
+			pb = pb_util(ahead, bhead, pb);
 			if (bhead->next->data >= one_third)
-			{
-				rotate_b(ahead, bhead);
-				rb++;
-			}
+				rb = rb_util(ahead, bhead, rb);
 		}
-		cnt++;
 	}
-	cnt = 0;
 	while (cnt < ra && cnt < rb)
-	{
-		reverse_rotate_ab(ahead, bhead);
-		cnt++;
-	}
+		cnt = rrr_util(ahead, bhead, cnt);
 	while (cnt < ra)
-	{
-		reverse_rotate_a(ahead);
-		cnt++;
-	}
+		cnt = rra_util(ahead, cnt);
 	while (cnt < rb)
-	{
-		reverse_rotate_b(ahead, bhead);
-		cnt++;
-	}
-	atob(ahead, bhead, ra);
-	btoa(ahead, bhead, rb);
-	btoa(ahead, bhead, pb - rb);
+		cnt = rrb_util(ahead, bhead, cnt);
+	atob(ahead, bhead, ra, 0);
+	btoa(ahead, bhead, rb, 0);
+	btoa(ahead, bhead, pb - rb, 0);
 }
 
-void btoa(Node *ahead, Node *bhead, int size)
+void	btoa(t_node *ahead, t_node *bhead, int size, int cnt)
 {
-	int rb;
-	int ra;
-	int pa;
-	int cnt;
+	int	rb;
+	int	ra;
+	int	pa;
+	int	one_third;
+	int	two_third;
 
 	if (size <= 4)
 	{
-		if (size == 4)
-			ft_four_b(ahead, bhead);
-		else if (size == 3)
-			ft_three_b(ahead, bhead);
-		else if (size == 2)
-		{
-			ft_two_b(ahead, bhead);
-			swap_b(ahead, bhead);
-			push_a(ahead, bhead);
-			push_a(ahead, bhead);
-		}
-		else if (size == 1)
-			push_a(ahead, bhead);
-		return;
+		btoa_exit(ahead, bhead, size);
+		return ;
 	}
 	rb = 0;
 	ra = 0;
 	pa = 0;
-	cnt = 0;
-    int one_third = find_one_third(bhead, size);
-    int two_third = find_two_third(bhead, size);
-	while (cnt < size)
+	one_third = find_one_third(bhead, size);
+	two_third = find_two_third(bhead, size);
+	while (size--)
 	{
 		if (bhead->next->data < one_third)
-		{
-			rotate_b(ahead, bhead);
-			rb++;
-		}
+			rb = rb_util(ahead, bhead, rb);
 		else
 		{
-			push_a(ahead, bhead);
-			pa++;
+			pa = pa_util(ahead, bhead, pa);
 			if (ahead->next->data < two_third)
-			{
-				rotate_a(ahead);
-				ra++;
-			}
+				ra = ra_util(ahead, ra);
 		}
-		cnt++;
 	}
-	atob(ahead, bhead, pa - ra);
-	cnt = 0;
+	atob(ahead, bhead, pa - ra, 0);
 	while (cnt < ra && cnt < rb)
-	{
-		reverse_rotate_ab(ahead, bhead);
-		cnt++;
-	}
+		cnt = rrr_util(ahead, bhead, cnt);
 	while (cnt < ra)
-	{
-		reverse_rotate_a(ahead);
-		cnt++;
-	}
+		cnt = rra_util(ahead, cnt);
 	while (cnt < rb)
-	{
-		reverse_rotate_b(ahead, bhead);
-		cnt++;
-	}
-	atob(ahead, bhead, ra);
-	btoa(ahead, bhead, rb);
+		cnt = rrb_util(ahead, bhead, cnt);
+	atob(ahead, bhead, ra, 0);
+	btoa(ahead, bhead, rb, 0);
 }
