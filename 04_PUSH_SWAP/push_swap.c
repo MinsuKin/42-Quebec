@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/14 18:34:28 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 09:26:32 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,18 @@ int		main(int ac, char **av)
 				write(1, "Error\n", 7);
 				return (0);
 			}
-			if (ft_isdigit(av[i][j]) || (av[i][j] == '-' && ft_isdigit(av[i][j + 1])))
+			else if (ft_isdigit(av[i][j]) || (av[i][j] == '-' && ft_isdigit(av[i][j + 1])))
 			{
 				insert(a->prev, ft_atoi(&av[i][j]));
 				size++;
 				while (ft_isdigit(av[i][j]) || av[i][j] == '-')
 					j++;
 				j--;
+			}
+			else
+			{
+				write(1, "Error\n", 7);
+				return (0);
 			}
 			j++;
 		}
@@ -75,9 +80,10 @@ int		main(int ac, char **av)
 	else if (size == 5)
 		ft_five(a, b);
 	else
-		ft_sorted(a, b, size);
-    
+		atob(a, b, size);
 
+	print_cmd(a, 0);
+	a->data = 0;
 	// print_list(a);
 	// print_list(b);
 
