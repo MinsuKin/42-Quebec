@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/17 09:20:10 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/17 13:05:20 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 
 int		ft_atoi(const char *str);
+int		ft_check_num(const char *str);
 int		ft_isdigit(int c);
 int		ft_isspace(int c);
 
@@ -65,5 +66,8 @@ int find_two_third(Node *ahead, int size);
 
 void atob(Node *ahead, Node *bhead, int size);
 void btoa(Node *ahead, Node *bhead, int size);
+
+void quickSort(int arr[], int L, int R);
+void swap(int *a, int *b);
 
 #endif
