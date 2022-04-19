@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/19 13:40:16 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/19 16:21:41 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		find_dup(t_node *ahead, int dup);
 int		check_sorted(t_node *a, int size, int i);
 int		ft_error(int i);
 int		make_stack(int ac, char **av, t_node *a, int i);
+int		make_stack_util(char **av, int i, int j);
 
 void	ft_pushswap(t_node *a, t_node *b, int size);
 
