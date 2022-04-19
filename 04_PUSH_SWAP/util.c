@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:38:19 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/17 16:08:50 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/19 15:33:28 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ int	ft_check_num(const char *str)
 	if (*str == 0)
 		return (0);
 	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	if (*str == '-')
 	{
 		if (*str == '-')
 			sign = -1;
