@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:39:43 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/17 16:18:02 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/19 16:21:28 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,18 @@ int	ft_error(int i)
 	return (i);
 }
 
+int	make_stack_util(char **av, int i, int j)
+{
+	if (av[i][j] == '-')
+		j++;
+	while (ft_isdigit(av[i][j]))
+		j++;
+	while (ft_isspace(av[i][j]))
+		j++;
+	j--;
+	return (j);
+}
+
 int	make_stack(int ac, char **av, t_node *a, int i)
 {
 	int	j;
@@ -72,6 +84,8 @@ int	make_stack(int ac, char **av, t_node *a, int i)
 		j = -1;
 		while (av[i][++j])
 		{
+			while (ft_isspace(av[i][j]))
+				j++;
 			if (ft_isdigit(av[i][j]) ||
 				(av[i][j] == '-' && ft_isdigit(av[i][j + 1])))
 			{
@@ -79,9 +93,7 @@ int	make_stack(int ac, char **av, t_node *a, int i)
 					return (ft_error(0));
 				insert(a->prev, ft_atoi(&av[i][j]));
 				size++;
-				while (ft_isdigit(av[i][j]) || av[i][j] == '-')
-					j++;
-				j--;
+				j = make_stack_util(av, i, j);
 			}
 			else
 				return (ft_error(0));
