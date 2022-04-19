@@ -6,88 +6,76 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:48:06 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/17 18:31:05 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/19 13:37:25 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	atob_util(t_node *ahead, t_node *bhead, t_args *args)
+{
+	args->pb = pb_util(ahead, bhead, args->pb);
+	if (bhead->next->data >= args->one_third)
+		args->rb = rb_util(ahead, bhead, args->rb);
+}
+
+void	btoa_util(t_node *ahead, t_node *bhead, t_brgs *brgs)
+{
+	brgs->pa = pa_util(ahead, bhead, brgs->pa);
+	if (ahead->next->data < brgs->two_third)
+		brgs->ra = ra_util(ahead, brgs->ra);
+}
+
 void	atob(t_node *ahead, t_node *bhead, int size, int cnt)
 {
-	int	ra;
-	int	rb;
-	int	pb;
-	int	one_third;
-	int	two_third;
+	t_args	*args;
 
-	if (size <= 4)
-	{
-		atob_exit(ahead, bhead, size);
+	args = (t_args *)malloc(sizeof(t_args));
+	init_args(args, ahead, size);
+	if (atob_exit_util(ahead, bhead, size, args))
 		return ;
-	}
-	ra = 0;
-	rb = 0;
-	pb = 0;
-	one_third = find_one_third(ahead, size);
-	two_third = find_two_third(ahead, size);
 	while (size--)
 	{
-		if (ahead->next->data >= two_third)
-			ra = ra_util(ahead, ra);
+		if (ahead->next->data >= args->two_third)
+			args->ra = ra_util(ahead, args->ra);
 		else
-		{
-			pb = pb_util(ahead, bhead, pb);
-			if (bhead->next->data >= one_third)
-				rb = rb_util(ahead, bhead, rb);
-		}
+			atob_util(ahead, bhead, args);
 	}
-	while (cnt < ra && cnt < rb)
+	while (cnt < args->ra && cnt < args->rb)
 		cnt = rrr_util(ahead, bhead, cnt);
-	while (cnt < ra)
+	while (cnt < args->ra)
 		cnt = rra_util(ahead, cnt);
-	while (cnt < rb)
+	while (cnt < args->rb)
 		cnt = rrb_util(ahead, bhead, cnt);
-	atob(ahead, bhead, ra, 0);
-	btoa(ahead, bhead, rb, 0);
-	btoa(ahead, bhead, pb - rb, 0);
+	atob(ahead, bhead, args->ra, 0);
+	btoa(ahead, bhead, args->rb, 0);
+	btoa(ahead, bhead, args->pb - args->rb, 0);
+	free(args);
 }
 
 void	btoa(t_node *ahead, t_node *bhead, int size, int cnt)
 {
-	int	rb;
-	int	ra;
-	int	pa;
-	int	one_third;
-	int	two_third;
+	t_brgs	*brgs;
 
-	if (size <= 4)
-	{
-		btoa_exit(ahead, bhead, size);
+	brgs = (t_brgs *)malloc(sizeof(t_brgs));
+	init_brgs(brgs, bhead, size);
+	if (btoa_exit_util(ahead, bhead, size, brgs))
 		return ;
-	}
-	rb = 0;
-	ra = 0;
-	pa = 0;
-	one_third = find_one_third(bhead, size);
-	two_third = find_two_third(bhead, size);
 	while (size--)
 	{
-		if (bhead->next->data < one_third)
-			rb = rb_util(ahead, bhead, rb);
+		if (bhead->next->data < brgs->one_third)
+			brgs->rb = rb_util(ahead, bhead, brgs->rb);
 		else
-		{
-			pa = pa_util(ahead, bhead, pa);
-			if (ahead->next->data < two_third)
-				ra = ra_util(ahead, ra);
-		}
+			btoa_util(ahead, bhead, brgs);
 	}
-	atob(ahead, bhead, pa - ra, 0);
-	while (cnt < ra && cnt < rb)
+	atob(ahead, bhead, brgs->pa - brgs->ra, 0);
+	while (cnt < brgs->ra && cnt < brgs->rb)
 		cnt = rrr_util(ahead, bhead, cnt);
-	while (cnt < ra)
+	while (cnt < brgs->ra)
 		cnt = rra_util(ahead, cnt);
-	while (cnt < rb)
+	while (cnt < brgs->rb)
 		cnt = rrb_util(ahead, bhead, cnt);
-	atob(ahead, bhead, ra, 0);
-	btoa(ahead, bhead, rb, 0);
+	atob(ahead, bhead, brgs->ra, 0);
+	btoa(ahead, bhead, brgs->rb, 0);
+	free(brgs);
 }
