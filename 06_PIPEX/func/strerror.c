@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   strerror.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 17:16:36 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/20 17:06:02 by minkim           ###   ########.fr       */
+/*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
+/*   Updated: 2022/04/20 17:06:56 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <string.h>
+int main(void)
+{
+    char *err;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-#endif
+    printf("* * * * 에러 메시지 * * * *\n");
+    for (int i = 0; i <= 108; i++)
+    {
+        err = strerror(i);
+        printf("[%d]: %s\n", i, err);
+    }
+}
