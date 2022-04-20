@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 17:48:06 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/19 13:37:25 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/20 15:58:58 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	atob(t_node *ahead, t_node *bhead, int size, int cnt)
 	t_args	*args;
 
 	args = (t_args *)malloc(sizeof(t_args));
-	init_args(args, ahead, size);
 	if (atob_exit_util(ahead, bhead, size, args))
 		return ;
+	init_args(args, ahead, size);
 	while (size--)
 	{
 		if (ahead->next->data >= args->two_third)
@@ -58,9 +58,9 @@ void	btoa(t_node *ahead, t_node *bhead, int size, int cnt)
 	t_brgs	*brgs;
 
 	brgs = (t_brgs *)malloc(sizeof(t_brgs));
-	init_brgs(brgs, bhead, size);
 	if (btoa_exit_util(ahead, bhead, size, brgs))
 		return ;
+	init_brgs(brgs, bhead, size);
 	while (size--)
 	{
 		if (bhead->next->data < brgs->one_third)
