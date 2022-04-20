@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   perror.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 17:16:36 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/20 17:06:02 by minkim           ###   ########.fr       */
+/*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
+/*   Updated: 2022/04/20 17:02:41 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <string.h>
+int main(void)
+{
+    int fd[2];
+    char buffer[30];
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
+    pipe(fd);
+    dup2(fd[1], 2);
+    perror("ERROR!");
+    read(fd[0], buffer, 30);
+    printf("%s", buffer);
 
-#endif
+    // int fd[2];
+
+    // pipe(fd);
+    // dup2(fd[1], 2);
+    // perror("ERROR!");
+
+    /* close() 생략 */
+}
