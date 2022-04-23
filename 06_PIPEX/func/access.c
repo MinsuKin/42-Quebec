@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/20 17:29:03 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/20 19:53:13 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int main(void)
     // printf("exe실행: %d\n", access(is_exe, X_OK));
     // printf("exe존재: %d\n", access(is_exe, F_OK));
 
-
-    int errno = 106;
+    int errno = 2;
 
     /* 실행 불가 파일 */
     printf("txt실행: %d\n", access("./test.txt", X_OK));

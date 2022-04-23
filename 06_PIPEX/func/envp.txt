@@ -1,0 +1,43 @@
+$ ./a.out                                
+<0> ./a.out
+<1> (null)
+<2> USER=minkim
+<3> PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/minkim/.brew/bin
+<4> LOGNAME=minkim
+<5> SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.4YGFrT7hWq/Listeners
+<6> HOME=/Users/minkim
+<7> SHELL=/bin/zsh
+<8> __CF_USER_TEXT_ENCODING=0x18AB0:0x3:0x33
+<9> TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000c_p00032nh/T/
+<10> XPC_SERVICE_NAME=0
+<11> XPC_FLAGS=0x0
+<12> ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+<13> SHLVL=1
+<14> PWD=/Users/minkim/Desktop/42/42-Quebec/06_PIPEX/func
+<15> OLDPWD=/Users/minkim/Desktop/42/42-Quebec/06_PIPEX/func
+<16> ZSH=/Users/minkim/.oh-my-zsh
+<17> PAGER=less
+<18> LESS=-R
+<19> LSCOLORS=Gxfxcxdxbxegedabagacad
+<20> TERM_PROGRAM=vscode
+<21> TERM_PROGRAM_VERSION=1.66.1
+<22> LANG=ko_KR.UTF-8
+<23> COLORTERM=truecolor
+<24> VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000c_p00032nh/T/vscode-git-2946327876.sock
+<25> VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/MacOS/Electron
+<26> VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node
+<27> VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+<28> GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+<29> TERM=xterm-256color
+<30> _=/Users/minkim/Desktop/42/42-Quebec/06_PIPEX/func/./a.out
+<31> (null)
+<32> executable_path=./a.out
+<33> 
+<34> 
+<35> 
+<36> ptr_munge=
+<37> main_stack=
+<38> executable_file=0x1000009,0x163251
+<39> dyld_file=0x1901000004,0xfffffff0007fd4a
+<40> (null)
+[1]    28016 segmentation fault  ./a.out
