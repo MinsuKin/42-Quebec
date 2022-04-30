@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:52:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/20 16:11:01 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/22 15:26:27 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int		make_stack(int ac, char **av, t_node *a, int i);
 int		make_stack_util(char **av, int i, int j);
 
 void	ft_pushswap(t_node *a, t_node *b, int size);
+int		lets_free(t_node *a, t_node *b);
 
 #endif

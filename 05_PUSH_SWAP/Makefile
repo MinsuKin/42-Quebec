@@ -6,7 +6,7 @@
 #    By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/30 15:55:42 by minkim            #+#    #+#              #
-#    Updated: 2022/04/20 19:01:40 by minkim           ###   ########.fr        #
+#    Updated: 2022/04/22 15:48:34 by minkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS =  push_swap.c				\
 		sort_util.c				\
 		stack.c					\
 		stack_util.c			\
-		util.c					\
+		util.c
 
 OBJS = $(SRCS:.c=.o)
 
