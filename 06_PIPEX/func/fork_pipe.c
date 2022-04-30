@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/19 21:58:52 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/27 11:44:01 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,10 @@ int main(void)
     }
     else
     {
-        // write(fd2[1], "(부모에서 입력)", 25);
+        // wait(NULL);  // wait함수 추가
+        write(fd2[1], "(부모에서 입력)", 25);
         read(fd1[0], buffer, 4096);
         printf("\n부모출력: %s\n", buffer);
     }
-
-    // if (pid == 0)
-    // {
-    //     write(fd1[1], "(자식에서 입력)\n", 25);
-    //     read(fd2[0], buffer, 25);
-    //     printf("\n자식출력: %s\n", buffer);
-
-    // }
-    // else
-    // {
-    //     wait(NULL);  // wait함수 추가
-    //     write(fd2[1], "(부모에서 입력)", 25);
-    //     read(fd1[0], buffer, 4096);
-    //     printf("\n부모출력: %s\n", buffer);
-    // }
-    // return (0);
+    return (0);
 }
