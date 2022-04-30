@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   dup3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 17:16:36 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/30 14:31:51 by minkim           ###   ########.fr       */
+/*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
+/*   Updated: 2022/04/27 16:32:33 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <fcntl.h>
+int main(void)
+{
+    int fd[2];
+    char buffer[30];
 
-size_t		ft_strlen(const char *s);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		**ft_split(char const *s, char c);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+    pipe(fd);
+    dup2(fd[1], 2);
+    perror("ERROR!");
+    read(fd[0], buffer, 30);
+    printf("%s", buffer);
 
-#endif
+    /* close() 생략 */
+}
