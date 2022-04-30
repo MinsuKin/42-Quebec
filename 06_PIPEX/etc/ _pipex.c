@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/30 18:31:21 by minkim           ###   ########.fr       */
+/*   Updated: 2022/04/30 16:58:09 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ static char *ft_cmd(char *cmd, char **envp)
 	path = ft_split(ft_path(envp)+5, ':');
 	if (path == 0)
 		ft_error(0);
+	
 	i = 0;
 	while (path[i])
 	{
 		input = ft_strjoin(ft_strjoin(path[i], "/"), cmd);
+		
 		if (access(input, X_OK) == 0)
 			return input;
 		i++;
@@ -101,6 +103,10 @@ int	main(int argc, char **argv, char **envp)
 			ft_error(0);
 		if (pid == 0)
 			ft_child(argv, envp, fd, infile);
+		waitpid(pid, 0, WNOHANG);
 		ft_parent(argv, envp, fd, outfile);
 	}
+
+	//printf("%s\n", envp[i] + 5);
+
 }
