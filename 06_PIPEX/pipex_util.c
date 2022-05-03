@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:28:49 by minkim            #+#    #+#             */
-/*   Updated: 2022/04/30 20:09:25 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/02 17:00:41 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ static char	*ft_cmd(char *cmd, char **envp)
 	i = 0;
 	while (path[i])
 	{
+		if (access(cmd, X_OK) == 0)
+			return (cmd);
 		input = ft_strjoin(ft_strjoin(path[i], "/"), cmd);
 		if (access(input, X_OK) == 0)
 			return (input);
 		i++;
 	}
+	ft_error(1);
 	return (NULL);
 }
 
