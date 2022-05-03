@@ -6,6 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:03:44 by minkim            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/02 20:40:47 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -17,6 +18,13 @@
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
+=======
+/*   Updated: 2022/04/30 18:58:05 by minkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "pipex.h"
+>>>>>>> 4395dbbc1e84b21a88b2f4d0784c16546c42389a
 
 static size_t	ft_cnt_ary(const char *s, char c)
 {
@@ -106,6 +114,7 @@ char	**ft_split(char const *s, char c)
 	split[i] = NULL;
 	return (split);
 }
+<<<<<<< HEAD
 
 int main()
 {
@@ -121,3 +130,5 @@ int main()
 	printf("%s\n", ch[i]);
 	printf("%s\n", ch[i+10]);
 }
+=======
+>>>>>>> 4395dbbc1e84b21a88b2f4d0784c16546c42389a
