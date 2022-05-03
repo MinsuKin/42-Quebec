@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:28:49 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/02 17:00:41 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/02 21:06:01 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_path(char **envp)
 			return (envp[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 static char	*ft_cmd(char *cmd, char **envp)
@@ -38,21 +38,23 @@ static char	*ft_cmd(char *cmd, char **envp)
 	char	*input;
 	int		i;
 
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	path = ft_split(ft_path(envp)+5, ':');
-	if (path == 0)
-		ft_error(1);
 	i = 0;
 	while (path[i])
 	{
-		if (access(cmd, X_OK) == 0)
-			return (cmd);
 		input = ft_strjoin(ft_strjoin(path[i], "/"), cmd);
 		if (access(input, X_OK) == 0)
+		{
+			free(path);
 			return (input);
+		}
 		i++;
+		free(input);
 	}
-	ft_error(1);
-	return (NULL);
+	free(path);
+	return (0);
 }
 
 void	ft_exe(char *argv, char **envp)
@@ -62,8 +64,16 @@ void	ft_exe(char *argv, char **envp)
 
 	option = ft_split(argv, ' ');
 	cmd = ft_cmd(option[0], envp);
-	if (option == 0)
+	if (cmd == 0)
+	{
+		free(option[0]);
+		free(option);
 		ft_error(1);
+	}
 	if (execve(cmd, option, envp) == -1)
+	{
+		free(option[0]);
+		free(option);
 		ft_error(1);
+	}
 }
