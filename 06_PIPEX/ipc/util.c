@@ -6,17 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:03:44 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/02 20:40:47 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/02 21:01:54 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <string.h>
-# include <fcntl.h>
+#include "pipex.h"
 
 static size_t	ft_cnt_ary(const char *s, char c)
 {
@@ -105,19 +99,4 @@ char	**ft_split(char const *s, char c)
 	}
 	split[i] = NULL;
 	return (split);
-}
-
-int main()
-{
-	char **ch;
-
-	ch = ft_split("ls -a -l", ' ');
-	int i = 0;
-	while (ch[i])
-	{
-		printf("%s\n", ch[i]);
-		i++;
-	}
-	printf("%s\n", ch[i]);
-	printf("%s\n", ch[i+10]);
 }
