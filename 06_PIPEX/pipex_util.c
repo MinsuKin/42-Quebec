@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:28:49 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/02 21:06:01 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/02 21:07:52 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,7 @@ void	ft_exe(char *argv, char **envp)
 
 	option = ft_split(argv, ' ');
 	cmd = ft_cmd(option[0], envp);
-	if (cmd == 0)
-	{
-		free(option[0]);
-		free(option);
-		ft_error(1);
-	}
-	if (execve(cmd, option, envp) == -1)
+	if (cmd == 0 || execve(cmd, option, envp) == -1)
 	{
 		free(option[0]);
 		free(option);
