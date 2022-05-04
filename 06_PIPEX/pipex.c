@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:11:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/03 16:10:49 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/03 21:16:11 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	ft_child2(char **argv, char **envp, int *fd, int outfile)
 	dup2(outfile, STDOUT_FILENO);
 	close(fd[1]);
 	ft_exe(argv[3], envp);
+}
+
+void	ft_close_n_wait(int *fd, pid_t pid, pid_t pid2)
+{
+	close(fd[1]);
+	close(fd[0]);
+	waitpid(pid, 0, 0);
+	waitpid(pid2, 0, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -50,9 +58,9 @@ int	main(int argc, char **argv, char **envp)
 		pid2 = fork();
 		if (pid2 == 0)
 			ft_child2(argv, envp, fd, outfile);
-		waitpid(pid, 0, 0);
-		waitpid(pid2, 0, 0);
+		ft_close_n_wait(fd, pid, pid2);
 	}
 	else
 		ft_error(1);
+	return (0);
 }
