@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:10:47 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/07 13:39:34 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/08 15:53:50 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,39 @@
 
 typedef struct s_param
 {
+	void	*mlx;
+	void	*win;
 	int		x;
 	int		y;
 }				t_param;
-
-typedef struct s_args
-{
-	int		height;
-	int		width;
-	int		line;
-}				t_args;
 
 typedef struct s_check
 {
 	int		collect;
 	int		exit;
 	int		player;
+	int		len;
+	int		fd;
 }				t_check;
+
+// typedef struct s_check
+// {
+// 	int		collect;
+// 	int		exit;
+// 	int		player;
+// 	char	*line;
+// 	char	*lastline;
+// 	char	*map;
+// }				t_check;
+
+typedef struct s_img
+{
+	void	*tile;
+	void	*wall;
+	void	*collect;
+	void	*exit;
+	void	*player;
+}				t_img;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
