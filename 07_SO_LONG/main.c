@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:25:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/07 16:39:01 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/08 16:36:54 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void			param_init(t_param *param)
 {
 	param->x = 1;
 	param->y = 1;
+	param->mlx = mlx_init();
+	param->win = mlx_new_window(param->mlx, 1000, 500, "my_mlx");
 }
 
 int				key_press(int keycode, t_param *param)
@@ -34,6 +36,12 @@ int				key_press(int keycode, t_param *param)
 		exit(0); //exit_game(param);
 	printf("x: %d, y: %d\n", param->x, param->y);
 	return (0);
+}
+
+void	ft_error(int exit_code)
+{
+	perror("Error");
+	exit(exit_code);
 }
 
 void check_init(t_check *check)
@@ -135,51 +143,33 @@ int	check_line_closed(char *line, size_t len)
 	return (0);
 }
 
-int ft_str_free(char *line, t_check *check, char *map)
+char *ft_str_free(char *line, t_check *check, char *map)
 {
 	free(line);
 	free(check);
 	free(map);
-	return (0);
+	return (NULL);
 }
 
-int			main(void)
+char *check_map(char *file)
 {
-	void *mlx;
-	void *win;
-	void *img;
-	void *img2;
-	void *img3;
-	void *img4;
-	void *img5;
-	void *img6;
-	void *img7;
-	int img_width;
-	int img_height;
-	t_param		param;
-	// t_args		args;
-
-	char *map;
-	char *lastline;
-
 	int fd;
+	char *map;
 	char *line;
+	char *lastline;
 	t_check *check;
 	size_t len;
 
-
-	fd = open("./map.ber", O_RDONLY);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error(1);
 	line = get_next_line(fd);
-
 	check = (t_check *)malloc(sizeof(t_check));
 	check_init(check);
-
 	len = ft_strlen(line);
 	map = ft_strndup(line, len);
-
 	if (check_line_closed(line, len))
 		return (ft_str_free(line, check, map));
-
 	while (line)
 	{
 		if (check_rec(line, len))
@@ -198,51 +188,80 @@ int			main(void)
 		}
 		free(lastline);
 	}
-	
 	if (check_cep(check))
 	{
 		free(map);
-		return (0);
+		return (NULL);
 	}
+	return (map);
+}
+
+size_t	ft_strlen_n(const char *s)
+{
+	size_t	count;
+
+	if (!s)
+		return (0);
+	count = 0;
+	while (s[count] != '\n')
+		count++;
+	return (count);
+}
+
+int			main(int argc, char **argv)
+{
+	int img_width;
+	int img_height;
+	char **two_d_map;
+	t_param		param;
+	size_t col;
+	size_t x;
+	size_t y;
+	t_img img;
+
+
+	char *map;
+	size_t row;
+
+	if (argc != 2)
+		ft_error(1);
+	
+	map = check_map(argv[1]);
+	if (map == NULL)
+		return (0);
 
 	param_init(&param);
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 500, "my_mlx");
-	img = mlx_xpm_file_to_image(mlx, "./images/snow-tilemap.xpm", &img_width, &img_height);
-	img2 = mlx_xpm_file_to_image(mlx, "./images/icecrystal.xpm", &img_width, &img_height);
-	img3 = mlx_xpm_file_to_image(mlx, "./images/ice-sword.xpm", &img_width, &img_height);
-	img4 = mlx_xpm_file_to_image(mlx, "./images/icebox.xpm", &img_width, &img_height);
-	img5 = mlx_xpm_file_to_image(mlx, "./images/character.xpm", &img_width, &img_height);
-	img6 = mlx_xpm_file_to_image(mlx, "./images/path-tilemap.xpm", &img_width, &img_height);
-	img7 = mlx_xpm_file_to_image(mlx, "./images/fire-sword.xpm", &img_width, &img_height);
+	img.tile = mlx_xpm_file_to_image(param.mlx, "./images/snow-tilemap.xpm", &img_width, &img_height);
+	img.wall = mlx_xpm_file_to_image(param.mlx, "./images/icecrystal.xpm", &img_width, &img_height);
+	img.collect = mlx_xpm_file_to_image(param.mlx, "./images/ice-sword.xpm", &img_width, &img_height);
+	img.exit = mlx_xpm_file_to_image(param.mlx, "./images/icebox.xpm", &img_width, &img_height);
+	img.player = mlx_xpm_file_to_image(param.mlx, "./images/character.xpm", &img_width, &img_height);
 	
-
-	char **two_d_map;
-
 	two_d_map = ft_split(map ,'\n');
 
 	// int j = -1;
 	// while(two_d_map[++j])
 	// 	printf("%s\n", two_d_map[j]);
 
-	size_t col = ft_strlen(map) / len;
+	row = ft_strlen_n(map);
+	col = ft_strlen(map) / row;
 
-	size_t y = 0;
+	y = 0;
 	while (y < col)
 	{
-		size_t x = 0;
-		while (x < len - 1)
+		x = 0;
+		while (x < row - 1)
 		{
-			mlx_put_image_to_window(mlx, win, img, x * 64, y * 64);
+			mlx_put_image_to_window(param.mlx, param.win, img.tile, x * 64, y * 64);
 			if (two_d_map[y][x] == '1')
-				mlx_put_image_to_window(mlx, win, img2, x * 64, y * 64);
+				mlx_put_image_to_window(param.mlx, param.win, img.wall, x * 64, y * 64);
 			else if (two_d_map[y][x] == 'C')
-				mlx_put_image_to_window(mlx, win, img3, x * 64, y * 64);
+				mlx_put_image_to_window(param.mlx, param.win, img.collect, x * 64, y * 64);
 			else if (two_d_map[y][x] == 'E')
-				mlx_put_image_to_window(mlx, win, img4, x * 64, y * 64);
+				mlx_put_image_to_window(param.mlx, param.win, img.exit, x * 64, y * 64);
 			else if (two_d_map[y][x] == 'P')
 			{
-				mlx_put_image_to_window(mlx, win, img5, x * 64, y * 64);
+				mlx_put_image_to_window(param.mlx, param.win, img.player, x * 64, y * 64);
 				param.x = x;
 				param.y = y;
 			}
@@ -252,7 +271,7 @@ int			main(void)
 	}
 
 
-	mlx_hook(win, X_EVENT_KEY_RELEASE, 0, &key_press, &param);
-	mlx_loop(mlx);
+	mlx_hook(param.win, X_EVENT_KEY_RELEASE, 0, &key_press, &param);
+	mlx_loop(param.mlx);
 	return (0);
 }
