@@ -6,34 +6,99 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:25:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/08 16:36:54 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/11 21:32:14 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
 
-void			param_init(t_param *param)
+void	param_init(t_param *param, char *map)
 {
+	int img_width;
+	int img_height;
+
 	param->x = 1;
 	param->y = 1;
+	param->collected = 0;
 	param->mlx = mlx_init();
 	param->win = mlx_new_window(param->mlx, 1000, 500, "my_mlx");
+	param->tile = mlx_xpm_file_to_image(param->mlx, "./images/snow-tilemap.xpm", &img_width, &img_height);
+	param->wall = mlx_xpm_file_to_image(param->mlx, "./images/icecrystal.xpm", &img_width, &img_height);
+	param->collect = mlx_xpm_file_to_image(param->mlx, "./images/ice-sword.xpm", &img_width, &img_height);
+	param->exit = mlx_xpm_file_to_image(param->mlx, "./images/icebox.xpm", &img_width, &img_height);
+	param->player = mlx_xpm_file_to_image(param->mlx, "./images/character.xpm", &img_width, &img_height);
+	param->two_d_map = ft_split(map ,'\n');
+}
+
+int	move_check(t_param *param, int y, int x)
+{
+	if (param->two_d_map[y][x] == '0')
+		return (1);
+	if (param->two_d_map[y][x] == 'P')
+		return (1);
+	if (param->two_d_map[y][x] == 'C')
+	{
+		param->collected = 1;
+		mlx_put_image_to_window(param->mlx, param->win, param->tile, x * 64, y * 64);
+		return (1);
+	}
+	if (param->two_d_map[y][x] == 'E' && param->collected == 1)
+		exit(0);
+	return (0);
+}
+
+void	move_w(t_param *param)
+{
+	if (move_check(param, param->y - 1, param->x))
+	{
+		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
+		mlx_put_image_to_window(param->mlx, param->win, param->player, param->x * 64, (param->y - 1) * 64);
+		param->y--;
+	}
+}
+
+void	move_s(t_param *param)
+{
+	if (move_check(param, param->y + 1, param->x))
+	{
+		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
+		mlx_put_image_to_window(param->mlx, param->win, param->player, param->x * 64, (param->y + 1) * 64);
+		param->y++;
+	}
+}
+
+void	move_a(t_param *param)
+{
+	if (move_check(param, param->y, param->x - 1))
+	{
+		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
+		mlx_put_image_to_window(param->mlx, param->win, param->player, (param->x - 1) * 64, param->y * 64);
+		param->x--;
+	}
+}
+
+void	move_d(t_param *param)
+{
+	if (move_check(param, param->y, param->x + 1))
+	{
+		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
+		mlx_put_image_to_window(param->mlx, param->win, param->player, (param->x + 1) * 64, param->y * 64);
+		param->x++;
+	}
 }
 
 int				key_press(int keycode, t_param *param)
 {
-	// static int a = 0;
-
 	if (keycode == KEY_W)
-		param->y++; //move_w(param);
+		move_w(param);
 	else if (keycode == KEY_S)
-		param->y--; //move_s(param);
+		move_s(param);
 	else if (keycode == KEY_A)
-		param->x--; //move_a(param);
+		move_a(param);
 	else if (keycode == KEY_D)
-		param->x++; //move_d(param);
+		move_d(param);
 	else if (keycode == KEY_ESC)
-		exit(0); //exit_game(param);
+		exit(0);
 	printf("x: %d, y: %d\n", param->x, param->y);
 	return (0);
 }
@@ -208,69 +273,53 @@ size_t	ft_strlen_n(const char *s)
 	return (count);
 }
 
-int			main(int argc, char **argv)
+void	ft_render(t_param *param, char *map)
 {
-	int img_width;
-	int img_height;
-	char **two_d_map;
-	t_param		param;
-	size_t col;
-	size_t x;
-	size_t y;
-	t_img img;
-
-
-	char *map;
-	size_t row;
-
-	if (argc != 2)
-		ft_error(1);
-	
-	map = check_map(argv[1]);
-	if (map == NULL)
-		return (0);
-
-	param_init(&param);
-	img.tile = mlx_xpm_file_to_image(param.mlx, "./images/snow-tilemap.xpm", &img_width, &img_height);
-	img.wall = mlx_xpm_file_to_image(param.mlx, "./images/icecrystal.xpm", &img_width, &img_height);
-	img.collect = mlx_xpm_file_to_image(param.mlx, "./images/ice-sword.xpm", &img_width, &img_height);
-	img.exit = mlx_xpm_file_to_image(param.mlx, "./images/icebox.xpm", &img_width, &img_height);
-	img.player = mlx_xpm_file_to_image(param.mlx, "./images/character.xpm", &img_width, &img_height);
-	
-	two_d_map = ft_split(map ,'\n');
-
-	// int j = -1;
-	// while(two_d_map[++j])
-	// 	printf("%s\n", two_d_map[j]);
+	int row;
+	int col;
+	int y;
+	int x;
 
 	row = ft_strlen_n(map);
 	col = ft_strlen(map) / row;
-
 	y = 0;
 	while (y < col)
 	{
 		x = 0;
 		while (x < row - 1)
 		{
-			mlx_put_image_to_window(param.mlx, param.win, img.tile, x * 64, y * 64);
-			if (two_d_map[y][x] == '1')
-				mlx_put_image_to_window(param.mlx, param.win, img.wall, x * 64, y * 64);
-			else if (two_d_map[y][x] == 'C')
-				mlx_put_image_to_window(param.mlx, param.win, img.collect, x * 64, y * 64);
-			else if (two_d_map[y][x] == 'E')
-				mlx_put_image_to_window(param.mlx, param.win, img.exit, x * 64, y * 64);
-			else if (two_d_map[y][x] == 'P')
+			mlx_put_image_to_window(param->mlx, param->win, param->tile, x * 64, y * 64);
+			if (param->two_d_map[y][x] == '1')
+				mlx_put_image_to_window(param->mlx, param->win, param->wall, x * 64, y * 64);
+			else if (param->two_d_map[y][x] == 'C')
+				mlx_put_image_to_window(param->mlx, param->win, param->collect, x * 64, y * 64);
+			else if (param->two_d_map[y][x] == 'E')
+				mlx_put_image_to_window(param->mlx, param->win, param->exit, x * 64, y * 64);
+			else if (param->two_d_map[y][x] == 'P')
 			{
-				mlx_put_image_to_window(param.mlx, param.win, img.player, x * 64, y * 64);
-				param.x = x;
-				param.y = y;
+				mlx_put_image_to_window(param->mlx, param->win, param->player, x * 64, y * 64);
+				param->x = x;
+				param->y = y;
 			}
 			x++;
 		}
 		y++;
 	}
+}
 
+int			main(int argc, char **argv)
+{
+	t_param	param;
+	char *map;
 
+	if (argc != 2)
+		ft_error(1);
+	map = check_map(argv[1]);
+	if (map == NULL)
+		return (0);
+	param_init(&param, map);
+	ft_render(&param, map);
+	free(map);
 	mlx_hook(param.win, X_EVENT_KEY_RELEASE, 0, &key_press, &param);
 	mlx_loop(param.mlx);
 	return (0);
