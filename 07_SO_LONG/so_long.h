@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:10:47 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/08 15:53:50 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/11 21:26:23 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,28 @@
 # define KEY_S			1
 # define KEY_D			2
 
+// typedef struct s_img
+// {
+// 	void	*tile;
+// 	void	*wall;
+// 	void	*collect;
+// 	void	*exit;
+// 	void	*player;
+// }				t_img;
+
 typedef struct s_param
 {
 	void	*mlx;
 	void	*win;
 	int		x;
 	int		y;
+	int		collected;
+	char	**two_d_map;
+	void	*tile;
+	void	*wall;
+	void	*collect;
+	void	*exit;
+	void	*player;
 }				t_param;
 
 typedef struct s_check
@@ -58,15 +74,6 @@ typedef struct s_check
 // 	char	*lastline;
 // 	char	*map;
 // }				t_check;
-
-typedef struct s_img
-{
-	void	*tile;
-	void	*wall;
-	void	*collect;
-	void	*exit;
-	void	*player;
-}				t_img;
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
