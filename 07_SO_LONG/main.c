@@ -6,11 +6,21 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:25:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/11 21:32:14 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/13 19:50:53 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
+
+void	ft_error(int exit_code)
+{
+	write(1, "Error", 6);
+	if (exit_code == 0)
+		write(1, ": Cannot open the map file.\n", 29);
+	if (exit_code == 1)
+		write(1, ": Please run with a map file.\n", 31);
+	exit(exit_code);
+}
 
 void	param_init(t_param *param, char *map)
 {
@@ -20,6 +30,8 @@ void	param_init(t_param *param, char *map)
 	param->x = 1;
 	param->y = 1;
 	param->collected = 0;
+	param->cnt = 0;
+	param->collect_cnt = 0;
 	param->mlx = mlx_init();
 	param->win = mlx_new_window(param->mlx, 1000, 500, "my_mlx");
 	param->tile = mlx_xpm_file_to_image(param->mlx, "./images/snow-tilemap.xpm", &img_width, &img_height);
@@ -38,12 +50,16 @@ int	move_check(t_param *param, int y, int x)
 		return (1);
 	if (param->two_d_map[y][x] == 'C')
 	{
-		param->collected = 1;
+		param->collected++;
+		param->two_d_map[y][x] = '0';
 		mlx_put_image_to_window(param->mlx, param->win, param->tile, x * 64, y * 64);
 		return (1);
 	}
-	if (param->two_d_map[y][x] == 'E' && param->collected == 1)
+	if (param->two_d_map[y][x] == 'E' && param->collected == param->collect_cnt)
+	{
+		ft_printf("You finished the game in %d steps\n", param->cnt);
 		exit(0);
+	}
 	return (0);
 }
 
@@ -54,6 +70,7 @@ void	move_w(t_param *param)
 		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
 		mlx_put_image_to_window(param->mlx, param->win, param->player, param->x * 64, (param->y - 1) * 64);
 		param->y--;
+		ft_printf("Movement count: %d\n", ++param->cnt);
 	}
 }
 
@@ -64,6 +81,7 @@ void	move_s(t_param *param)
 		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
 		mlx_put_image_to_window(param->mlx, param->win, param->player, param->x * 64, (param->y + 1) * 64);
 		param->y++;
+		ft_printf("Movement count: %d\n", ++param->cnt);
 	}
 }
 
@@ -74,6 +92,7 @@ void	move_a(t_param *param)
 		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
 		mlx_put_image_to_window(param->mlx, param->win, param->player, (param->x - 1) * 64, param->y * 64);
 		param->x--;
+		ft_printf("Movement count: %d\n", ++param->cnt);
 	}
 }
 
@@ -84,10 +103,11 @@ void	move_d(t_param *param)
 		mlx_put_image_to_window(param->mlx, param->win, param->tile, param->x * 64, param->y * 64);
 		mlx_put_image_to_window(param->mlx, param->win, param->player, (param->x + 1) * 64, param->y * 64);
 		param->x++;
+		ft_printf("Movement count: %d\n", ++param->cnt);
 	}
 }
 
-int				key_press(int keycode, t_param *param)
+int	key_press(int keycode, t_param *param)
 {
 	if (keycode == KEY_W)
 		move_w(param);
@@ -99,14 +119,7 @@ int				key_press(int keycode, t_param *param)
 		move_d(param);
 	else if (keycode == KEY_ESC)
 		exit(0);
-	printf("x: %d, y: %d\n", param->x, param->y);
 	return (0);
-}
-
-void	ft_error(int exit_code)
-{
-	perror("Error");
-	exit(exit_code);
 }
 
 void check_init(t_check *check)
@@ -152,7 +165,7 @@ int	check_line(char *line, t_check *check)
 	{
 		if (check_char(line[i], check))
 		{
-			write(1, "Error\n", 7);
+			write(1, "Error : this map is not valid.\n", 32);
 			return (1);
 		}
 		i++;
@@ -173,7 +186,7 @@ int	check_rec(char *line, size_t len)
 {
 	if (len != ft_strlen(line) || check_close(line, len))
 	{
-		write(1, "Error\n", 7);
+		write(1, "Error : this map is not valid.\n", 32);
 		return (1);
 	}
 	return (0);
@@ -183,7 +196,7 @@ int	check_cep(t_check *check)
 {
 	if (check->collect == 0 || check->exit == 0 || check->player == 0)
 	{
-		write(1, "Error\n", 7);
+		write(1, "Error : this map is not valid.\n", 32);
 		free(check);
 		return (1);
 	}
@@ -200,7 +213,7 @@ int	check_line_closed(char *line, size_t len)
 	{
 		if (line[i] != '1')
 		{
-			write(1, "Error\n", 7);
+			write(1, "Error : this map is not valid.\n", 32);
 			return (1);
 		}
 		i++;
@@ -227,7 +240,7 @@ char *check_map(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error(1);
+		ft_error(0);
 	line = get_next_line(fd);
 	check = (t_check *)malloc(sizeof(t_check));
 	check_init(check);
@@ -273,6 +286,22 @@ size_t	ft_strlen_n(const char *s)
 	return (count);
 }
 
+int	cnt_collect(char *map)
+{
+	int i;
+	int c;
+
+	c = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == 'C')
+			c++;
+		i++;
+	}
+	return (c);
+}
+
 void	ft_render(t_param *param, char *map)
 {
 	int row;
@@ -280,6 +309,7 @@ void	ft_render(t_param *param, char *map)
 	int y;
 	int x;
 
+	param->collect_cnt = cnt_collect(map);
 	row = ft_strlen_n(map);
 	col = ft_strlen(map) / row;
 	y = 0;
@@ -307,6 +337,12 @@ void	ft_render(t_param *param, char *map)
 	}
 }
 
+int	exit_game(t_param *param)
+{
+	mlx_destroy_window(param->mlx, param->win);
+	exit(0);
+}
+
 int			main(int argc, char **argv)
 {
 	t_param	param;
@@ -321,6 +357,7 @@ int			main(int argc, char **argv)
 	ft_render(&param, map);
 	free(map);
 	mlx_hook(param.win, X_EVENT_KEY_RELEASE, 0, &key_press, &param);
+	mlx_hook(param.win, X_EVENT_KEY_EXIT, 0, &exit_game, &param);
 	mlx_loop(param.mlx);
 	return (0);
 }

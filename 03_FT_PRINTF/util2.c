@@ -6,59 +6,57 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 14:03:23 by minkim            #+#    #+#             */
-/*   Updated: 2022/01/30 15:54:09 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:42:44 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	initialize_args(t_args *args)
+int	ft_puti(int d)
 {
-	args->c = 0;
-	args->has_width = 0;
-	args->has_precision = 0;
-	args->width = 0;
-	args->precision = 0;
-}
+	int	res;
 
-char	*read_args(t_args *args, char *itr)
-{
-	if (!itr || *itr != '%')
-		return (itr);
-
-	itr++;
-	while (*itr)
+	res = 0;
+	if (d == -2147483648)
 	{
-		initialize_args(args);
-		if (ft_strchr("cspdiuxX%", *itr))
-		{
-			args->c = *itr;
-			itr++;
-			return (itr);
-		}
-		itr++;
+		res += ft_putchar('-');
+		res += ft_putstr("2147483648");
+		return (res);
 	}
-	return (itr);
+	if (d < 0)
+	{
+		res += ft_putchar('-');
+		d *= -1;
+	}
+	if (d / 10)
+		res += ft_puti(d / 10);
+	res += ft_putchar((d % 10) + '0');
+	return (res);
 }
 
-int	ft_put_conv(t_args *args, va_list ap)
+int	ft_put_d(va_list ap)
 {
-	if (args->c == 's')
-		return ft_put_s(ap);
-	else if (args->c == 'c')
-		return ft_put_c(ap);
-	else if (args->c == 'd' || args->c == 'i')
-		return ft_put_d(ap);
-	else if (args->c == 'x' || args->c == 'X')
-		return ft_put_x(args, ap);
-	else if (args->c == 'p')
-		return ft_put_p(ap);
-	else if (args->c == 'u')
-		return ft_put_u(ap);
-	else if (args->c == '%')
-    {
-        ft_putchar('%');
-		return (1);
-    }
-	return (0);
+	int	d;
+
+	d = va_arg(ap, int);
+	return (ft_puti(d));
+}
+
+int	ft_putu(unsigned int u)
+{
+	int	res;
+
+	res = 0;
+	if (u / 10)
+		res += ft_putu(u / 10);
+	res += ft_putchar((u % 10) + '0');
+	return (res);
+}
+
+int	ft_put_u(va_list ap)
+{
+	int	u;
+
+	u = va_arg(ap, int);
+	return (ft_putu(u));
 }
