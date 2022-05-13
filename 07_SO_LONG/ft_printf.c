@@ -6,11 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 15:02:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/13 18:17:57 by minkim           ###   ########.fr       */
+/*   Updated: 2022/05/13 15:53:50 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "so_long.h"
 
 void	initialize_args(t_args *args)
 {
@@ -29,7 +29,7 @@ char	*read_args(t_args *args, char *itr)
 	while (*itr)
 	{
 		initialize_args(args);
-		if (ft_strchr("cspdiuxX%", *itr))
+		if (ft_strchrr("cspdiuxX%", *itr))
 		{
 			args->c = *itr;
 			itr++;
