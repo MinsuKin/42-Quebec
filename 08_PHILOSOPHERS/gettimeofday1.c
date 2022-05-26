@@ -3,6 +3,14 @@
 #include <stdio.h>
 #include <string.h>
 
+size_t    relative_time(size_t time_start)
+{
+	struct timeval    current;
+
+	gettimeofday(&current, 0);
+	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
+}
+
 int main()
 {
 	// struct timeval mytime;
@@ -12,17 +20,27 @@ int main()
 	// printf("%ld:%d\n", mytime.tv_sec * 1000000, mytime.tv_usec);
 	// printf("relative time is: %ld\n", mytime.tv_sec * 1000000 + mytime.tv_usec);
 	// return (0);
-	struct timeval startTime, endTime;
-	double diff_tv_sec;
-	double diff_tv_usec;
 
-	gettimeofday(&startTime, NULL);
-	usleep(1000 * 1000);
-	gettimeofday(&endTime, NULL);
-	diff_tv_sec = ( endTime.tv_sec - startTime.tv_sec );
-	diff_tv_usec = ( endTime.tv_usec - startTime.tv_usec ) / 1000000;
-	printf("%f seconds\n", diff_tv_sec); // f는 (double로) 형변환해 출력.
-	printf("%f micro seconds\n", diff_tv_usec);
+	size_t startTime;
+
+	// struct timeval startTime, endTime;
+	// double diff_tv_sec;
+	// double diff_tv_usec;
+
+	// gettimeofday(&startTime, NULL);
+	// usleep(100);
+	// usleep(100);
+	// gettimeofday(&endTime, NULL);
+	// diff_tv_sec = ( endTime.tv_sec - startTime.tv_sec );
+	// diff_tv_usec = ( endTime.tv_usec - startTime.tv_usec ) / 1000000;
+	// printf("%f seconds\n", diff_tv_sec); // f는 (double로) 형변환해 출력.
+	// printf("%f micro seconds\n", diff_tv_usec);
+
+	startTime = relative_time(0);
+	// printf("%zd\n", startTime);
+	printf("%zd\n", relative_time(startTime));
+	usleep(100);
+	printf("%zd\n", relative_time(startTime));
 	return 0;
 }
 /*

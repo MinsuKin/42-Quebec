@@ -8,6 +8,7 @@ _Atomic int acnt = 0;
 
 void *myThreadFun(void *vargp)
 {
+    (void)vargp;
     int n = 1;
     for (int j = 0; j < 3; ++j)
     {
