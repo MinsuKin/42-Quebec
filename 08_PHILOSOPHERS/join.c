@@ -5,14 +5,15 @@
 
 void *t_function(void *param)
 {
+    (void)param;
     printf("쓰레드 함수 실행\n");
     for (int i = 1; i <= 5; i++)
     {
         usleep(1000 * 1000);
         printf("쓰레드 함수 실행 중..(%d / 5)\n",i);
     }
-        printf("쓰레드 함수 종료\n");
-        return (void *)2147483647;  // result에 담길 값.
+    printf("쓰레드 함수 종료\n");
+    return (void *)2147483647;  // result에 담길 값.
 }
 
 int main()

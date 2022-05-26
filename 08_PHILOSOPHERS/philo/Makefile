@@ -6,12 +6,12 @@
 #    By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/15 19:44:58 by minkim            #+#    #+#              #
-#    Updated: 2022/05/15 19:45:59 by minkim           ###   ########.fr        #
+#    Updated: 2022/05/18 14:51:50 by minkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 CC = gcc
 RM = rm -f
 
