@@ -6,49 +6,21 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/25 18:59:12 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/02 19:17:48 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-typedef struct s_args
-{
-	size_t	start_time;
-	pthread_mutex_t lock;
-	int	*chopsticks;
-	int	p_cnt;
-	int	p_num; //number_of_philosophers;
-	int	t_die; //time_to_die;
-	int	t_eat; //time_to_eat;
-	int	t_sleep; //time_to_sleep;
-	int	n_must_eat; //number_of_times_each_philosopher_must_eat;
-}	t_args;
-
-typedef struct s_phil
-{
-	t_args *args;
-	pthread_t tid;
-	int my_num;
-	int chopstick_left;
-	int chopstick_right;
-	int eating;
-	int sleeping;
-	int waiting;
-	int died;
-	int eating_cnt;
-}	t_phil;
-
 int	args_init(t_args *args, int ac, char **av)
 {
 	if (!args || !ac || !av)
 		return (1);
-	pthread_mutex_init(&args->lock, NULL);
 	args->p_cnt = 0;
 	args->p_num = ft_atoi(av[1]);
-	args->t_die = ft_atoi(av[2]);
-	args->t_eat = ft_atoi(av[3]);
-	args->t_sleep = ft_atoi(av[4]);
+	args->t_die = ft_atoi(av[2]) * 1000;
+	args->t_eat = ft_atoi(av[3]) * 1000;
+	args->t_sleep = ft_atoi(av[4]) * 1000;
 	if (args->p_num < 1 || args->t_die < 0 || args->t_eat < 0 || args->t_sleep < 0)
 		return (1);
 	args->n_must_eat = -1;
@@ -64,37 +36,27 @@ int	args_init(t_args *args, int ac, char **av)
 int	phil_init(t_args *args, t_phil **phil)
 {
 	int i;
+	t_lock chop;
 
-	i = 0;
 	*phil = malloc(sizeof(t_phil) * args->p_num);
 	if (!args || !phil)
 		return (1);
+	chop.chopstick = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * args->p_num);
+	i = 0;
+	while (i < args->p_num)
+	{
+		pthread_mutex_init(&chop.chopstick[i], NULL);
+		i++;
+	}
+	i = 0;
 	while (i < args->p_num)
 	{
 		(*phil)[i].args = args;
+		(*phil)[i].lock = chop;
 		(*phil)[i].my_num = i;
-		(*phil)[i].chopstick_left = 0;
-		(*phil)[i].chopstick_right = 0;
-		(*phil)[i].eating = 0;
-		(*phil)[i].sleeping = 0;
-		(*phil)[i].waiting = 0;
-		(*phil)[i].died = 0;
 		(*phil)[i].eating_cnt = -1;
 		if (args->n_must_eat != -1)
 			(*phil)[i].eating_cnt = args->n_must_eat;
-		i++;
-	}
-	return (0);
-}
-
-int	init_chop(int *chopsticks, int num)
-{
-	int i;
-
-	i = 0;
-	while (i < num)
-	{
-		chopsticks[i] = 1;
 		i++;
 	}
 	return (0);
@@ -108,19 +70,85 @@ size_t    relative_time(size_t time_start)
 	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
 }
 
-void *thread(void *argv)
+void	ft_sleep(t_phil *phil, t_args *args)
+{
+	size_t cnt;
+
+	cnt = relative_time(0);
+	printf("%zd %d is sleeping\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+	while (relative_time(cnt) <= args->t_sleep) {}
+}
+
+void	ft_monitor(t_phil *phil, t_args *args, int i, size_t cnt)
+{
+	pthread_mutex_lock(&phil->lock.chopstick[i]);
+	if (relative_time(cnt) >= args->t_die)
+	{
+		printf("%zd %d died\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+		exit(0);
+	}
+}
+
+size_t	ft_odd(t_phil *phil, t_args *args, size_t cnt)
+{
+	int	i;
+
+	if (phil->my_num == 0)
+		i = args->p_num - 1;
+	else
+		i = phil->my_num - 1;
+	ft_monitor(phil, args, phil->my_num, cnt);
+	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+	ft_monitor(phil, args, i, cnt);
+	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+	cnt = relative_time(0);
+	while (relative_time(cnt) <= args->t_eat) {}
+	pthread_mutex_unlock(&phil->lock.chopstick[i]);
+	pthread_mutex_unlock(&phil->lock.chopstick[phil->my_num]);
+	return (cnt);
+	
+}
+
+size_t	ft_even(t_phil *phil, t_args *args, size_t cnt)
+{
+	int	i;
+	
+	i = phil->my_num;
+	ft_monitor(phil, args, i - 1, cnt);
+	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, i + 1);
+	ft_monitor(phil, args, i, cnt);
+	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, i + 1);
+	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, i + 1);
+	cnt = relative_time(0);
+	while (relative_time(cnt) <= args->t_eat) {}
+	pthread_mutex_unlock(&phil->lock.chopstick[i]);
+	pthread_mutex_unlock(&phil->lock.chopstick[i - 1]);
+	return (cnt);
+}
+
+void	*thread(void *argv)
 {
 	t_args	*args;
 	t_phil	*phil;
-	
+	size_t	time;
+	size_t	cnt;
 
 	phil = argv;
 	args = phil->args;
 	++args->p_cnt;
-	while (args->p_cnt != args->p_num && !args->start_time)
-		usleep(1);
-	usleep(1);
-	printf("%zd\n", relative_time(args->start_time));
+	while (args->p_cnt != args->p_num && !args->start_time) {}
+	time = args->start_time;
+	cnt = relative_time(0);
+	while (1)
+	{
+		if ((phil->my_num + 1) % 2 == 1)
+			cnt = ft_odd(phil, args, cnt);
+		else
+			cnt = ft_even(phil, args, cnt);
+		ft_sleep(phil, args);
+		printf("%zd %d is thinking\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+	}
 	return (0);
 }
 
@@ -128,15 +156,13 @@ int	ft_philo(t_args *args, t_phil *phil)
 {
 	int	i;
 
-	args->chopsticks = (int *)malloc(sizeof(int) * args->p_num);
-	init_chop(args->chopsticks, args->p_num);
 	i = 0;
+	args->start_time = relative_time(0);
 	while (i < args->p_num)
 	{
 		pthread_create(&phil[i].tid, NULL, thread, &phil[i]);
 		i++;
 	}
-	args->start_time = relative_time(0);
 	i = 0;
 	while (i < args->p_num)
 	{
@@ -191,3 +217,30 @@ int	main(int ac, char **av)
 	// printf("%d\n", phil[0].waiting);
 	// printf("%d\n", phil[0].died);
 	// printf("%d\n", phil[0].eating_cnt);
+
+
+	// printf("num %d\n", phil->my_num + 1);
+	// printf("num %d\n", (phil->my_num + 1) % 2);
+	// printf("%zd\n", relative_time(args->start_time));
+
+
+	// timestamp_in_ms X has taken a fork
+	// timestamp_in_ms X is eating
+	// timestamp_in_ms X is sleeping
+	// timestamp_in_ms X is thinking
+	// timestamp_in_ms X died
+
+
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("%zd %d is thinking\n", relative_time(args->start_time), phil->my_num + 1);
+	// 		while (phil->lock.num[i] != 0 && phil->lock.num[i] != -i-1) {}
+	// 	}
+	// 	pthread_mutex_unlock(&phil->lock.chopstick[i - 1]);
+	// }
+	// else
+	// {
+	// 	printf("%zd %d is thinking\n", relative_time(args->start_time), phil->my_num + 1);
+	// 	while (phil->lock.num[i - 1] != 0 && phil->lock.num[i - 1] != -i-1) {}
+	// }
