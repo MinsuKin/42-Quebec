@@ -42,6 +42,7 @@ typedef struct s_phil
 	t_lock lock;
 	pthread_t tid;
 	int my_num;
+	size_t last_time_eat;
 	int eating_cnt;
 }	t_phil;
 
