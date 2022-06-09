@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:46:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/06/04 15:25:32 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/08 20:44:59 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef struct s_phil
 	t_lock lock;
 	pthread_t tid;
 	int my_num;
-	size_t last_eat_time;
+	size_t last_time_eat;
+	int eating_cnt;
 }	t_phil;
 
 int	ft_atoi(const char *str);
