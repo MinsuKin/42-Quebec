@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/06/08 20:45:39 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/02 19:17:48 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,14 @@ int	args_init(t_args *args, int ac, char **av)
 	args->t_sleep = ft_atoi(av[4]) * 1000;
 	if (args->p_num < 1 || args->t_die < 0 || args->t_eat < 0 || args->t_sleep < 0)
 		return (1);
-	args->n_must_eat = 0;
+	args->n_must_eat = -1;
 	if (ac == 6)
 	{
 		args->n_must_eat = ft_atoi(av[5]);
 		if (args->n_must_eat < 0)
 			return (1);
 	}
-	args->eating_cnt = 0;
 	return (0);
-}
-
-size_t    relative_time(size_t time_start)
-{
-	struct timeval    current;
-
-	gettimeofday(&current, 0);
-	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
 }
 
 int	phil_init(t_args *args, t_phil **phil)
@@ -68,6 +59,14 @@ int	phil_init(t_args *args, t_phil **phil)
 		i++;
 	}
 	return (0);
+}
+
+size_t    relative_time(size_t time_start)
+{
+	struct timeval    current;
+
+	gettimeofday(&current, 0);
+	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
 }
 
 void	ft_sleep(t_phil *phil, t_args *args)
@@ -147,12 +146,6 @@ int	ft_check_finish(t_phil *phil, t_args *args)
 	return (0);
 }
 
-int	ft_monitor(t_phil *phil, t_args *args, size_t cnt)
-{
-	
-	return (1);
-}
-
 void	*thread(void *argv)
 {
 	t_args	*args;
@@ -173,33 +166,6 @@ void	*thread(void *argv)
 		printf("%zd %d is thinking\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	}
 	return (0);
-}
-
-void	ft_check_finish(t_args *args, t_phil *phil)
-{
-	int		i;
-	size_t	now;
-
-	while (!args->finish)
-	{
-		if ((args->n_must_eat != 0) && (args->p_num == args->eating_cnt))
-		{
-			args->finish = 1;
-			break ;
-		}
-		i = 0;
-		while (i < args->p_num)
-		{
-			now = relative_time(0);
-			if ((now - phil[i].last_time_eat) >= args->t_die)
-			{
-				printf("%zd %d died\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
-				args->finish = 1;
-				break ;
-			}
-			i++;
-		}
-	}
 }
 
 int	ft_philo(t_args *args, t_phil *phil)
