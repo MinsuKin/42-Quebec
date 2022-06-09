@@ -128,7 +128,7 @@ int	ft_check_finish(t_phil *phil, t_args *args)
 		eat = 0;
 		while (i < args->p_num)
 		{
-			if (phil[i].last_time_eat + args->t_die > relative_time(0))
+			if (relative_time(0) - phil[i].last_time_eat >= args->t_die)
 			{
 				printf("%zd %d died\n", relative_time(args->start_time) / 1000, i + 1);
 				return (1);
@@ -138,7 +138,10 @@ int	ft_check_finish(t_phil *phil, t_args *args)
 				if (phil[i].eating_cnt >= args->n_must_eat)
 					eat++;
 				if (eat == args->p_num)
+				{
+					printf("eating finish\n");
 					return (2);
+				}
 			}
 			i++;
 		}
@@ -155,13 +158,14 @@ void	*thread(void *argv)
 	args = phil->args;
 	++args->p_cnt;
 	while (args->p_cnt != args->p_num) {}
+	phil->last_time_eat = relative_time(0);
 	while (1)
 	{
-		phil->last_time_eat = relative_time(0);
 		if ((phil->my_num + 1) % 2 == 1)
 			ft_odd(phil, args);
 		else
 			ft_even(phil, args);
+		phil->last_time_eat = relative_time(0);
 		ft_sleep(phil, args);
 		printf("%zd %d is thinking\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	}
