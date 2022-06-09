@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/06/04 18:05:50 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/08 20:45:39 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	args_init(t_args *args, int ac, char **av)
 	if (ac == 6)
 	{
 		args->n_must_eat = ft_atoi(av[5]);
-		if (args->n_must_eat < 1)
+		if (args->n_must_eat < 0)
 			return (1);
 	}
 	args->eating_cnt = 0;
@@ -63,7 +63,8 @@ int	phil_init(t_args *args, t_phil **phil)
 		(*phil)[i].args = args;
 		(*phil)[i].lock = chop;
 		(*phil)[i].my_num = i;
-		(*phil)[i].last_eat_time = relative_time(0);
+		(*phil)[i].last_time_eat = -1;
+		(*phil)[i].eating_cnt = 0;
 		i++;
 	}
 	return (0);
@@ -78,9 +79,10 @@ void	ft_sleep(t_phil *phil, t_args *args)
 	while (relative_time(cnt) <= args->t_sleep) {}
 }
 
-size_t	ft_odd(t_phil *phil, t_args *args, size_t cnt)
+void	ft_odd(t_phil *phil, t_args *args)
 {
 	int	i;
+	size_t	cnt;
 
 	if (phil->my_num == 0)
 		i = args->p_num - 1;
@@ -93,15 +95,15 @@ size_t	ft_odd(t_phil *phil, t_args *args, size_t cnt)
 	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	cnt = relative_time(0);
 	while (relative_time(cnt) <= args->t_eat) {}
+	phil->eating_cnt++;
 	pthread_mutex_unlock(&phil->lock.chopstick[i]);
-	pthread_mutex_unlock(&phil->lock.chopstick[phil->my_num]);
-	return (cnt);
-	
+	pthread_mutex_unlock(&phil->lock.chopstick[phil->my_num]);	
 }
 
-size_t	ft_even(t_phil *phil, t_args *args, size_t cnt)
+void	ft_even(t_phil *phil, t_args *args)
 {
 	int	i;
+	size_t	cnt;
 	
 	i = phil->my_num;
 	pthread_mutex_lock(&phil->lock.chopstick[i - 1]);
@@ -111,9 +113,38 @@ size_t	ft_even(t_phil *phil, t_args *args, size_t cnt)
 	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, i + 1);
 	cnt = relative_time(0);
 	while (relative_time(cnt) <= args->t_eat) {}
+	phil->eating_cnt++;
 	pthread_mutex_unlock(&phil->lock.chopstick[i]);
 	pthread_mutex_unlock(&phil->lock.chopstick[i - 1]);
-	return (cnt);
+}
+
+int	ft_check_finish(t_phil *phil, t_args *args)
+{
+	int	i;
+	int eat;
+
+	while (1)
+	{
+		i = 0;
+		eat = 0;
+		while (i < args->p_num)
+		{
+			if (phil[i].last_time_eat + args->t_die > relative_time(0))
+			{
+				printf("%zd %d died\n", relative_time(args->start_time) / 1000, i + 1);
+				return (1);
+			}
+			if (args->n_must_eat != -1)
+			{
+				if (phil[i].eating_cnt >= args->n_must_eat)
+					eat++;
+				if (eat == args->p_num)
+					return (2);
+			}
+			i++;
+		}
+	}
+	return (0);
 }
 
 int	ft_monitor(t_phil *phil, t_args *args, size_t cnt)
@@ -126,19 +157,18 @@ void	*thread(void *argv)
 {
 	t_args	*args;
 	t_phil	*phil;
-	size_t	cnt;
 
 	phil = argv;
 	args = phil->args;
 	++args->p_cnt;
-	while (args->p_cnt != args->p_num && !args->start_time) {}
-	cnt = relative_time(0);
+	while (args->p_cnt != args->p_num) {}
 	while (1)
 	{
+		phil->last_time_eat = relative_time(0);
 		if ((phil->my_num + 1) % 2 == 1)
-			cnt = ft_odd(phil, args, cnt);
+			ft_odd(phil, args);
 		else
-			cnt = ft_even(phil, args, cnt);
+			ft_even(phil, args);
 		ft_sleep(phil, args);
 		printf("%zd %d is thinking\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	}
@@ -161,7 +191,7 @@ void	ft_check_finish(t_args *args, t_phil *phil)
 		while (i < args->p_num)
 		{
 			now = relative_time(0);
-			if ((now - phil[i].last_eat_time) >= args->t_die)
+			if ((now - phil[i].last_time_eat) >= args->t_die)
 			{
 				printf("%zd %d died\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 				args->finish = 1;
@@ -183,7 +213,7 @@ int	ft_philo(t_args *args, t_phil *phil)
 		pthread_create(&phil[i].tid, NULL, thread, &phil[i]);
 		i++;
 	}
-	ft_check_finish(args, phil);
+	ft_check_finish(phil, args);
 	i = 0;
 	while (i < args->p_num)
 	{
