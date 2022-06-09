@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/06/02 19:17:48 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/04 18:05:50 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,23 @@ int	args_init(t_args *args, int ac, char **av)
 	args->t_sleep = ft_atoi(av[4]) * 1000;
 	if (args->p_num < 1 || args->t_die < 0 || args->t_eat < 0 || args->t_sleep < 0)
 		return (1);
-	args->n_must_eat = -1;
+	args->n_must_eat = 0;
 	if (ac == 6)
 	{
 		args->n_must_eat = ft_atoi(av[5]);
 		if (args->n_must_eat < 1)
 			return (1);
 	}
+	args->eating_cnt = 0;
 	return (0);
+}
+
+size_t    relative_time(size_t time_start)
+{
+	struct timeval    current;
+
+	gettimeofday(&current, 0);
+	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
 }
 
 int	phil_init(t_args *args, t_phil **phil)
@@ -54,20 +63,10 @@ int	phil_init(t_args *args, t_phil **phil)
 		(*phil)[i].args = args;
 		(*phil)[i].lock = chop;
 		(*phil)[i].my_num = i;
-		(*phil)[i].eating_cnt = -1;
-		if (args->n_must_eat != -1)
-			(*phil)[i].eating_cnt = args->n_must_eat;
+		(*phil)[i].last_eat_time = relative_time(0);
 		i++;
 	}
 	return (0);
-}
-
-size_t    relative_time(size_t time_start)
-{
-	struct timeval    current;
-
-	gettimeofday(&current, 0);
-	return (current.tv_sec * 1000 * 1000 + current.tv_usec - time_start);
 }
 
 void	ft_sleep(t_phil *phil, t_args *args)
@@ -79,16 +78,6 @@ void	ft_sleep(t_phil *phil, t_args *args)
 	while (relative_time(cnt) <= args->t_sleep) {}
 }
 
-void	ft_monitor(t_phil *phil, t_args *args, int i, size_t cnt)
-{
-	pthread_mutex_lock(&phil->lock.chopstick[i]);
-	if (relative_time(cnt) >= args->t_die)
-	{
-		printf("%zd %d died\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
-		exit(0);
-	}
-}
-
 size_t	ft_odd(t_phil *phil, t_args *args, size_t cnt)
 {
 	int	i;
@@ -97,9 +86,9 @@ size_t	ft_odd(t_phil *phil, t_args *args, size_t cnt)
 		i = args->p_num - 1;
 	else
 		i = phil->my_num - 1;
-	ft_monitor(phil, args, phil->my_num, cnt);
+	pthread_mutex_lock(&phil->lock.chopstick[phil->my_num]);
 	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
-	ft_monitor(phil, args, i, cnt);
+	pthread_mutex_lock(&phil->lock.chopstick[i]);
 	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
 	cnt = relative_time(0);
@@ -115,9 +104,9 @@ size_t	ft_even(t_phil *phil, t_args *args, size_t cnt)
 	int	i;
 	
 	i = phil->my_num;
-	ft_monitor(phil, args, i - 1, cnt);
+	pthread_mutex_lock(&phil->lock.chopstick[i - 1]);
 	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, i + 1);
-	ft_monitor(phil, args, i, cnt);
+	pthread_mutex_lock(&phil->lock.chopstick[i]);
 	printf("%zd %d has taken a fork\n", relative_time(args->start_time) / 1000, i + 1);
 	printf("%zd %d is eating\n", relative_time(args->start_time) / 1000, i + 1);
 	cnt = relative_time(0);
@@ -127,18 +116,22 @@ size_t	ft_even(t_phil *phil, t_args *args, size_t cnt)
 	return (cnt);
 }
 
+int	ft_monitor(t_phil *phil, t_args *args, size_t cnt)
+{
+	
+	return (1);
+}
+
 void	*thread(void *argv)
 {
 	t_args	*args;
 	t_phil	*phil;
-	size_t	time;
 	size_t	cnt;
 
 	phil = argv;
 	args = phil->args;
 	++args->p_cnt;
 	while (args->p_cnt != args->p_num && !args->start_time) {}
-	time = args->start_time;
 	cnt = relative_time(0);
 	while (1)
 	{
@@ -152,6 +145,33 @@ void	*thread(void *argv)
 	return (0);
 }
 
+void	ft_check_finish(t_args *args, t_phil *phil)
+{
+	int		i;
+	size_t	now;
+
+	while (!args->finish)
+	{
+		if ((args->n_must_eat != 0) && (args->p_num == args->eating_cnt))
+		{
+			args->finish = 1;
+			break ;
+		}
+		i = 0;
+		while (i < args->p_num)
+		{
+			now = relative_time(0);
+			if ((now - phil[i].last_eat_time) >= args->t_die)
+			{
+				printf("%zd %d died\n", relative_time(args->start_time) / 1000, phil->my_num + 1);
+				args->finish = 1;
+				break ;
+			}
+			i++;
+		}
+	}
+}
+
 int	ft_philo(t_args *args, t_phil *phil)
 {
 	int	i;
@@ -163,6 +183,7 @@ int	ft_philo(t_args *args, t_phil *phil)
 		pthread_create(&phil[i].tid, NULL, thread, &phil[i]);
 		i++;
 	}
+	ft_check_finish(args, phil);
 	i = 0;
 	while (i < args->p_num)
 	{
