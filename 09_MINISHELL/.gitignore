@@ -1,0 +1,9 @@
+# temporary gitignore, will add real one later.
+
+*.o
+*.a
+*.dSYM
+*.DS_Store
+*.out
+minishell
+executable
