@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/06/02 19:17:48 by minkim           ###   ########.fr       */
+/*   Updated: 2022/06/11 14:00:11 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ int	ft_philo(t_args *args, t_phil *phil)
 		pthread_create(&phil[i].tid, NULL, thread, &phil[i]);
 		i++;
 	}
+	usleep(1000);
 	ft_check_finish(phil, args);
 	i = 0;
 	while (i < args->p_num)
