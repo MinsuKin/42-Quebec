@@ -1,9 +1,30 @@
-# temporary gitignore, will add real one later.
-
-*.o
-*.a
-*.dSYM
-*.DS_Store
+# standard
+.gitignore
 *.out
+*.o
+*/*.o
+*.a
+*/*.a
+*dSYM*
+*swp*
+.DS_Store
+.vscode/
+
+# additional
+*bkp*
+*/*bkp*
+
+# tests
+*unit*
+*/*unit*
+*UNIT*
+*/*UNIT*
+*minunit*
+*test*
+*/*test*
+
+# project specific
+infile
+outfile
 minishell
-executable
+heredoc

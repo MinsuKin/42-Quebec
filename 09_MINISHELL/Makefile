@@ -7,23 +7,25 @@ BUILTINS=		builtin_util.c		\
 				exit_util.c			\
 				echo.c				\
 				echo.c				\
+				export_util2.c		\
 				export_util.c		\
 				export.c			\
 				env.c				\
 				unset.c				\
+				pwd.c				\
 				cd.c				
 
 EXECUTION=		copy_env.c			\
 				execute.c			\
 				bin_util.c			\
+				run_builtin.c		\
 				run_from_bin.c		
 
 PARSING=		lexer.c				\
-				format.c			\
-				syntax.c			\
-				expansion.c			\
 				assignation.c		\
-				tokenization.c		\
+				redirection.c		\
+				tokenizer.c			\
+				expansion.c
 
 BUILTIN= $(addprefix $(BDIR)/, $(BUILTINS)) 
 EXECUTE= $(addprefix $(EDIR)/, $(EXECUTION)) 
@@ -43,7 +45,7 @@ COMPILE_FLAGS	= -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/
 
 RM			=	rm -Rf
 
-${NAME}:		${OBJS} # readline.c main.c
+${NAME}:		${OBJS} readline.c main.c
 				@make -C libft/
 				cp libft/libft.a ${NAME}
 				ar rcs ${NAME} ${OBJS}

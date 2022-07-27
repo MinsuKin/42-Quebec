@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:13:31 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,64 +27,72 @@ int	ft_unset_strcmp(const char *s1, const char *s2)
 			return (0);
 		i++;
 	}
-    if (s1[i])
-    {
-        if (s1[i] == '=')
-            return (1);
-        return (0);
-    }
-    if (s2[i])
-        return (0);
+	if (s1[i])
+	{
+		if (s1[i] == '=')
+			return (1);
+		return (0);
+	}
+	if (s2[i])
+		return (0);
 	return (1);
 }
 
 int	ft_unset_check(char *line)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (g_envp[i])
 	{
-		if (ft_unset_strcmp(envp[i], line))
+		if (ft_unset_strcmp(g_envp[i], line))
 			return (i);
 		i++;
 	}
-    return (0);
+	return (0);
 }
 
-void    ft_unset(char *line)
+void	ft_unset(char *line)
 {
 	int		i;
 	char	*tmp;
 
 	i = ft_unset_check(line);
-    if (i != 0)
-    {
-		while (envp[i + 1])
-        {
-            tmp = envp[i];
-            envp[i] = envp[i + 1];
-            envp[i + 1] = tmp;
-            i++;
-        }
-		free(envp[i]);
-		envp[i] = NULL;
-    }
+	if (i != 0)
+	{
+		while (g_envp[i + 1])
+		{
+			tmp = g_envp[i];
+			g_envp[i] = g_envp[i + 1];
+			g_envp[i + 1] = tmp;
+			i++;
+		}
+		free(g_envp[i]);
+		g_envp[i] = NULL;
+	}
 }
 
-int unset_exe(char *line)
+int	unset_exe(t_command *command)
 {
-    line += 5;
-    if (*line && !ft_isspace(*line))
-		return print_and_return("Error: command not found\n");
-    while (ft_isspace(*line))
-        line++;
-    if (*line)// && (ft_isalpha(*line) || *line == '_')) // 유효하지 않으면 에러 리턴
-    {
-        if (ft_isalpha(*line) || *line == '_') // valid
-            ft_unset(line);
-        else
-            printf("Error: not a valid identifier\n");
-    }
-    return (0);
+	char	*line;
+	char	*arg;
+	int		i;
+
+	line = command->command;
+	line += 5;
+	if (*line && !ft_isspace(*line))
+		return (print_and_return("Error: command not found\n"));
+	if (command->arguments[1] == NULL)
+		return (0);
+	i = 1;
+	while (command->arguments[i])
+	{
+		arg = command->arguments[i];
+		if (ft_isalpha(*arg) || *arg == '_')
+			ft_unset(arg);
+		else
+			printf("Error: not a valid identifier\n");
+		i++;
+	}
+	return (0);
 }

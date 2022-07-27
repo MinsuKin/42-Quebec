@@ -6,13 +6,13 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:47:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 14:46:07 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_exit_code(const char *str) // ft_atoi but take care of LLONG, also returns mod value
+int	ft_exit_code(const char *str)
 {
 	long long	is_negative;
 	long long	result;
@@ -34,70 +34,69 @@ int	ft_exit_code(const char *str) // ft_atoi but take care of LLONG, also return
 	return ((int)result);
 }
 
-void ft_exit_error(void)
+void	ft_exit_error(t_commandtable *table)
 {
 	printf("exit\n");
 	printf("Error: numeric argument required\n");
+	free_commandtable(table);
 	exit(255);
 }
 
-int ft_exit_too_many_args(char *line)
+int	ft_exit_valid(t_command *command, int exit_code)
 {
-	if (*line) // check if there is more than 2 args
-	{
-		printf("exit\n");
-		printf("Error: too many arguments\n");
-		return (1);
-	}
-	return (0);
-}
+	int		check_sign;
+	char	*line;
 
-int	ft_exit_valid(char *line, int exit_code)
-{
-	int check_sign;
-
+	line = command->arguments[1];
 	check_sign = 0;
-	while (*line) // check if there is only number
+	while (*line)
 	{
 		exit_code = 1;
-		if (ft_isspace(*line))
-			break ;
-		else if (check_sign == 0 && (*line == '-' || *line == '+'))
+		if (check_sign == 0 && (*line == '-' || *line == '+'))
 		{
 			check_sign = 1;
 			line++;
 		}
 		else if (ft_isdigit(*line))
 			line++;
-		else // if not number, error
-			ft_exit_error();
+		else
+			ft_exit_error(command->table);
 	}
-    while (ft_isspace(*line)) // white space skip
-        line++;
-	if (ft_exit_too_many_args(line)) // check if there is more than 1 args
-		return (-1);
 	return (exit_code);
 }
 
-int exit_exe(char *line) // "exit" | "cmd" will not exit and run "cmd"(pipe not implemented yet)
+void	ft_exit_n_free(t_command *command, int exit_code)
 {
-    int	exit_code;
+	if (command->table->num_commands == 1)
+		printf("exit\n");
+	free_commandtable(command->table);
+	exit(exit_code);
+}
 
-    line += 4; // tmp tokenizing
-    if (*line && !ft_isspace(*line)) // tmp tokenizing
-    	return print_and_return("Error: command not found\n");
-    while (ft_isspace(*line)) // white space skip
-        line++;
-	exit_code = ft_exit_valid(line, 0); // check non-numeric, count args
-	if (exit_code == -1) // more than 1 args
-		return (0);
+int	exit_exe(t_command *command)
+{
+	int		exit_code;
+	char	*line;
+
+	line = command->command;
+	line += 4;
+	if (*line && !ft_isspace(*line))
+		return (print_and_return("Error: command not found\n"));
+	exit_code = 0;
+	if (command->arguments[1] == NULL)
+		exit_code = 0;
+	else if (command->arguments[1] != NULL)
+	{
+		exit_code = ft_exit_valid(command, 0);
+		if (command->arguments[2] != NULL)
+			return (print_and_return("exit\nError: too many arguments\n"));
+	}
 	if (exit_code == 1)
 	{
-		if (bigger_than_llong(line)) // check if exit_code is not bigger than LLONG_MAX and MIN
-			ft_exit_error();
-		exit_code = ft_exit_code(line);
+		if (bigger_than_llong(command->arguments[1]))
+			ft_exit_error(command->table);
+		exit_code = ft_exit_code(command->arguments[1]);
 	}
-    printf("exit\n");
-	exit(exit_code);
+	ft_exit_n_free(command, exit_code);
 	return (0);
 }

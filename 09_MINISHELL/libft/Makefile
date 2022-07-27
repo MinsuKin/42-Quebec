@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+         #
+#    By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/23 12:34:31 by tgarriss          #+#    #+#              #
-#    Updated: 2022/07/02 16:51:08 by minkim           ###   ########.fr        #
+#    Updated: 2022/07/10 15:49:13 by tgarriss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	ft_absolute.c		\
-			ft_add_to_array_int.c	\
+			ft_add_to_iarray.c	\
+			ft_add_to_sarray.c	\
 			ft_atoi.c		\
 			ft_atol.c		\
 			ft_bzero.c		\
