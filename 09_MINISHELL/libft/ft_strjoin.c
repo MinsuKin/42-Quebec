@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 13:03:05 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/06/17 18:05:40 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/14 12:41:23 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 #include <stdio.h>
 
 // Allocate and return a new string resulting of concatenating s1 & s2.
@@ -35,6 +35,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = -1;
 	while (s2[++j])
 		result[i++] = s2[j];
+	free((char *)s1);
+	// free((char *)s2);
 	result[i] = '\0';
 	return (result);
 }

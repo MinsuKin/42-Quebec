@@ -6,7 +6,7 @@
 #    By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/15 19:44:58 by minkim            #+#    #+#              #
-#    Updated: 2022/05/18 14:51:50 by minkim           ###   ########.fr        #
+#    Updated: 2022/07/18 13:01:56 by minkim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 CC = gcc
 RM = rm -f
 
-SRCS = $(wildcard *.c)
+SRCS =	philo.c					\
+		atoi.c					\
+		util.c					\
+		util2.c
 
 OBJS = $(SRCS:.c=.o)
 

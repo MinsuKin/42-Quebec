@@ -6,13 +6,13 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:37:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_cd_strcmp(const char *s1, const char *s2)
+int	ft_cd_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
@@ -27,14 +27,14 @@ int ft_cd_strcmp(const char *s1, const char *s2)
 			return (0);
 		i++;
 	}
-    if (s1[i])
-    {
-        if (s1[i] == '=')
-            return (1);
-        return (0);
-    }
-    if (s2[i])
-        return (0);
+	if (s1[i])
+	{
+		if (s1[i] == '=')
+			return (1);
+		return (0);
+	}
+	if (s2[i])
+		return (0);
 	return (1);
 }
 
@@ -42,7 +42,7 @@ char	*ft_cd_check(char *line)
 {
 	char	**env;
 
-	env = envp;
+	env = g_envp;
 	while (*env)
 	{
 		if (ft_cd_strcmp(*env, line))
@@ -52,63 +52,63 @@ char	*ft_cd_check(char *line)
 	return (NULL);
 }
 
-char    *ft_cd_get_val(char *home)
+char	*ft_cd_get_val(char *home)
 {
-    home += 4;
-    if (*home == '=')
-    {
-        home++;
-        if (*home)
-            return (home);
-        else
-            return ("\n");
-    }
-    return (NULL);
+	home += 4;
+	if (*home == '=')
+	{
+		home++;
+		if (*home)
+			return (home);
+		else
+			return ("\n");
+	}
+	return (NULL);
 }
 
-int ft_cd_home_check(void)
+int	ft_cd_home_check(void)
 {
-    char    *home;
-    char    *val;
+	char	*home;
+	char	*val;
 
-    home = ft_cd_check("HOME");
-    val = NULL;
-    if (home != NULL)
-        val = ft_cd_get_val(home); // val 있으면 리턴, 없으면 null, 비어있으면 ""
-    if (val != NULL)
-    {
-        if (*val == '\n')
-            return (0);
-        if (chdir(val) != 0)
-            perror("Error");
-    }
-    if (home == NULL || val == NULL)
-        printf("Error: HOME not set\n");
-    return (0);
+	home = ft_cd_check("HOME");
+	val = NULL;
+	if (home != NULL)
+		val = ft_cd_get_val(home);
+	if (val != NULL)
+	{
+		if (*val == '\n')
+			return (0);
+		if (chdir(val) != 0)
+			perror("Error");
+	}
+	if (home == NULL || val == NULL)
+		printf("Error: HOME not set\n");
+	return (0);
 }
 
-int cd_exe(char *line)
+int	cd_exe(t_command *command)
 {
-    char *home;
+	char	*home;
+	char	*line;
 
-    line += 2; // tmp tokenizing
-    if (*line && !ft_isspace(*line))
-		return print_and_return("Error: command not found\n");
-    while (ft_isspace(*line)) // "cd" still runs when there is more than 1 space before the target
-        line++;
-    if (!*line) // no target, go home, if no HOME, error
-        return (ft_cd_home_check());
-    if (!*line || *line == '~') // '~' go home
-    {
-        home = getenv("HOME"); // need to find $HOME from "env"
-        if (chdir(home) != 0)
-            perror("Error");
-        return (0);
-    }
-    home = ft_cd_strdup(line);// parsing
-    if (chdir(home) != 0)
-        perror("Error");
-    free(home);
-    home = NULL;
-    return (0);
+	line = command->command;
+	line += 2;
+	if (*line && !ft_isspace(*line))
+		return (print_and_return("Error: command not found\n"));
+	if (command->arguments[1] == NULL)
+		return (ft_cd_home_check());
+	if (command->arguments[1][0] == '~' && !command->arguments[1][1])
+	{
+		home = getenv("HOME");
+		if (chdir(home) != 0)
+			perror("Error");
+		return (0);
+	}
+	home = ft_cd_strdup(command->arguments[1]);
+	if (chdir(home) != 0)
+		perror("Error");
+	free(home);
+	home = NULL;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 11:21:08 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/02 16:42:22 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/10 15:48:11 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /*--- Array Manipulation ---*/
+char		**ft_add_to_sarray(char **array, char *insert, int location);
 t_iarray	*ft_add_to_iarray(t_iarray *array, int insert);
 int			ft_get_array_length(char **array);
 

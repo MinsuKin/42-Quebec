@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:43:16 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:10:53 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,33 @@ char	*bin_strjoin(char const *s1, char const *s2)
 	return (newstr);
 }
 
-static char	*bin_path(char **envp)
+static char	*bin_path(char **g_envp)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (g_envp[i])
 	{
-		if (ft_strncmp("PATH=", envp[i], 5) == 0)
-			return (envp[i]);
+		if (ft_strncmp("PATH=", g_envp[i], 5) == 0)
+			return (g_envp[i]);
 		i++;
 	}
 	return (0);
 }
 
-static char	*bin_cmd(char *cmd, char **envp)
+static char	*bin_cmd(char *cmd, char **g_envp)
 {
 	char	**path;
 	char	*input;
+	char	*tmp;
 	int		i;
 
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
-	path = bin_split(bin_path(envp)+5, ':');
+	tmp = bin_path(g_envp);
+	if (tmp == 0)
+		return (0);
+	path = bin_split(tmp + 5, ':');
 	i = 0;
 	while (path[i])
 	{
@@ -77,17 +81,22 @@ static char	*bin_cmd(char *cmd, char **envp)
 	return (0);
 }
 
-void	bin_exe(char *argv, char **envp)
+void	bin_exe(t_command *command, char **g_envp)
 {
 	char	*cmd;
 	char	**option;
 
-	option = bin_split(argv, ' ');
-	cmd = bin_cmd(option[0], envp);
-	if (cmd == 0 || execve(cmd, option, envp) == -1)
+	if (command->command == NULL)
+	{
+		ft_env_free(command->arguments);
+		exit(1);
+	}
+	option = command->arguments;
+	cmd = bin_cmd(command->command, g_envp);
+	if (cmd == 0 || execve(cmd, option, g_envp) == -1)
 	{
 		ft_env_free(option);
-		perror("Error");
+		printf("Error: command not found\n");
 		exit(1);
 	}
 }

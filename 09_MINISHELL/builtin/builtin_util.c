@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:51:19 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 13:57:17 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ char	*ft_cd_strdup(const char *s1)
 {
 	char	*s2;
 	char	*tmp;
-    int     n;
+	int		n;
 
-    n = 0;
-    while (s1[n] && s1[n] != ' ')
-        n++;
+	n = 0;
+	while (s1[n] && s1[n] != ' ')
+		n++;
 	s2 = (char *)malloc(sizeof(char) * (n + 1));
 	if (!s2)
 		return (0);
@@ -31,8 +31,8 @@ char	*ft_cd_strdup(const char *s1)
 	return (s2);
 }
 
-int print_and_return(char *str)
+int	print_and_return(char *str)
 {
-    printf("%s", str);
-    return (0);
+	printf("%s", str);
+	return (0);
 }

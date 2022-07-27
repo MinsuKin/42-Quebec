@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isinset.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/14 10:14:13 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/10 15:42:02 by tgarriss         ###   ########.fr       */
+/*   Created: 2022/07/18 14:55:05 by minkim            #+#    #+#             */
+/*   Updated: 2022/07/18 14:55:29 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../minishell.h"
 
-int	ft_isinset(char c, char *set)
+int	pwd_exe(char *line)
 {
-	int	i;
+	char	cwd[1024];
 
-	i = -1;
-	while (set[++i])
-		if (set[i] == c)
-			return (1);
+	line += 3;
+	if (*line && !ft_isspace(*line))
+		return (print_and_return("Error: command not found\n"));
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+		perror("Error");
 	return (0);
 }

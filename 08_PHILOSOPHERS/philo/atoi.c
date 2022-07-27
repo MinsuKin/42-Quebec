@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 17:02:54 by minkim            #+#    #+#             */
-/*   Updated: 2022/05/18 17:03:12 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 12:48:34 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	ft_isdigit(int c)
 
 int	ft_atoi(const char *str)
 {
-	long	n;
-	long	sign;
-	long	res;
+	long		n;
+	long		sign;
+	long long	res;
 
 	if (*str == 0)
 		return (0);

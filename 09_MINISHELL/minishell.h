@@ -6,58 +6,58 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:09:12 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/04 14:53:43 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/19 18:23:41 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft/includes/libft.h"
-
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
 # include <termios.h>
+# include <unistd.h>
 
 # define READ_END 0
 # define WRITE_END 1
 
+/*--- global variable for "g_envp" ---*/
+char			**g_envp;
+
 /*--- Structures ---*/
-typedef struct s_commandtable t_commandtable;
+typedef struct s_commandtable	t_commandtable;
 typedef struct s_command
 {
-	t_commandtable	*table;
-	char			*command;
-	char			*binary;
-	char			**options;
-	char			**arguments;
-	int				num_args;
-	int				num_options;
-	int				input;
-	int				output;
-}	t_command;
+	t_commandtable				*table;
+	char						*command;
+	char						*binary;
+	char						**options;
+	char						**arguments;
+	int							num_args;
+	int							num_options;
+	int							input;
+	int							output;
+	int							pipe[2];
+}								t_command;
 
 typedef struct s_commandtable
 {
-	t_command	*commands;
-	int			pipe_fd[2];
-	int			num_commands;
-	t_iarray	*open_files;
-}	t_commandtable;
+	t_command					*commands;
+	int							pipe_fd[2];
+	int							num_commands;
+	t_iarray					*open_files;
+}								t_commandtable;
 
 typedef struct s_quotestruct
 {
-	int		within_quotes;
-	char	quote_type;
-}	t_quotestruct;
-
-/*--- main.c ---*/
-void    control_d(void);
+	int							within_quotes;
+	char						quote_type;
+}								t_quotestruct;
 
 /*--- lexer.c ---*/
 t_commandtable	*parse(char *line);
@@ -65,28 +65,12 @@ int				get_num_commands(char **tokens);
 int				is_symbol(char c);
 void			free_commandtable(t_commandtable *table);
 
-/*--- syntax.c ---*/
-int				check_syntax_valid(char *line);
-int				check_pipe_format_valid(char *line);
-int				check_redirection_valid(char *line);
-int				find_num_of_quotes(char *line, t_quotestruct q);
+/*--- assignation.c ---*/
+t_commandtable	*set_commandtable(char **tokens);
+void			set_token(t_command *command, char *token, int index, char **tokens);
+void			set_commands(t_commandtable *table, char **tokens);
+void			print_command_table(t_commandtable *table);
 
-/*--- format.c ---*/
-char			*add_whitespace(char *line, int new_len);
-char			*reformat_string(char *line);
-char			*remove_whitespace(char *line, int new_len);
-int				find_len_added_whitespace(char *line);
-int				find_len_no_whitespace(char *line);
-
-/*--- expansion.c ---*/
-char			*expand(char *line, char **envp);
-char			*expand_variable(char *line, char **envp, int index);
-char			*insert_into_new_string(char *line, char *insert, char *var);
-char			*trim_var_from_string(char *line, char *var);
-char			*find_environment_variable(char *var, char **envp);
-
-/*--- global variable for "envp" ---*/
-char			**envp;
 
 /*--- builtin_util.c ---*/
 char			*ft_cd_strdup(const char *s1);
@@ -95,19 +79,10 @@ int				print_and_return(char *str);
 /*--- exit_util.c ---*/
 int				bigger_than_llong(const char *str);
 
-/*--- exit.c ---*/
-int				exit_exe(char *line);
-
-/*--- echo.c ---*/
-int				echo_exe(char *line);
-
 /*--- copy_env.c ---*/
 void			ft_env_free(char **s);
 char			**ft_copy_env(char **s);
 size_t			ft_cnt_ary(char **s);
-
-/*--- copy_env.c ---*/
-int				env_exe(char *line);
 
 /*--- export_util.c ---*/
 int				ft_export_strcmp(const char *s1, const char *s2);
@@ -116,54 +91,66 @@ void			ft_export_quotes(char *env);
 void			print_export(char **env);
 char			**ft_export_add(char **s, char *add);
 
-/*--- tmp global variable for "env" ---*/
-char			**envp;
+/*--- export_util2.c ---*/
+char			*ft_export_check(char *line);
+int				ft_export_val_exist(char *line);
+void			ft_export_val_change(char *line);
+void			ft_export_args(char *line);
+void			ft_export_insert(t_command *command);
 
-/*--- copy_env.c ---*/
-void			ft_env_free(char **s);
-char			**ft_copy_env(char **s);
-
+/*--- env.c ---*/
+int				env_exe(t_command *command);
+/*--- echo.c ---*/
+int				echo_exe(t_command *command);
+/*--- exit.c ---*/
+int				exit_exe(t_command *command);
 /*--- export.c ---*/
-int				export_exe(char *line);
-
-/*--- expansion.c ---*/
-char			*expand(char *line, char **envp);
-char			*expand_variable(char *line, char **envp, int index);
-char			*insert_into_new_string(char *line, char *insert, char *var);
-char			*trim_var_from_string(char *line, char *var);
-char			*find_environment_variable(char *var, char **envp);
-void			check_for_quote(char *c, t_quotestruct *quotes);
-
+int				export_exe(t_command *command);
 /*--- unset.c ---*/
-int				unset_exe(char *line);
-
+int				unset_exe(t_command *command);
 /*--- cd.c ---*/
-int				cd_exe(char *line);
+int				cd_exe(t_command *command);
+/*--- pwd.c ---*/
+int				pwd_exe(char *line);
+
+/*--- run_builtin.c ---*/
+int				run_builtin(t_command *command);
+int				run_builtin2(t_command *command);
+int				builtin_check(char *cmd);
 
 /*--- bin_util.c ---*/
-// static char		*ft_strndup(const char *s1, size_t n);
 char			**bin_split(char const *s, char c);
 
 /*--- run_from_bin.c ---*/
-void			bin_exe(char *argv, char **envp);
-
-/*--- signal(main.c) ---*/
-void			setting_signal(void);
-void			sig_handler_child(int signal);
+void			bin_exe(t_command *command, char **g_envp);
 
 /*--- execute.c ---*/
-void			execution(char *line);
-int				run_builtin(char *line);
-int				run_from_bin(char *line);
+void			execution(t_commandtable *table);
+int				run_builtin(t_command *command);
+int				run_from_bin(t_command *command);
+void			wait_child(void);
 
-/*--- tokenization.c ---*/
-char			**tokenize(char *l);
-char			**add_to_array(char **array, char *insert);
+/*--- readline.c ---*/
+void							setting_signal(void);
+void							sig_handler_child(int signal);
+void							sig_handler_heredoc(int signal);
+
+/*--- main.c ---*/
+void							control_d(t_commandtable *table);
+int								*f_exit_code(void);
+
+/*--- redirection.c ---*/
+int				set_redirection(char **tokens, t_commandtable *table, int index);
+
+/*--- tokenizer.c ---*/
+char			**tokenizer(char *line);
+void			ft_print_sarray(char **array);
+
+/*--- expansion.c ---*/
+char			*find_environment_variable(char *var, char **g_envp);
+char			*add_to_string(char *string, char c);
 
 /*--- assignation.c ---*/
-t_commandtable	*set_commandtable(char **tokens);
-void			set_token(t_command *command, char *token, int index, char **tokens);
-void			set_commands(t_commandtable *table, char **tokens);
-void			print_command_table(t_commandtable *table);
+void			init_command(t_command *command);
 
 #endif

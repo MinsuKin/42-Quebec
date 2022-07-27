@@ -6,73 +6,76 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/21 19:19:20 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int pwd_exe(char *line) // "pwd" does not take args and ignore extra string if typed
+void	wait_child(void)
 {
-    char    cwd[1024];
+	int	status;
+	int	signo;
+	int	i;
 
-    line += 3; // tmp tokenizing
-    if (*line && !ft_isspace(*line)) // tmp tokenizing
-		return print_and_return("Error: command not found\n");
-    if (getcwd(cwd, sizeof(cwd)) != NULL) // when "pwd" fails, it returns NULL
-        printf("%s\n",cwd);
-    else
-        perror("Error");
+	i = 0;
+	while (wait(&status) != -1)
+	{
+		if (WIFSIGNALED(status))
+		{
+			signo = WTERMSIG(status);
+			*f_exit_code() = 128 + signo;
+		}
+		else
+			*f_exit_code() = WEXITSTATUS(status);
+	}
+}
+
+int	run_from_bin(t_command *command)
+{
+	pid_t	pid;
+
+	signal(SIGINT, sig_handler_child);
+	signal(SIGQUIT, sig_handler_child);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(command->input, STDIN_FILENO);
+		dup2(command->output, STDOUT_FILENO);
+		close(command->pipe[READ_END]);
+		bin_exe(command, g_envp);
+	}
+	if (strcmp(command->command, "cat") == 0)
+		close(command->pipe[READ_END]);
+	close(command->pipe[WRITE_END]);
 	return (0);
 }
 
-int run_builtin(char *line)
+void	execution(t_commandtable *table)
 {
-    int len;
+	int	ran;
+	int	i;
 
-    len = ft_strlen(line);
-    if (len >= 2 && ft_strncmp("cd", line, 2) == 0)
-        cd_exe(line);
-    else if (len >= 3 && ft_strncmp("pwd", line, 3) == 0)
-        pwd_exe(line);
-    else if (len >= 4 && ft_strncmp("exit", line, 4) == 0)
-        exit_exe(line);
-    else if (len >= 4 && ft_strncmp("echo", line, 4) == 0)
-        echo_exe(line);
-    else if (len >= 3 && ft_strncmp("env", line, 3) == 0)
-        env_exe(line);
-    else if (len >= 6 && ft_strncmp("export", line, 6) == 0)
-        export_exe(line);
-    else if (len >= 5 && ft_strncmp("unset", line, 5) == 0)
-        unset_exe(line);
-    else
-        return (1);
-    return (0);
-}
-
-int run_from_bin(char *line)
-{
-    pid_t	pid;
-
-    signal(SIGINT, sig_handler_child); // to print ^C when exit from "cat / wc / grep"
-    signal(SIGQUIT, sig_handler_child); // to print ^\Quit: 3 when exit from "cat / wc / grep"
-    pid = fork();
-    if (pid == 0)
-        bin_exe(line, envp);
-    waitpid(pid, 0, 0);
-    return (0);
-}
-
-void    execution(char *line)
-{
-    int ran;
-
-    // parsing required first
-    while (ft_isspace(*line)) // tmp white space skip
-        line++;
-    if (!*line)
-        return ;
-    ran = run_builtin(line);
-    if (ran)
-        run_from_bin(line);
+	if (!table)
+		return ;
+	i = 0;
+	ran = 0;
+	while (i < table->num_commands)
+	{
+		ran = builtin_check(table->commands[i].command);
+		if (!ran)
+		{
+			if (table->num_commands == 1)
+				run_builtin(&table->commands[i]);
+			else
+				run_builtin2(&table->commands[i]);
+		}
+		else
+			run_from_bin(&table->commands[i]);
+		i++;
+	}
+	while (--i)
+		close(table->commands[i].input);
+	wait_child();
+	setting_signal();
 }

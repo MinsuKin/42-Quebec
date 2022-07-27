@@ -26,13 +26,14 @@ ${NAME}:		${OBJS}
 
 all:			${NAME}
 
+# ./${PROGRAM} | grep failure;
 run_tests:		${NAME}
 				clear
 				@echo "${GREEN}--- Running Test Suite ---${NC}"
 				@for i in ${SRCS}; do\
 					echo "${YELLOW}--- Running" $$i "---${NC}"; \
 					${CC} ${CFLAGS} $$i -L. -l$(basename ${NAME}) -lreadline -o ${PROGRAM};\
-					./${PROGRAM} | grep failure;\
+					./${PROGRAM};\
 				done
 
 clean:

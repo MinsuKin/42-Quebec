@@ -6,12 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:18:36 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/19 19:23:25 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// extern char **environ;
 
 int	get_num_commands(char **tokens)
 {
@@ -32,17 +31,28 @@ t_commandtable	*parse(char *line)
 {
 	char			**tokens;
 	t_commandtable	*table;
-	char			*string;
 
 	if (!line)
 		return (NULL);
-	string = reformat_string(line);
-	tokens = tokenize(string);
-	free(string);
+	tokens = tokenizer(line);
+	// ft_print_sarray(tokens);
 	table = set_commandtable(tokens);
-	// if (tokens)
-	// 	free(tokens);
+	// print_command_table(table);
+	if (tokens)
+		ft_free_carray(tokens);
 	return (table);
+}
+
+void	close_files(t_iarray *files)
+{
+	int	i;
+
+	if (!files)
+		return ;
+	i = -1;
+	while (++i < files->size)
+		close(files->array[i]);
+	files->size = 0;
 }
 
 void	free_commandtable(t_commandtable *table)
@@ -56,24 +66,22 @@ void	free_commandtable(t_commandtable *table)
 	while (i < table->num_commands)
 	{
 		free(table->commands[i].command);
-		j = -1;
-		while (++j < table->commands[i].num_args)
+		j = 0;
+		while (j < table->commands[i].num_args)
+		{
 			free(table->commands[i].arguments[j]);
+			j++;
+		}
+		free(table->commands[i].arguments);
 		i++;
 	}
 	if (table->open_files)
 	{
+		close_files(table->open_files);
 		free(table->open_files->array);
 		free(table->open_files);
 	}
+	unlink("heredoc");
 	free(table->commands);
 	free(table);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	(void) argc;
-// 	(void) argv;
-// 	setenv("ARG", "ARGUMENT", 1);
-// 	parse("echo \"$ARG\">>outfile|grep bla");
-// }

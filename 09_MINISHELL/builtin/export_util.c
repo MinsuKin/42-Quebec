@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:58:58 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,63 +30,63 @@ int	ft_export_strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
-void    ft_swap(char **env)
+void	ft_swap(char **env)
 {
-    char **envp;
-    char **next;
-    char *tmp;
+	char	**g_envp;
+	char	**next;
+	char	*tmp;
 
-    envp = env;
-    next = env + 1;
-    while (*next)
-    {
-        if (ft_strcmp(*env, *next) > 0)
-        {
-            tmp = *next;
-            *next = *env;
-            *env = tmp;
-            env = envp;
-            next = env + 1;
-        }
-        else
-        {
-            env++;
-            next = env + 1;
-        }
-    }
+	g_envp = env;
+	next = env + 1;
+	while (*next)
+	{
+		if (ft_strcmp(*env, *next) > 0)
+		{
+			tmp = *next;
+			*next = *env;
+			*env = tmp;
+			env = g_envp;
+			next = env + 1;
+		}
+		else
+		{
+			env++;
+			next = env + 1;
+		}
+	}
 }
 
-void    ft_export_quotes(char *env)
+void	ft_export_quotes(char *env)
 {
-	int i;
+	int	i;
 	int	flag;
 
 	flag = 0;
 	i = 0;
-    write(1, "declare -x ", 11);
-    while (env[i])
-    {
-        write(1, &env[i], 1);
-        if (env[i] == '=')
+	write(1, "declare -x ", 11);
+	while (env[i])
+	{
+		write(1, &env[i], 1);
+		if (env[i] == '=')
 		{
-            write(1, "\"", 1);
+			write(1, "\"", 1);
 			flag = 1;
 		}
-        i++;
-    }
+		i++;
+	}
 	if (flag == 1)
-    	write(1, "\"", 1);
-    write(1, "\n", 1);
+		write(1, "\"", 1);
+	write(1, "\n", 1);
 }
 
-void    print_export(char **env)
+void	print_export(char **env)
 {
-    ft_swap(env); // sort
-    while (*env)
-    {
-        ft_export_quotes(*env);
-        env++;
-    }
+	ft_swap(env);
+	while (*env)
+	{
+		ft_export_quotes(*env);
+		env++;
+	}
 }
 
 char	**ft_export_add(char **s, char *add)

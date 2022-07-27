@@ -81,25 +81,25 @@ void    test_setup_tokenize(void)
     // DEFINE VARIABLES.
 	array_tokenize_one = NULL;
 	array_comparison_one = ft_split("echo stuff | grep bla", ' ');
-	line_tokenize_one = ft_strdup("echo stuff | grep bla");
+	line_tokenize_one = reformat_string(ft_strdup("echo stuff | grep bla"));
 	array_tokenize_two = NULL;
 	array_comparison_two = ft_split("echo stuff | grep bla", ' ');
-	line_tokenize_two = ft_strdup("echo stuff|grep bla");
+	line_tokenize_two = reformat_string(ft_strdup("echo stuff|grep bla"));
 	array_tokenize_three = NULL;
 	array_comparison_three = ft_split("echo stuff | grep bla", ' ');
-	line_tokenize_three = ft_strdup("echo stuff |grep bla");
+	line_tokenize_three = reformat_string(ft_strdup("echo stuff |grep bla"));
 	array_tokenize_four = NULL;
 	array_comparison_four = ft_calloc(4, sizeof(char *));
 	array_comparison_four[0] = "echo";
-	array_comparison_four[1] = "'stuff | grep'";
+	array_comparison_four[1] = "stuff | grep";
 	array_comparison_four[2] = "bla";
-	line_tokenize_four = ft_strdup("echo 'stuff | grep' bla");
+	line_tokenize_four = reformat_string(ft_strdup("echo 'stuff | grep' bla"));
 	array_tokenize_five = NULL;
 	array_comparison_five = ft_calloc(4, sizeof(char *));
 	array_comparison_five[0] = "echo";
-	array_comparison_five[1] = "\"stuff | grep\"";
+	array_comparison_five[1] = "stuff | grep";
 	array_comparison_five[2] = "bla";
-	line_tokenize_five = ft_strdup("echo \"stuff | grep\" bla");
+	line_tokenize_five = reformat_string(ft_strdup("echo \"stuff | grep\" bla"));
 	array_tokenize_six = NULL;
 	array_comparison_six = ft_calloc(6, sizeof(char *));
 	array_comparison_six[0] = "echo";
@@ -107,7 +107,7 @@ void    test_setup_tokenize(void)
 	array_comparison_six[2] = "|";
 	array_comparison_six[3] = "echo";
 	array_comparison_six[4] = "foobla";
-	line_tokenize_six = ft_strdup("echo $ARG | echo foobla");
+	line_tokenize_six = reformat_string(ft_strdup("echo $ARG | echo foobla"));
 }
 
 void    test_teardown_tokenize(void)

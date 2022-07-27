@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:58:48 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/04 12:42:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/18 14:04:02 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_sign(long long is_negative, const char *str)
 	return (is_negative);
 }
 
-int	bigger_than_llong(const char *str) // ft_atoi but check digit is under LLONG_MAX, returns 1 or 0
+int	bigger_than_llong(const char *str)
 {
 	long long	is_negative;
 	long long	result;
