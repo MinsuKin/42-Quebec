@@ -14,5 +14,5 @@
 |06|02|[**pipex**](https://github.com/MinsuKin/42-Quebec/tree/main/06_PIPEX)|C|Completed|[![minkim's 42 pipex Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2566531)](https://github.com/JaeSeoKim/badge42)|
 |07|02|[**so_long**](https://github.com/MinsuKin/42-Quebec/tree/main/05_PUSH_SWAP)|C|Completed|[![minkim's 42 so_long Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2582271)](https://github.com/JaeSeoKim/badge42)|
 |08|02|**Exam02**|C|Completed|[![minkim's 42 Exam Rank 02 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2589710)](https://github.com/JaeSeoKim/badge42)|
-|09|03|[**Philosophers**](https://github.com/MinsuKin/42-Quebec/tree/main/08_PHILOSOPHERS)|C|Completed|100/100|
+|09|03|[**Philosophers**](https://github.com/MinsuKin/42-Quebec/tree/main/08_PHILOSOPHERS)|C|Completed|[![minkim's 42 Philosophers Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2602545)](https://github.com/JaeSeoKim/badge42)|
 |10|03|[**minishell**](https://github.com/MinsuKin/42-Quebec/tree/main/09_MINISHELL)|C|Ongoing|?/100|
