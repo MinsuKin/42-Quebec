@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:51:22 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/27 12:26:36 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/27 13:24:30 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ int	ft_philo_action(t_args *args, t_phil *phil)
 {
 	pthread_mutex_lock(&(args->forks[phil->left]));
 	ft_philo_printf(args, phil->my_num, "has taken a fork");
-	if (args->p_num != 1)
-	{
-		pthread_mutex_lock(&(args->forks[phil->right]));
-		ft_philo_printf(args, phil->my_num, "has taken a fork");
-		ft_philo_printf(args, phil->my_num, "is eating");
-		phil->last_time_eat = ft_get_time();
-		phil->eating_cnt++;
-		ft_pass_time((long long)args->t_eat, args);
-		pthread_mutex_unlock(&(args->forks[phil->right]));
-	}
+	pthread_mutex_lock(&(args->forks[phil->right]));
+	ft_philo_printf(args, phil->my_num, "has taken a fork");
+	ft_philo_printf(args, phil->my_num, "is eating");
+	phil->last_time_eat = ft_get_time();
+	phil->eating_cnt++;
+	ft_pass_time((long long)args->t_eat, args);
+	pthread_mutex_unlock(&(args->forks[phil->right]));
 	pthread_mutex_unlock(&(args->forks[phil->left]));
 	return (0);
 }

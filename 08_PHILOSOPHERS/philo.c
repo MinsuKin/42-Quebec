@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:43:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/27 12:26:03 by minkim           ###   ########.fr       */
+/*   Updated: 2022/07/27 13:25:43 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ int	check_digit(char *args)
 
 int	check_args(int ac, char **av)
 {
-	if (check_digit(av[1]))
-		return (1);
-	if (check_digit(av[2]))
-		return (1);
-	if (check_digit(av[3]))
-		return (1);
-	if (check_digit(av[4]))
-		return (1);
+	int	i;
+
+	i = 1;
+	while (i < 5)
+	{
+		if (check_digit(av[i]))
+			return (1);
+		i++;
+	}
 	if (ac == 6 && check_digit(av[5]))
 		return (1);
 	return (0);
