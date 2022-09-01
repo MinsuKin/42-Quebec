@@ -6,30 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/21 19:19:20 by minkim           ###   ########.fr       */
+/*   Updated: 2022/08/31 17:46:54 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	wait_child(void)
-{
-	int	status;
-	int	signo;
-	int	i;
-
-	i = 0;
-	while (wait(&status) != -1)
-	{
-		if (WIFSIGNALED(status))
-		{
-			signo = WTERMSIG(status);
-			*f_exit_code() = 128 + signo;
-		}
-		else
-			*f_exit_code() = WEXITSTATUS(status);
-	}
-}
 
 int	run_from_bin(t_command *command)
 {
@@ -45,37 +26,60 @@ int	run_from_bin(t_command *command)
 		close(command->pipe[READ_END]);
 		bin_exe(command, g_envp);
 	}
-	if (strcmp(command->command, "cat") == 0)
-		close(command->pipe[READ_END]);
+	if (command->has_redir == 0)
+	{
+		if (strcmp(command->command, "cat") == 0 && command->num_args == 1)
+			close(command->pipe[READ_END]);
+	}
 	close(command->pipe[WRITE_END]);
 	return (0);
 }
 
+void	execution_util(t_commandtable *table, int i)
+{
+	if (table->commands[i].has_redir)
+		run_builtin2(&table->commands[i]);
+	else if (table->num_commands == 1)
+		run_builtin(&table->commands[i]);
+	else
+		run_builtin2(&table->commands[i]);
+}
+
+void	execution_open(t_commandtable *table, int i)
+{
+	if (table->commands[i].mode == 0)
+		table->commands[i].output = open(table->commands[i].outfile_path, \
+		O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (table->commands[i].mode == 1)
+		table->commands[i].output = open(table->commands[i].outfile_path, \
+		O_RDWR | O_CREAT | O_APPEND, 0777);
+}
+
 void	execution(t_commandtable *table)
 {
-	int	ran;
 	int	i;
 
 	if (!table)
 		return ;
 	i = 0;
-	ran = 0;
 	while (i < table->num_commands)
 	{
-		ran = builtin_check(table->commands[i].command);
-		if (!ran)
-		{
-			if (table->num_commands == 1)
-				run_builtin(&table->commands[i]);
-			else
-				run_builtin2(&table->commands[i]);
-		}
-		else
+		execution_open(table, i);
+		if (table->commands[i].command && \
+				!builtin_check(table->commands[i].command))
+			execution_util(table, i);
+		else if (table->commands[i].command)
 			run_from_bin(&table->commands[i]);
+		else
+		{
+			i++;
+			continue ;
+		}
+		if (table->commands[i].output != table->commands[i].pipe[WRITE_END] \
+		&& table->commands[i].outfile_path != NULL)
+			close(table->commands[i].output);
 		i++;
 	}
-	while (--i)
-		close(table->commands[i].input);
 	wait_child();
 	setting_signal();
 }

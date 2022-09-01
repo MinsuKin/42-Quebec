@@ -6,7 +6,7 @@
 #    By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/23 12:34:31 by tgarriss          #+#    #+#              #
-#    Updated: 2022/07/10 15:49:13 by tgarriss         ###   ########.fr        #
+#    Updated: 2022/08/25 13:54:05 by tgarriss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	=	ft_absolute.c		\
 			ft_isdigit.c	\
 			ft_isint.c		\
 			ft_isinset.c	\
+			ft_isinstring.c	\
 			ft_isnbr.c		\
 			ft_islower.c	\
 			ft_isupper.c	\
@@ -38,6 +39,7 @@ SRCS	=	ft_absolute.c		\
 			ft_memcpy.c		\
 			ft_memmove.c	\
 			ft_memset.c		\
+			ft_print_sarray.c	\
 			ft_putchar_fd.c	\
 			ft_putnchar.c	\
 			ft_putendl_fd.c	\

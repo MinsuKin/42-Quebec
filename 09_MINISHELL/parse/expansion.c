@@ -1,179 +1,142 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_new.c                                    :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 15:21:17 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/18 22:01:51 by tgarriss         ###   ########.fr       */
+/*   Created: 2022/08/12 15:27:49 by tgarriss          #+#    #+#             */
+/*   Updated: 2022/08/27 18:50:54 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_environment_variable(char *var, char **g_envp)
+// make sure that its okay for $!.,/ and other stuff prints it literally.
+char	*expand_variable(char *token, char *expanded, int *i, char **envp)
 {
-	char	*expansion;
-	int		start;
-	int		i;
+	char	*new;
+	char	*variable;
 
-	if (!var || !g_envp)
-		return (NULL);
-	i = -1;
-	expansion = NULL;
-	if (ft_strncmp(var, "$?", 2) == 0)
+	new = ft_strdup(expanded);
+	variable = NULL;
+	while (token[*i] && !ft_isinset(token[*i], "\'\""))
 	{
-		expansion = ft_itoa(*f_exit_code());
-		free(var);
-		return (expansion);
-	}
-	while (g_envp[++i])
-	{
-		start = 0;
-		if (ft_strncmp(g_envp[i], &var[start], ft_strlen(var)) == 0 && g_envp[i][ft_strlen(var)] == '=')
-			expansion = ft_strdup(g_envp[i] + ft_strlen(var) + 1);
-	}
-	free(var);
-	return (expansion);
-}
-
-int	ft_isinstring(char *string, char c)
-{
-	int	i;
-
-	i = -1;
-	while (string[++i])
-		if (string[i] == c)
-			return (1);
-	return (0);
-}
-
-char	*add_to_string(char *string, char c)
-{
-	char	*new_string;
-	int		i;
-
-	if (!c)
-		return (string);
-	if (!string)
-	{
-		new_string = ft_calloc(2, sizeof(char));
-		new_string[0] = c;
-	}
-	else
-	{
-		new_string = ft_calloc(ft_strlen(string) + 2, sizeof(char));
-		i = -1;
-		while (string[++i])
-			new_string[i] = string[i];
-		new_string[i] = c;
-		free(string);
-	}
-	return (new_string);
-}
-
-char	*get_var(char *token, int *i)
-{
-	char	*var;
-	int		len;
-	int		j;
-
-	j = 0;
-	len = 0;
-	if (token[*i] == '$' && token[*i + 1] == '?')
-	{
-		var = ft_strdup("$?");
-		return (var);
-	}
-	else if (ft_strncmp(&token[*i], "$?", 2) != 0 && token[*i] && token[*i + 1])
-		(*i)++;
-	j = *i;
-	while (token[j] && (!ft_isspace(token[j]) && !ft_isinset(token[j], "$\"\'<>|")))
-	{
-		if (!ft_isinset(token[j], "{}"))
+		if (token[*i] == '$' && token[(*i) + 1] == '?')
 		{
-			j++;
-			len++;
+			*i += 2;
+			variable = ft_itoa(*f_exit_code());
+			new = ft_strjoin(new, variable);
+			free(variable);
+		}
+		else if (token[*i] == '$' && ft_isalpha(token[(*i) + 1]))
+		{
+			variable = get_environment_variable(token, i, envp);
+			new = ft_strjoin(new, variable);
+			free(variable);
 		}
 		else
-			j++;
+			new = add_to_string(new, token[(*i)++]);
 	}
-	var = ft_calloc(len + 1, sizeof(char));
-	j = 0;
-	while (token[*i] && (!ft_isspace(token[*i]) && !ft_isinset(token[*i], "$\"\'<>|")))
-	{
-		if (ft_isinset(token[*i], "{}"))
-			(*i)++;
-		else
-			var[j++] = token[(*i)++];
-	}
-	return (var);
+	free(expanded);
+	return (new);
 }
 
-char	*expand_new(char *token, char **g_envp)
+char	*expand_double_quotes(char *token, int *i, char *expanded, char **envp)
 {
-	char	*expanded;
-	char	*insert;
-	char	*var;
-	int		i;
-	int		j;
+	char	*new;
 
-	i = 0;
+	new = ft_strdup(expanded);
+	new = add_to_string(new, token[(*i)++]);
+	while (token[*i] && token[*i] != '\"')
+	{
+		if (token[*i] == '$')
+			new = expand_variable(token, new, i, envp);
+		else
+		{
+			if (token[*i])
+				new = add_to_string(new, token[(*i)++]);
+			while (token[*i] && !ft_isinset(token[*i], "|<>$\'\""))
+				new = add_to_string(new, token[(*i)++]);
+		}
+	}
+	if (token[*i] == '\"')
+		new = add_to_string(new, token[(*i)++]);
+	while (token[*i] && !ft_isinset(token[*i], "|<>$\'\""))
+		new = add_to_string(new, token[(*i)++]);
+	free(expanded);
+	return (new);
+}
+
+char	*expand_single_quotes(char *token, int *i, char *expanded)
+{
+	char	*new;
+
+	new = ft_strdup(expanded);
+	new = add_to_string(new, token[(*i)++]);
+	while (token[*i] && token[*i] != '\'')
+		new = add_to_string(new, token[(*i)++]);
+	if (token[*i] && token[*i] == '\'')
+		new = add_to_string(new, token[(*i)++]);
+	while (token[*i] && !ft_isinset(token[*i], "|<>$\'\""))
+		new = add_to_string(new, token[(*i)++]);
+	free(expanded);
+	return (new);
+}
+
+char	*remove_quotes(char *token, int i)
+{
+	char	*new;
+	int		in_quotes;
+	char	type;
+
 	if (!token)
-		return (NULL);
-	insert = NULL;
-	expanded = NULL;
+		return (token);
+	new = NULL;
+	in_quotes = 0;
 	while (token[i])
 	{
-		if (token[i] && !ft_isinset(token[i], "$\'\""))
-			expanded = add_to_string(expanded, token[i]);
-		else if (token[i] && ft_isinset(token[i], "\'"))
+		if (token[i] && ft_isinset(token[i], "\'\"") && !in_quotes)
 		{
-			i++;
-			while (token[i] && token[i] != '\'')
-				expanded = add_to_string(expanded, token[i++]);
+			type = token[i++];
+			in_quotes = 1;
+			while (token[i] && token[i] != type)
+				new = add_to_string(new, token[i++]);
+			if (token[i])
+				i++;
+			in_quotes = 0;
 		}
-		else if (token[i] && ft_isinset(token[i], "\""))
-		{
-			i++;
-			while (token[i] && !ft_isinset(token[i], "$\""))
-				expanded = add_to_string(expanded, token[i++]);
-			while (token[i] && ft_isinset(token[i], "$"))
-			{
-				var = get_var(token, &i);
-				if (ft_strncmp(var, "$?", 2) == 0)
-					i += 2;
-				insert = find_environment_variable(var, g_envp);
-				if (!insert)
-					continue ;
-				j = 0;
-				while (insert[j])
-					expanded = add_to_string(expanded, insert[j++]);
-				free(insert);
-			}
-			while (token[i] && !ft_isinset(token[i], "$\""))
-				expanded = add_to_string(expanded, token[i++]);
-		}
-		else if (token[i] && ft_isinset(token[i], "$"))
-		{
-			var = get_var(token, &i);
-			if (ft_strncmp(var, "$?", 2) == 0)
-				i += 2;
-			insert = find_environment_variable(var, g_envp);
-			if (!insert)
-				continue ;
-			j = 0;
-			while (insert[j])
-				expanded = add_to_string(expanded, insert[j++]);
-			while (token[i] && !ft_isinset(token[i], "$\""))
-				expanded = add_to_string(expanded, token[i++]);
-			if (token[i] == '$' && i != 0)
-				i--;
-			free(insert);
-		}
-		if (i < (int)ft_strlen(token))
-			i++;
+		else if (token[i])
+			new = add_to_string(new, token[i++]);
 	}
+	free(token);
+	return (new);
+}
+
+char	*expand(char *token, char **envp, int remove)
+{
+	char	*expanded;
+	int		i;
+
+	if (!token || !envp)
+		return (NULL);
+	expanded = NULL;
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] && token[i] == '\"')
+			expanded = expand_double_quotes(token, &i, expanded, envp);
+		else if (token[i] && token[i] == '\'')
+			expanded = expand_single_quotes(token, &i, expanded);
+		else if (token[i] && token[i] == '$')
+			expanded = expand_variable(token, expanded, &i, envp);
+		else if (token[i])
+			expanded = add_to_string(expanded, token[i++]);
+		else
+			printf("SOMETHING MIGHT'VE FUCKED UP\n");
+	}
+	free(token);
+	if (remove)
+		expanded = remove_quotes(expanded, 0);
 	return (expanded);
 }

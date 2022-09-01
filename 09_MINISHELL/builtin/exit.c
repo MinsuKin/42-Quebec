@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:47:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 14:46:07 by minkim           ###   ########.fr       */
+/*   Updated: 2022/08/21 17:03:53 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_exit_error(t_commandtable *table)
 	printf("exit\n");
 	printf("Error: numeric argument required\n");
 	free_commandtable(table);
+	ft_free_carray(g_envp);
 	exit(255);
 }
 
@@ -70,6 +71,7 @@ void	ft_exit_n_free(t_command *command, int exit_code)
 	if (command->table->num_commands == 1)
 		printf("exit\n");
 	free_commandtable(command->table);
+	ft_free_carray(g_envp);
 	exit(exit_code);
 }
 

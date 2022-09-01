@@ -6,12 +6,11 @@
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 15:38:38 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/16 18:45:22 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/08/25 13:41:15 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
-void	ft_print_sarray(char **array);
 
 char	**add_to_front(char **array, char *insert)
 {
@@ -56,6 +55,7 @@ char	**add_to_back(char **array, char *insert)
 	return (new_array);
 }
 
+// location: 0 (front), 1 (back)
 char	**ft_add_to_sarray(char **array, char *insert, int location)
 {
 	char	**new_array;

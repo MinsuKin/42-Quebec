@@ -6,7 +6,7 @@
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 14:20:23 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/14 15:24:10 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/08/25 13:44:43 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
-	
+
 	i = 0;
 	while (*s != '\0')
 	{

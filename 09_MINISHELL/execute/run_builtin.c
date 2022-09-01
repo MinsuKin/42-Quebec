@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/21 19:16:58 by minkim           ###   ########.fr       */
+/*   Updated: 2022/08/28 10:24:41 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	run_builtin2(t_command *command)
 		run_builtin(command);
 		exit(EXIT_SUCCESS);
 	}
+	wait_child();
 	close(command->pipe[WRITE_END]);
 	return (0);
 }
@@ -58,8 +59,6 @@ int	builtin_check(char *cmd)
 	int		exit_code;
 	int		i;
 
-	// check with Minsu if this is NULL-check is OK.
-	// it fixes segfaults on "<< eof", but causes the "cmd not found" error.
 	if (!cmd)
 		return (1);
 	array = ft_split("cd echo env exit export unset pwd", ' ');
@@ -67,7 +66,8 @@ int	builtin_check(char *cmd)
 	exit_code = 1;
 	while (array[i])
 	{
-		if (ft_strncmp(cmd, array[i], ft_strlen(cmd)) == 0 && ft_strlen(cmd) == ft_strlen(array[i]))
+		if (ft_strncmp(cmd, array[i], ft_strlen(cmd)) == 0 && \
+						ft_strlen(cmd) == ft_strlen(array[i]))
 		{
 			exit_code = 0;
 			break ;

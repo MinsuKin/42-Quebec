@@ -6,7 +6,7 @@
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 13:03:05 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/14 12:41:23 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/08/25 13:43:47 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	if (!s1)
+	{
 		return ((char *) s2);
+	}
 	if (!s2)
 		return ((char *) s1);
 	max_len = ft_strlen((char *) s1) + ft_strlen((char *) s2);
@@ -36,7 +38,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[++j])
 		result[i++] = s2[j];
 	free((char *)s1);
-	// free((char *)s2);
 	result[i] = '\0';
 	return (result);
 }

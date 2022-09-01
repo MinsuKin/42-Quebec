@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:09:12 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/19 18:23:41 by minkim           ###   ########.fr       */
+/*   Updated: 2022/08/31 17:45:07 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -27,50 +26,79 @@
 # define WRITE_END 1
 
 /*--- global variable for "g_envp" ---*/
-char			**g_envp;
+char							**g_envp;
 
 /*--- Structures ---*/
 typedef struct s_commandtable	t_commandtable;
+// mode == outfile append or trunc. 1=APPEND, 0=TRUNC
 typedef struct s_command
 {
-	t_commandtable				*table;
-	char						*command;
-	char						*binary;
-	char						**options;
-	char						**arguments;
-	int							num_args;
-	int							num_options;
-	int							input;
-	int							output;
-	int							pipe[2];
-}								t_command;
+	t_commandtable	*table;
+	char			*command;
+	char			*outfile_path;
+	int				mode;
+	char			*binary;
+	char			**arguments;
+	int				num_args;
+	int				input;
+	int				output;
+	int				pipe[2];
+	int				has_redir;
+}					t_command;
 
 typedef struct s_commandtable
 {
-	t_command					*commands;
-	int							pipe_fd[2];
-	int							num_commands;
-	t_iarray					*open_files;
-}								t_commandtable;
+	t_command		*commands;
+	int				pipe_fd[2];
+	int				num_commands;
+	t_iarray		*open_files;
+}					t_commandtable;
 
-typedef struct s_quotestruct
-{
-	int							within_quotes;
-	char						quote_type;
-}								t_quotestruct;
+/*--- utils.c ---*/
+int				*f_exit_code(void);
+void			wait_child(void);
+
+/*--- heredoc.c ---*/
+void			heredoc(int fd, char *delim);
+char			*fix_line(char *line);
+
+/*--- assignation_utils.c ---*/
+int				check_pipe_valid(char **tokens);
+void			add_cmd_to_args(t_commandtable *table);
+void			init_command(t_command *command);
+
+/*--- tokenizer.c ---*/
+char			*find_token(char *line, int *i);
+char			**tokenize(char *line);
+
+/*--- tokens.c ---*/
+char			*get_alpha_token(char *line, char *token, int *i);
+char			*get_delimiter_token(char *line, int *i);
+char			*get_variable_token(char *line, int *i);
+char			*get_quotes_token(char *line, char *token, int *i);
+char			*get_token(char *line, char *token, int *i);
+
+/*--- expansion ---*/
+char			*expand(char *token, char **envp, int remove);
+
+/*--- environment_variables.c ---*/
+char			*get_environment_variable(char *token, int *i, char **envp);
+char			*add_to_string(char *string, char c);
 
 /*--- lexer.c ---*/
 t_commandtable	*parse(char *line);
 int				get_num_commands(char **tokens);
-int				is_symbol(char c);
 void			free_commandtable(t_commandtable *table);
 
 /*--- assignation.c ---*/
 t_commandtable	*set_commandtable(char **tokens);
-void			set_token(t_command *command, char *token, int index, char **tokens);
-void			set_commands(t_commandtable *table, char **tokens);
+void			set_token(t_command *command, char *token, int index, \
+														char **tokens);
 void			print_command_table(t_commandtable *table);
 
+/*--- redirection.c ---*/
+int				set_redirection(char **tokens, t_commandtable *table, \
+															int index);
 
 /*--- builtin_util.c ---*/
 char			*ft_cd_strdup(const char *s1);
@@ -128,29 +156,13 @@ void			bin_exe(t_command *command, char **g_envp);
 void			execution(t_commandtable *table);
 int				run_builtin(t_command *command);
 int				run_from_bin(t_command *command);
-void			wait_child(void);
 
 /*--- readline.c ---*/
-void							setting_signal(void);
-void							sig_handler_child(int signal);
-void							sig_handler_heredoc(int signal);
+void			setting_signal(void);
+void			sig_handler_child(int signal);
+void			sig_handler_heredoc(int signal);
 
 /*--- main.c ---*/
-void							control_d(t_commandtable *table);
-int								*f_exit_code(void);
-
-/*--- redirection.c ---*/
-int				set_redirection(char **tokens, t_commandtable *table, int index);
-
-/*--- tokenizer.c ---*/
-char			**tokenizer(char *line);
-void			ft_print_sarray(char **array);
-
-/*--- expansion.c ---*/
-char			*find_environment_variable(char *var, char **g_envp);
-char			*add_to_string(char *string, char c);
-
-/*--- assignation.c ---*/
-void			init_command(t_command *command);
+void			control_d(t_commandtable *table);
 
 #endif

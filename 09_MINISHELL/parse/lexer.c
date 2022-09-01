@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:18:36 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/07/19 19:23:25 by minkim           ###   ########.fr       */
+/*   Updated: 2022/08/28 12:18:13 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ t_commandtable	*parse(char *line)
 
 	if (!line)
 		return (NULL);
-	tokens = tokenizer(line);
-	// ft_print_sarray(tokens);
+	tokens = tokenize(line);
 	table = set_commandtable(tokens);
-	// print_command_table(table);
 	if (tokens)
 		ft_free_carray(tokens);
 	return (table);
@@ -62,18 +60,15 @@ void	free_commandtable(t_commandtable *table)
 
 	if (!table)
 		return ;
-	i = 0;
-	while (i < table->num_commands)
+	i = -1;
+	while (++i < table->num_commands)
 	{
+		free(table->commands[i].outfile_path);
 		free(table->commands[i].command);
 		j = 0;
 		while (j < table->commands[i].num_args)
-		{
-			free(table->commands[i].arguments[j]);
-			j++;
-		}
+			free(table->commands[i].arguments[j++]);
 		free(table->commands[i].arguments);
-		i++;
 	}
 	if (table->open_files)
 	{

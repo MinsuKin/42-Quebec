@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 15:54:06 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/25 13:43:35 by tgarriss         ###   ########.fr       */
+/*   Created: 2022/08/19 15:12:49 by tgarriss          #+#    #+#             */
+/*   Updated: 2022/08/28 10:25:36 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	*f_exit_code(void)
 {
-	size_t	i;
+	static int	exit_code;
+
+	return (&exit_code);
+}
+
+void	wait_child(void)
+{
+	int	status;
+	int	signo;
+	int	i;
 
 	i = 0;
-	while (s1[i] && s2[i] && i < n)
+	while (wait(&status) != -1)
 	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		if (WIFSIGNALED(status))
+		{
+			signo = WTERMSIG(status);
+			*f_exit_code() = 128 + signo;
+		}
+		else
+			*f_exit_code() = WEXITSTATUS(status);
 	}
-	return (0);
 }
