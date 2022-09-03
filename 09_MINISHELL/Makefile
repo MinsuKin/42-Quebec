@@ -44,7 +44,7 @@ CC			=	gcc
 
 CFLAGS		=	-Wall -Wextra -Werror
 
-COMPILE_FLAGS	= -lreadline -L./readline/lib -I./readline/include
+COMPILE_FLAGS	= -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
 
 RM			=	rm -Rf
 
