@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:13:31 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:33:31 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,14 @@ int	unset_exe(t_command *command)
 	if (command->arguments[1] == NULL)
 		return (0);
 	i = 1;
+	*f_exit_code() = 0;
 	while (command->arguments[i])
 	{
 		arg = command->arguments[i];
 		if (ft_isalpha(*arg) || *arg == '_')
 			ft_unset(arg);
 		else
-			printf("Error: not a valid identifier\n");
+			print_and_return3("Error: not a valid identifier\n");
 		i++;
 	}
 	return (0);

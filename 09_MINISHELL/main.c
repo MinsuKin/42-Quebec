@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:36:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/31 17:05:12 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/08 08:03:05 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	control_d(t_commandtable *table)
 void	loop(char *line)
 {
 	t_commandtable	*table;
+	char			**array;
 
+	array = NULL;
 	add_history(line);
 	table = parse(line);
 	free(line);
@@ -67,6 +69,7 @@ int	main(int argc, char **argv, char **envpp)
 	(void)argv;
 	*f_exit_code() = 0;
 	g_envp = ft_copy_env(envpp);
+	ft_shlvl();
 	minishell_loop();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/31 17:46:54 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/13 11:45:23 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ int	run_from_bin(t_command *command)
 {
 	pid_t	pid;
 
-	signal(SIGINT, sig_handler_child);
-	signal(SIGQUIT, sig_handler_child);
+	if (ft_strcmp(command->command, "./minishell") == 0)
+		sig_handler_minishell_recur();
+	else
+	{
+		signal(SIGINT, sig_handler_child);
+		signal(SIGQUIT, sig_handler_child);
+	}
 	pid = fork();
 	if (pid == 0)
 	{
@@ -26,11 +31,10 @@ int	run_from_bin(t_command *command)
 		close(command->pipe[READ_END]);
 		bin_exe(command, g_envp);
 	}
-	if (command->has_redir == 0)
-	{
-		if (strcmp(command->command, "cat") == 0 && command->num_args == 1)
-			close(command->pipe[READ_END]);
-	}
+	command->table->pid = pid;
+	if (command->has_redir == 0 && ft_strcmp(command->command, "cat") == 0 \
+		&& command->num_args == 1)
+		close(command->pipe[READ_END]);
 	close(command->pipe[WRITE_END]);
 	return (0);
 }
@@ -55,15 +59,29 @@ void	execution_open(t_commandtable *table, int i)
 		O_RDWR | O_CREAT | O_APPEND, 0777);
 }
 
+void	expand_command(t_command *command)
+{
+	int	i;
+
+	command->command = expand(command->command, g_envp, 1);
+	i = 0;
+	while (command->arguments[i])
+	{
+		command->arguments[i] = expand(command->arguments[i], g_envp, 1);
+		i++;
+	}
+}
+
 void	execution(t_commandtable *table)
 {
 	int	i;
 
 	if (!table)
 		return ;
-	i = 0;
-	while (i < table->num_commands)
+	i = -1;
+	while (++i < table->num_commands)
 	{
+		expand_command(&table->commands[i]);
 		execution_open(table, i);
 		if (table->commands[i].command && \
 				!builtin_check(table->commands[i].command))
@@ -78,8 +96,7 @@ void	execution(t_commandtable *table)
 		if (table->commands[i].output != table->commands[i].pipe[WRITE_END] \
 		&& table->commands[i].outfile_path != NULL)
 			close(table->commands[i].output);
-		i++;
 	}
-	wait_child();
+	wait_child(table->pid);
 	setting_signal();
 }

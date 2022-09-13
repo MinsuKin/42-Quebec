@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:51:19 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 13:57:17 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:19:34 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,19 @@ char	*ft_cd_strdup(const char *s1)
 int	print_and_return(char *str)
 {
 	printf("%s", str);
-	return (0);
+	return (1);
+}
+
+int	print_and_return2(void)
+{
+	perror("Error");
+	*f_exit_code() = 1;
+	return (1);
+}
+
+int	print_and_return3(char *str)
+{
+	printf("%s", str);
+	*f_exit_code() = 1;
+	return (1);
 }

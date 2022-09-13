@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 12:01:33 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/31 16:51:32 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/11 18:59:22 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 int	assign_token(char **tokens, t_commandtable *table, int index)
 {
-	char	*new_token;
 	char	*token;
 
 	if (!tokens)
 		return (0);
 	token = ft_strdup(*tokens);
-	new_token = expand(token, g_envp, 1);
 	if (table->commands[index].command == NULL)
-		table->commands[index].command = ft_strdup(new_token);
+		table->commands[index].command = ft_strdup(token);
 	else
 	{
 		table->commands[index].arguments = ft_add_to_sarray(\
-			table->commands[index].arguments, ft_strdup(new_token), 1);
+			table->commands[index].arguments, ft_strdup(token), 1);
 		table->commands[index].num_args = ft_get_array_length(\
 			table->commands[index].arguments);
 	}
-	free(new_token);
+	free(token);
 	return (1);
 }
 
@@ -121,6 +119,7 @@ t_commandtable	*set_commandtable(char **tokens)
 	table->num_commands = get_num_commands(tokens);
 	table->commands = ft_calloc(table->num_commands, sizeof(t_command));
 	table->open_files = NULL;
+	table->pid = 0;
 	set_pipes(table);
 	if (!set_tokens(tokens, table))
 	{

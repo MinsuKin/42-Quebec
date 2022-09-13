@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:47:09 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/21 17:03:53 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:19:02 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	exit_exe(t_command *command)
 	{
 		exit_code = ft_exit_valid(command, 0);
 		if (command->arguments[2] != NULL)
-			return (print_and_return("exit\nError: too many arguments\n"));
+			return (print_and_return3("exit\nError: too many arguments\n"));
 	}
 	if (exit_code == 1)
 	{

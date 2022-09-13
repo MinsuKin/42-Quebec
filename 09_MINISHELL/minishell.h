@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:09:12 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/31 17:45:07 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/11 18:54:47 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,23 @@ typedef struct s_commandtable
 	int				pipe_fd[2];
 	int				num_commands;
 	t_iarray		*open_files;
+	pid_t			pid;
 }					t_commandtable;
 
 /*--- utils.c ---*/
 int				*f_exit_code(void);
-void			wait_child(void);
+void			wait_child(pid_t pid);
+char			*ft_shlvl_strjoin(char const *s1, char const *s2);
+char			*ft_level(void);
+void			*ft_shlvl(void);
 
 /*--- heredoc.c ---*/
 void			heredoc(int fd, char *delim);
 char			*fix_line(char *line);
+char			*strip_quotes(char *token);
 
 /*--- assignation_utils.c ---*/
+int				is_var(char c);
 int				check_pipe_valid(char **tokens);
 void			add_cmd_to_args(t_commandtable *table);
 void			init_command(t_command *command);
@@ -103,6 +109,8 @@ int				set_redirection(char **tokens, t_commandtable *table, \
 /*--- builtin_util.c ---*/
 char			*ft_cd_strdup(const char *s1);
 int				print_and_return(char *str);
+int				print_and_return2(void);
+int				print_and_return3(char *str);
 
 /*--- exit_util.c ---*/
 int				bigger_than_llong(const char *str);
@@ -124,7 +132,7 @@ char			*ft_export_check(char *line);
 int				ft_export_val_exist(char *line);
 void			ft_export_val_change(char *line);
 void			ft_export_args(char *line);
-void			ft_export_insert(t_command *command);
+int				ft_export_valid(char *line);
 
 /*--- env.c ---*/
 int				env_exe(t_command *command);
@@ -161,6 +169,7 @@ int				run_from_bin(t_command *command);
 void			setting_signal(void);
 void			sig_handler_child(int signal);
 void			sig_handler_heredoc(int signal);
+void			sig_handler_minishell_recur(void);
 
 /*--- main.c ---*/
 void			control_d(t_commandtable *table);

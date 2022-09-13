@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:57:42 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/25 13:37:31 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:55:31 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*strip_quotes(char *token)
 	j = 0;
 	while (token[i])
 	{
-		if (token[i] == '\"' && !token[i + 1])
+		if (token[i] == token[0] && !token[i + 1])
 			break ;
 		stripped[j++] = token[i++];
 	}
@@ -79,22 +79,24 @@ void	heredoc(int fd, char *delim)
 
 	pid = fork();
 	signal(SIGINT, SIG_DFL);
+	line = NULL;
 	if (pid == 0)
 	{
-		line = readline("> ");
+		line = readline("heredoc> ");
 		while (mini_strncmp(line, delim, ft_strlen(delim)) != 0)
 		{
 			if (!line)
 				exit(EXIT_SUCCESS);
 			write_to_fd(fd, line);
 			free(line);
-			line = readline("> ");
+			line = readline("heredoc> ");
 		}
 		free(line);
+		ft_free_carray(g_envp);
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, sig_handler_heredoc);
-	wait_child();
+	wait_child((pid_t)0);
 	close(fd);
 }
 

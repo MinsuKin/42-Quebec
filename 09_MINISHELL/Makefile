@@ -6,6 +6,7 @@ BUILTINS=		builtin_util.c		\
 				exit.c				\
 				exit_util.c			\
 				echo.c				\
+				echo.c				\
 				export_util2.c		\
 				export_util.c		\
 				export.c			\
@@ -42,17 +43,17 @@ PROGRAM		=	minishell
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
-COMPILE_FLAGS	= -lreadline -L${HOME}/.brew/opt/readline/lib -I${HOME}/.brew/opt/readline/include
+COMPILE_FLAGS	= -I. -lminishell -L./libread -lreadline -lcurses
 
 RM			=	rm -Rf
 
-${NAME}:		${OBJS} readline.c main.c
+${NAME}:		${OBJS} readline.c utils.c main.c
 				@make -C libft/
 				cp libft/libft.a ${NAME}
 				ar rcs ${NAME} ${OBJS}
-				${CC} ${CFLAGS} $(COMPILE_FLAGS) readline.c utils.c main.c -L. -lminishell -o ${PROGRAM}
+				${CC} ${CFLAGS} $(COMPILE_FLAGS) readline.c utils.c main.c -L. -o ${PROGRAM}
 
 all:			${NAME} 
 

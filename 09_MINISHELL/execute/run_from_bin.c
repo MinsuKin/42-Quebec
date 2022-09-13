@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_from_bin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:43:16 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/21 14:53:25 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:39:51 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,9 @@ void	bin_exe(t_command *command, char **g_envp)
 	cmd = bin_cmd(command->command, g_envp);
 	if (cmd == 0 || execve(cmd, option, g_envp) == -1)
 	{
-		ft_env_free(option);
-		printf("Error: command not found\n");
-		exit(1);
+		ft_env_free(g_envp);
+		free_commandtable(command->table);
+		ft_printf(STDERR_FILENO, "Error: command not found\n");
+		exit(127);
 	}
 }

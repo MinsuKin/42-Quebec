@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:19:54 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:35:45 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,35 @@ void	ft_export_val_change(char *line)
 	tmp = NULL;
 }
 
+int	ft_export_valid(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '=')
+			return (1);
+		if (ft_isalnum(line[i]) == 0)
+		{
+			if (line[i] != '_')
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	ft_export_args(char *line)
 {
 	char	**env;
 
-	if (ft_isalpha(*line) || *line == '_')
+	if (ft_export_valid(line) == 0)
+	{
+		*f_exit_code() = 1;
+		printf("Error: not a valid identifier\n");
+	}
+	else if (ft_isalpha(*line) || *line == '_')
 	{
 		if (ft_export_check(line) && ft_export_val_exist(line))
 			ft_export_val_change(line);
@@ -72,17 +96,8 @@ void	ft_export_args(char *line)
 		}
 	}
 	else
-		printf("Error: not a valid identifier\n");
-}
-
-void	ft_export_insert(t_command *command)
-{
-	int	i;
-
-	i = 1;
-	while (command->arguments[i])
 	{
-		ft_export_args(command->arguments[i]);
-		i++;
+		*f_exit_code() = 1;
+		printf("Error: not a valid identifier\n");
 	}
 }

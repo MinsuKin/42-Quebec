@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 16:25:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 14:35:45 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:13:40 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ int	env_exe(t_command *command)
 
 	line = command->command;
 	line += 3;
+	*f_exit_code() = 0;
 	if (*line && !ft_isspace(*line))
 		return (print_and_return("Error: command not found\n"));
 	env = ft_copy_env(g_envp);
 	if (command->arguments[1] == NULL)
 		print_env(env);
 	else
+	{
 		printf("Error: builtin env does not take options or arguments\n");
+		*f_exit_code() = 127;
+	}
 	ft_env_free(env);
 	return (0);
 }

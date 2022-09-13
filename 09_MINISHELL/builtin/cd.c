@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:37:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/07/18 14:14:33 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:02:27 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,15 @@ int	ft_cd_home_check(void)
 		if (*val == '\n')
 			return (0);
 		if (chdir(val) != 0)
-			perror("Error");
+			print_and_return2();
+		else
+			*f_exit_code() = 0;
 	}
 	if (home == NULL || val == NULL)
+	{
+		*f_exit_code() = 1;
 		printf("Error: HOME not set\n");
+	}
 	return (0);
 }
 
@@ -101,13 +106,15 @@ int	cd_exe(t_command *command)
 	if (command->arguments[1][0] == '~' && !command->arguments[1][1])
 	{
 		home = getenv("HOME");
-		if (chdir(home) != 0)
-			perror("Error");
+		chdir(home);
+		*f_exit_code() = 0;
 		return (0);
 	}
 	home = ft_cd_strdup(command->arguments[1]);
 	if (chdir(home) != 0)
-		perror("Error");
+		print_and_return2();
+	else
+		*f_exit_code() = 0;
 	free(home);
 	home = NULL;
 	return (0);

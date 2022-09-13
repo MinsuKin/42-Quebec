@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:21:49 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/28 10:21:28 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/08 10:53:07 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ void	setting_signal(void)
 {
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	sig_handler_minishell_recur(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	if (rl_on_new_line() == -1)
+		exit(1);
+	rl_replace_line("", 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/28 10:24:41 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:55:58 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	run_builtin2(t_command *command)
 		run_builtin(command);
 		exit(EXIT_SUCCESS);
 	}
-	wait_child();
+	command->table->pid = pid;
+	wait_child(command->table->pid);
 	close(command->pipe[WRITE_END]);
 	return (0);
 }

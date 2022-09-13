@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:30:08 by minkim            #+#    #+#             */
-/*   Updated: 2022/08/28 11:02:02 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:24:22 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ int	ft_echo_check_option(char *line, int *newline)
 void	ft_echo_print(t_command *command, int newline, int option)
 {
 	int	i;
+	int	new;
 
 	i = 1;
 	if (option == 1)
 		i = 2;
+	while (ft_echo_check_option(command->arguments[i], &new))
+		i++;
 	while (command->arguments[i])
 	{
 		printf("%s", command->arguments[i]);
@@ -65,6 +68,7 @@ int	echo_exe(t_command *command)
 
 	line = command->command;
 	line += 4;
+	*f_exit_code() = 0;
 	if (command->arguments[1] == NULL)
 		return (print_and_return("\n"));
 	newline = 0;

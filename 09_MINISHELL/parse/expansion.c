@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:27:49 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/27 18:50:54 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:36:03 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// make sure that its okay for $!.,/ and other stuff prints it literally.
 char	*expand_variable(char *token, char *expanded, int *i, char **envp)
 {
 	char	*new;
@@ -29,7 +28,7 @@ char	*expand_variable(char *token, char *expanded, int *i, char **envp)
 			new = ft_strjoin(new, variable);
 			free(variable);
 		}
-		else if (token[*i] == '$' && ft_isalpha(token[(*i) + 1]))
+		else if (token[*i] == '$' && is_var(token[(*i) + 1]))
 		{
 			variable = get_environment_variable(token, i, envp);
 			new = ft_strjoin(new, variable);
@@ -124,7 +123,7 @@ char	*expand(char *token, char **envp, int remove)
 	i = 0;
 	while (token[i])
 	{
-		if (token[i] && token[i] == '\"')
+		if ((token[i] && token[i] == '\"') || (token[i] == '\'' && !remove))
 			expanded = expand_double_quotes(token, &i, expanded, envp);
 		else if (token[i] && token[i] == '\'')
 			expanded = expand_single_quotes(token, &i, expanded);
@@ -133,7 +132,7 @@ char	*expand(char *token, char **envp, int remove)
 		else if (token[i])
 			expanded = add_to_string(expanded, token[i++]);
 		else
-			printf("SOMETHING MIGHT'VE FUCKED UP\n");
+			ft_printf(STDERR_FILENO, "SOMETHING MIGHT'VE FUCKED UP\n");
 	}
 	free(token);
 	if (remove)

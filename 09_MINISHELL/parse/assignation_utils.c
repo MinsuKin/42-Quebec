@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:03:08 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/08/31 17:30:06 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/13 12:27:57 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ int	check_pipe_valid(char **tokens)
 	{
 		if (tokens[i][0] == '|')
 		{
+			if (tokens[0][0] == '|')
+				valid = 0;
 			if (ft_strlen(tokens[i]) > 1)
 				valid = 0;
 			if (tokens[i + 1])
-			{
-				if (tokens[i + 1][0] == '|')
+				if (ft_isinset(tokens[i + 1][0], "|<>"))
 					valid = 0;
-			}
 			if (!tokens[i + 1])
 				valid = 0;
 		}
 		i++;
 	}
 	if (!valid)
-		printf("Error: unexpected token near '|'\n");
+		ft_printf(STDERR_FILENO, "syntax error near unexpected token '|'\n");
 	return (valid);
 }
 
@@ -66,4 +66,11 @@ void	add_cmd_to_args(t_commandtable *table)
 		table->commands[i].num_args++;
 		i++;
 	}
+}
+
+int	is_var(char c)
+{
+	if (ft_isalpha(c) || c == '_')
+		return (1);
+	return (0);
 }
