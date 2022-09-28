@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:56:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/09/13 11:45:23 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/20 10:50:27 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	run_from_bin(t_command *command)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (screw_this_check(command))
+			exit(0);
 		dup2(command->input, STDIN_FILENO);
 		dup2(command->output, STDOUT_FILENO);
 		close(command->pipe[READ_END]);

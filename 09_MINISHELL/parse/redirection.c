@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:15:44 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/09/13 12:12:40 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/20 10:48:47 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	check_redirection_valid(char **tokens, char *stripped)
 	else if (tokens[0][0] == '<' && ft_strlen(tokens[0]) == 1 && \
 										access(stripped, F_OK) < 0)
 		ft_printf(STDERR_FILENO, "No such file or directory.\n");
+	else if (!tokens[1])
+		ft_printf(STDERR_FILENO, "syntax error near unexpected \'\\n\' token\n");
 	else
 		valid = 1;
 	if (!valid)
@@ -101,7 +103,7 @@ int	set_redirection(char **tokens, t_commandtable *table, int i)
 	int		valid;
 
 	valid = 0;
-	if (!tokens || !tokens[1])
+	if (!tokens)
 		return (valid);
 	stripped = strip_quotes(ft_strdup(tokens[1]));
 	if (!check_redirection_valid(tokens, stripped))

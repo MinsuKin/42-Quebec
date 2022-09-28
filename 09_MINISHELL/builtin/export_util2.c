@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 13:19:54 by minkim            #+#    #+#             */
-/*   Updated: 2022/09/06 11:35:45 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/16 20:38:23 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,6 @@ char	*ft_export_check(char *line)
 		env++;
 	}
 	return (NULL);
-}
-
-int	ft_export_val_exist(char *line)
-{
-	while (*line)
-	{
-		if (*line == '=')
-			return (1);
-		line++;
-	}
-	return (0);
-}
-
-void	ft_export_val_change(char *line)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (g_envp[i])
-	{
-		if (ft_export_strcmp(g_envp[i], line))
-			break ;
-		i++;
-	}
-	tmp = g_envp[i];
-	g_envp[i] = ft_strdup(line);
-	free(tmp);
-	tmp = NULL;
 }
 
 int	ft_export_valid(char *line)
@@ -74,6 +45,36 @@ int	ft_export_valid(char *line)
 	return (1);
 }
 
+int	ft_export_strcmp2(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s2 || !s1)
+		ft_error("invalid string pointers", __FILE__, __func__, __LINE__);
+	while (s1[i] && s1[i] != '=')
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+char	*ft_export_check2(char *line)
+{
+	char	**env;
+
+	env = g_envp;
+	while (*env)
+	{
+		if (ft_export_strcmp2(*env, line))
+			return (*env);
+		env++;
+	}
+	return (NULL);
+}
+
 void	ft_export_args(char *line)
 {
 	char	**env;
@@ -87,7 +88,7 @@ void	ft_export_args(char *line)
 	{
 		if (ft_export_check(line) && ft_export_val_exist(line))
 			ft_export_val_change(line);
-		else
+		else if (!ft_export_check2(line))
 		{
 			env = ft_export_add(g_envp, line);
 			ft_env_free(g_envp);

@@ -6,11 +6,33 @@
 /*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 13:36:53 by minkim            #+#    #+#             */
-/*   Updated: 2022/09/08 08:03:05 by tgarriss         ###   ########.fr       */
+/*   Updated: 2022/09/20 10:56:20 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	screw_this_check(t_command *command)
+{
+	int	valid;
+
+	valid = 0;
+	if (ft_strcmp(command->command, "cat") == 0)
+		valid++;
+	if (command->arguments[1] && \
+				ft_strcmp(command->arguments[1], "/dev/urandom") == 0)
+		valid++;
+	if (command->arguments[1] && \
+				ft_strcmp(command->arguments[1], "/dev/random") == 0)
+		valid++;
+	if (command->table->num_commands > 1)
+		valid++;
+	if (valid == 3 || valid == 4)
+		return (1);
+	else
+		return (0);
+	return (valid);
+}
 
 void	control_d(t_commandtable *table)
 {

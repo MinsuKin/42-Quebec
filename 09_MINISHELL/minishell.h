@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*   By: tgarriss <tgarriss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:09:12 by tgarriss          #+#    #+#             */
-/*   Updated: 2022/09/11 18:54:47 by minkim           ###   ########.fr       */
+/*   Updated: 2022/09/20 10:52:47 by tgarriss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,19 +129,19 @@ char			**ft_export_add(char **s, char *add);
 
 /*--- export_util2.c ---*/
 char			*ft_export_check(char *line);
+int				ft_export_valid(char *line);
+void			ft_export_args(char *line);
+
+/*--- export.c ---*/
+int				export_exe(t_command *command);
 int				ft_export_val_exist(char *line);
 void			ft_export_val_change(char *line);
-void			ft_export_args(char *line);
-int				ft_export_valid(char *line);
-
 /*--- env.c ---*/
 int				env_exe(t_command *command);
 /*--- echo.c ---*/
 int				echo_exe(t_command *command);
 /*--- exit.c ---*/
 int				exit_exe(t_command *command);
-/*--- export.c ---*/
-int				export_exe(t_command *command);
 /*--- unset.c ---*/
 int				unset_exe(t_command *command);
 /*--- cd.c ---*/
@@ -173,5 +173,6 @@ void			sig_handler_minishell_recur(void);
 
 /*--- main.c ---*/
 void			control_d(t_commandtable *table);
+int				screw_this_check(t_command *command);
 
 #endif
