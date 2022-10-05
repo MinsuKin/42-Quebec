@@ -5,7 +5,7 @@
 
 |Order|Circle|Project|Stack|Status|Score|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|00|00|[**Picine_C**](https://github.com/MinsuKin/42-Quebec/tree/main/00_PISCINE)|C|Completed|Level 8 - 81%|
+|00|00|[**Picine_C**](https://github.com/MinsuKin/42-Quebec/tree/main/00_PISCINE_C)|C|Completed|Level 8 - 81%|
 |01|00|[**Libft**](https://github.com/MinsuKin/42-Quebec/tree/main/01_LIBFT)|C|Completed|[![minkim's 42 Libft Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2167725)](https://github.com/JaeSeoKim/badge42)|
 |02|01|[**get_next_line**](https://github.com/MinsuKin/42-Quebec/tree/main/02_GET_NEXT_LINE)|C|Completed|[![minkim's 42 get_next_line Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2451348)](https://github.com/JaeSeoKim/badge42)|
 |03|01|[**ft_printf**](https://github.com/MinsuKin/42-Quebec/tree/main/03_FT_PRINTF)|C|Completed|[![minkim's 42 ft_printf Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2460084)](https://github.com/JaeSeoKim/badge42)|
@@ -18,4 +18,4 @@
 |10|03|[**minishell**](https://github.com/MinsuKin/42-Quebec/tree/main/10_MINISHELL)|C|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
 |11|03|[**Exam03**](https://github.com/MinsuKin/42-Quebec/tree/main/11_EXAM03)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
 |12|04|**NetPractice**|Network|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
-|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/09_MINISHELL)|C++|Ongoing|?/100|
+|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/12_PISCINE_CPP)|C++|Ongoing|?/100|
