@@ -18,4 +18,4 @@
 |10|03|[**minishell**](https://github.com/MinsuKin/42-Quebec/tree/main/10_MINISHELL)|C|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
 |11|03|[**Exam03**](https://github.com/MinsuKin/42-Quebec/tree/main/11_EXAM03)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
 |12|04|**NetPractice**|Network|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
-|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/12_PISCINE_CPP)|C++|Ongoing|?/100|
+|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Ongoing|?/100|
