@@ -6,11 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:47:37 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 16:29:45 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/05 17:08:04 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "contact.hpp"
+#include "Contact.hpp"
 
 Contact::Contact()
 {

@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/08 13:51:11 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 17:22:32 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "Harl.hpp"
 
-#include <iostream>
-#include "Contact.hpp"
-
-class PhoneBook
+int main(int ac, char const *av[])
 {
-private:
-    Contact contacts[8];
-    int     index;
+	if (ac != 2)
+	{
+		std::cout << "Error" << std::endl;
+		return 0;
+	}
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+	Harl h;
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
+	h.complain(av[1]);
+	return 0;
+}
 
-#endif

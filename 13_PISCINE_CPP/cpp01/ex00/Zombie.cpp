@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/05 16:59:56 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/05 17:56:46 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "Zombie.hpp"
 
-#include <iostream>
-#include "Contact.hpp"
-
-class PhoneBook
+Zombie::Zombie(std::string name)
 {
-private:
-    Contact contacts[8];
-    int     index;
+    this->name = name;
+}
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+Zombie::~Zombie(void)
+{
+    std::cout << name << " died..." << std::endl;
+}
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+void Zombie::announce(void)
+{
+    std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+}

@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/06 12:28:02 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 15:09:55 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "HumanB.hpp"
 
-#include <iostream>
-#include "Contact.hpp"
-
-class PhoneBook
+HumanB::HumanB(std::string name)
 {
-private:
-    Contact contacts[8];
-    int     index;
+    this->name = name;
+}
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+HumanB::~HumanB(void)
+{
+}
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
+void HumanB::attack(void) const
+{
+    std::cout << name << " attacks with his " << wp->getType() << std::endl;
+}
 
-#endif
+void HumanB::setWeapon(Weapon &wp)
+{
+    this->wp = &wp;
+}

@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/06 12:26:53 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 15:10:26 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef WEAPON_HPP
+# define WEAPON_HPP
 
 #include <iostream>
-#include "Contact.hpp"
 
-class PhoneBook
+class Weapon
 {
 private:
-    Contact contacts[8];
-    int     index;
+    std::string type;
 
 public:
-    PhoneBook();
-    ~PhoneBook();
+    Weapon(std::string type);
+    ~Weapon(void);
 
-    void AddContact();
-    int PrintAll();
-    int Search();
+    // https://love-every-moment.tistory.com/91
+    // 'const' after a function name -> Only READ variables in class, does not change their values.
+    // 'const' before a function name -> Make the return value as a literal, cannot change.
+    const std::string &getType(void) const;
+    void setType(std::string type);
 };
 
 #endif

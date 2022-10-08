@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/06 12:27:15 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 15:09:48 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
 #include <iostream>
-#include "Contact.hpp"
+#include "Weapon.hpp"
 
-class PhoneBook
+class HumanA
 {
 private:
-    Contact contacts[8];
-    int     index;
-
+    std::string name;
+    Weapon &wp;
+    
 public:
-    PhoneBook();
-    ~PhoneBook();
+    HumanA(std::string name, Weapon &wp);
+    ~HumanA(void);
 
-    void AddContact();
-    int PrintAll();
-    int Search();
+    void attack(void) const;
 };
 
 #endif

@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/08 13:51:11 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 15:06:46 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "Harl.hpp"
 
-#include <iostream>
-#include "Contact.hpp"
-
-class PhoneBook
+int main(void)
 {
-private:
-    Contact contacts[8];
-    int     index;
+	Harl h;
 
-public:
-    PhoneBook();
-    ~PhoneBook();
-
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+	h.complain("DEBUG");
+	h.complain("INFO");
+	h.complain("WARNING");
+	h.complain("ERROR");
+    return 0;
+}

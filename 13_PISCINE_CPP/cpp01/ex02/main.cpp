@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/06 11:56:24 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 17:23:52 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
-
 #include <iostream>
-#include "Contact.hpp"
 
-class PhoneBook
+int main(void)
 {
-private:
-    Contact contacts[8];
-    int     index;
+    std::string brain = "HI THIS IS BRAIN";
+    std::string *stringPTR = &brain;
+    std::string &stringREF = brain;
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+    std::cout << &brain << std::endl;
+    std::cout << stringPTR << std::endl;
+    std::cout << &stringREF << std::endl;
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+    std::cout << brain << std::endl;
+    std::cout << *stringPTR << std::endl;
+    std::cout << stringREF << std::endl;
+}

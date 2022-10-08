@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/05 20:30:38 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/06 11:47:45 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
-
 #include <iostream>
-#include "Contact.hpp"
+#include "Zombie.hpp"
 
-class PhoneBook
+int	main(void)
 {
-private:
-    Contact contacts[8];
-    int     index;
+    Zombie *horde;
 
-public:
-    PhoneBook();
-    ~PhoneBook();
-
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+    horde = zombieHorde(10, "Zombie");
+	for (int i = 0; i < 10; i++)
+	{
+		horde[i].announce();
+	}
+	delete[] horde;
+    return (0);
+}

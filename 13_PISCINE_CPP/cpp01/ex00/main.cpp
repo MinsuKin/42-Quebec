@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/05 16:58:42 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/05 20:21:07 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
-
 #include <iostream>
-#include "Contact.hpp"
+#include "Zombie.hpp"
 
-class PhoneBook
+int	main(void)
 {
-private:
-    Contact contacts[8];
-    int     index;
+    Zombie zb("Zombie");
+    Zombie *newzb = newZombie("newZombie");
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+    randomChump("random");
+    zb.announce();
+    newzb->announce();
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+    delete newzb;
+    return (0);
+}

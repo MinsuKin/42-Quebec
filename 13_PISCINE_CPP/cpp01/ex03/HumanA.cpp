@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 13:49:59 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 17:08:42 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/06 12:27:27 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/08 15:09:41 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "HumanA.hpp"
 
-#include <iostream>
-#include "Contact.hpp"
-
-class PhoneBook
+// Use initializer list to use REF in the class
+HumanA::HumanA(std::string name, Weapon &wp) : name(name), wp(wp)
 {
-private:
-    Contact contacts[8];
-    int     index;
+}
 
-public:
-    PhoneBook();
-    ~PhoneBook();
+HumanA::~HumanA(void)
+{
+}
 
-    void AddContact();
-    int PrintAll();
-    int Search();
-};
-
-#endif
+void HumanA::attack(void) const
+{
+    std::cout << name << " attacks with his " << wp.getType() << std::endl;
+}

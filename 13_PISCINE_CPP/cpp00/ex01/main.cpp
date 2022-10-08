@@ -6,12 +6,12 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:07:50 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 16:21:08 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/05 17:08:51 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 int	main(void)
 {

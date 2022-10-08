@@ -6,11 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:02 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/05 16:29:30 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/05 17:08:33 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
 {
