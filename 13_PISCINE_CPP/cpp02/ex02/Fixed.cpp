@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:34:24 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/13 14:14:45 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:03:07 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,12 @@ Fixed Fixed::operator*(Fixed const &fx) const
 
 Fixed Fixed::operator/(Fixed const &fx) const
 {
+    if (fx.getRawBits() == 0)
+    {
+        std::cout << "cannot operate division with 0" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
     Fixed ret(this->toFloat() / fx.toFloat());
     
     return (ret);
