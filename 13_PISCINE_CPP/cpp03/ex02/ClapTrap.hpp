@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:55:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/14 18:33:32 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/14 21:04:08 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <iostream>
 
 class ClapTrap {
-private:
+protected:
 	std::string name;
 	unsigned int hit_points;
 	unsigned int energy_points;
@@ -26,7 +26,7 @@ public:
 	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap& ct);
-	~ClapTrap();
+	virtual ~ClapTrap();
 	ClapTrap& operator=(const ClapTrap& ct);
 
 	void attack(const std::string& target);
