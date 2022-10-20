@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 19:00:49 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/16 17:23:53 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 11:21:04 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ Dog::Dog(const Dog& obj)
 {
     std::cout << "Dog copy constructor called" << std::endl;
     this->type = obj.getType();
-    delete brain;
     brain = new Brain(*obj.getBrain());
 }
 
