@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:27:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/18 19:59:13 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 11:55:27 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define BUREAUCRAT_HPP
 
 # include <iostream>
-# include <fstream>
 
 class Bureaucrat {
  private:
@@ -23,11 +22,10 @@ class Bureaucrat {
 
  public:
     Bureaucrat();
+    Bureaucrat(std::string name, int grade);
     Bureaucrat(const Bureaucrat& obj);
     ~Bureaucrat();
     Bureaucrat& operator=(const Bureaucrat& obj);
-    
-    Bureaucrat(std::string name, int grade);
 
     class GradeTooHighException : public std::exception
     {

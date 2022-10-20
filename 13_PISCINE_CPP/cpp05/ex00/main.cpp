@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:27:33 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/18 20:22:16 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/19 20:49:54 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,12 @@ int main(void)
         std::cerr << e.what() << std::endl;
     }
     
+    // // copy operator test
+    // Bureaucrat a("A", 1);
+    // std::cout << a << std::endl;
+    // Bureaucrat z("Z", 150);
+    // a = z;
+    // std::cout << a << std::endl;
+
     return 0;
 }

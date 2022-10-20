@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:27:28 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/18 20:17:57 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 11:55:55 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 Bureaucrat::Bureaucrat() : name("default")
 {
     this->grade = 100;
+}
+
+Bureaucrat::Bureaucrat(std::string name, int grade) : name(name)
+{
+    this->grade = grade;
+    if (grade < 1)
+    {
+        throw Bureaucrat::GradeTooHighException();
+    }
+    else if (grade > 150)
+    {
+        throw Bureaucrat::GradeTooLowException();
+    }
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& obj) : name(obj.getName())
@@ -29,22 +42,10 @@ Bureaucrat::~Bureaucrat()
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& obj)
 {
     // use 'const_cast' to change const value
-    (*(const_cast<std::string *>(&name))) = obj.getName();
+    // (*(const_cast<std::string *>(&name))) = obj.getName(); // pointer const
+    const_cast<std::string&>(name) = obj.getName(); // ref const
     this->grade = obj.getGrade();
     return *this;
-}
-
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name)
-{
-    this->grade = grade;
-    if (grade < 1)
-    {
-        throw Bureaucrat::GradeTooHighException();
-    }
-    else if (grade > 150)
-    {
-        throw Bureaucrat::GradeTooLowException();
-    }
 }
 
 std::string Bureaucrat::getName() const
