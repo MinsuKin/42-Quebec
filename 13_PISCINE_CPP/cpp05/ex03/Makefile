@@ -26,7 +26,7 @@ CFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I.
 RM		=	rm -rf
 
 # Dir and file names
-NAME	=	FormUp
+NAME	=	Intern
 SRCS	=	$(wildcard *.cpp)
 OBJS	=	$(SRCS:.cpp=.o)
 DEP		=	$(wildcard *.hpp)

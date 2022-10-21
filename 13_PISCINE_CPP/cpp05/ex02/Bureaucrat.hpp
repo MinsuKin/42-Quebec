@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:27:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/20 11:53:04 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:08:23 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ class Bureaucrat {
     void decrementGrade(void);
 
     void signForm(Form &f) const;
+
+    void executeForm(Form const & form);
 };
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bc);

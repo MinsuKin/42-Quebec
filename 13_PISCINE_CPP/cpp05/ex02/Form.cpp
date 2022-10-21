@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 17:22:00 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/20 14:05:13 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:05:44 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ const char *Form::GradeTooLowException::what() const throw()
     return "GradeTooLowException";
 }
 
+const char *Form::NotSignedException::what() const throw()
+{
+    return "NotSignedException";
+}
+
 const std::string& Form::getName() const
 {
     return this->name;
@@ -88,6 +93,11 @@ void Form::beSigned(const Bureaucrat &bc)
     {
         sign = true;
     }
+}
+
+void Form::setName(const std::string& name)
+{
+    const_cast<std::string&>(this->name) = name;
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &f)

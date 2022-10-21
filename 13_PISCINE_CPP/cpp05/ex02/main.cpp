@@ -6,12 +6,15 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:27:33 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/20 14:06:34 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/20 15:07:11 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main(void)
 {
@@ -19,20 +22,28 @@ int main(void)
 	{
 		Bureaucrat a("a", 150);
 		Bureaucrat b("b", 1);
-		Form c("c", 100, 100);
+		ShrubberyCreationForm x("x");
+		RobotomyRequestForm y("y");
+		PresidentialPardonForm z("z");
 
-		a.signForm(c);
-		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << c << std::endl;
+		std::cout << x << std::endl;
+		std::cout << y << std::endl;
+		std::cout << z << std::endl;
 		std::cout << std::endl;
 
-		b.signForm(c);
-		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << c << std::endl;
-		std::cout << std::endl;	
+		a.signForm(x);
+		a.executeForm(x);
+		a.signForm(y);
+		a.executeForm(y);
+		a.signForm(z);
+		a.executeForm(z);
 
+		b.signForm(x);
+		b.executeForm(x);
+		b.signForm(y);
+		b.executeForm(y);
+		b.signForm(z);
+		b.executeForm(z);
 	}
 	catch(const std::exception& e)
 	{
@@ -40,11 +51,11 @@ int main(void)
 	}
 
     // // copy operator test
-    // Form c("c", 100, 100);
+    // ShrubberyCreationForm c("c");
     // std::cout << c << std::endl;
-    // Form d("d", 10, 10);
+    // ShrubberyCreationForm d("d");
     // c = d;
     // std::cout << c << std::endl;
-
+	
 	return (0);
 }
