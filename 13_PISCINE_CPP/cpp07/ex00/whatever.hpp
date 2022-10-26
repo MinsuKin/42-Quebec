@@ -1,25 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   whatever.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 18:30:51 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 20:37:22 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/24 20:41:36 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/25 13:41:58 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
+#ifndef WHATEVER_HPP
+# define WHATEVER_HPP
 
-int main(void)
+# include <iostream>
+
+template <typename T>
+void swap(T &a, T &b)
 {
-    Base *ptr = generate();
-    Base &ref = *ptr;
-
-    identify(ptr);
-    identify(ref);
-    
-    delete ptr;
-    return 0;
+    T tmp = a;
+    a = b;
+    b = tmp;
 }
+
+template <typename T>
+T min(T &a, T &b)
+{
+    if (a < b)
+        return a;
+    else
+        return b;
+}
+
+template <typename T>
+T max(T &a, T &b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+#endif

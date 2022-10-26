@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:40:00 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 19:35:24 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/24 20:36:32 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,10 @@ Base * generate()
     {
         case 0:
             return new A;
-            break;
         case 1:
             return new B;
-            break;
         case 2:
             return new C;
-            break;
-
-        default:
-            break;
     }
     return NULL;
 }

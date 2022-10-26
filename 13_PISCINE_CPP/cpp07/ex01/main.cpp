@@ -5,21 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 18:30:51 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 20:37:22 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/25 14:14:28 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/25 15:55:53 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
+#include "iter.hpp"
 
 int main(void)
 {
-    Base *ptr = generate();
-    Base &ref = *ptr;
+    int fibonacci[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
+    std::string last_name[] = { "Kim", "Lee", "Park", "Choi", "Han", "Son" };
 
-    identify(ptr);
-    identify(ref);
-    
-    delete ptr;
+
+    // iter<int>(fibonacci, 12, ftPrint<int>);
+    iter(fibonacci, 12, ftPrint); // skipping '<type>' is allowed
+    std::cout << std::endl;
+
+    iter(last_name, 6, ftPrint);
+    std::cout << std::endl;
+
     return 0;
 }

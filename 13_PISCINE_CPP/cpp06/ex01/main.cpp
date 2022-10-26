@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:28:22 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 16:03:55 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:33:59 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ Data* deserialize(uintptr_t raw)
 int main(void)
 {
 	Data data;
-	Data *decode;
+	Data *data_ptr;
 	uintptr_t ptr;
 
 	data.name = "Serialization";
 	std::cout << data.name << std::endl;
 
-    // encode
+	// ptr to unsigned long
     std::cout << &data << std::endl;
 	ptr = serialize(&data);
 	std::cout << ptr << std::endl;
 
-    // decode
-	decode = deserialize(ptr);
-    std::cout << decode << std::endl;
-	std::cout << decode->name << std::endl;
+	// unsigned long to ptr
+	data_ptr = deserialize(ptr);
+    std::cout << data_ptr << std::endl;
+	std::cout << data_ptr->name << std::endl;
 
 	return (0);
 }

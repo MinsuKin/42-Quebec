@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 18:30:51 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 20:37:22 by minkim           ###   ########.fr       */
+/*   Created: 2022/10/25 14:14:25 by minkim            #+#    #+#             */
+/*   Updated: 2022/10/25 15:44:20 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
+#ifndef ITER_HPP
+# define ITER_HPP
 
-int main(void)
+# include <iostream>
+
+template <typename T>
+void iter(T *array, size_t len, void (*f)(T&))
 {
-    Base *ptr = generate();
-    Base &ref = *ptr;
-
-    identify(ptr);
-    identify(ref);
-    
-    delete ptr;
-    return 0;
+    for (size_t i = 0; i < len; i++)
+    {
+        (*f)(array[i]);
+    }
 }
+
+template <typename T>
+void ftPrint(T& element)
+{
+    std::cout << element << " ";
+}
+
+#endif

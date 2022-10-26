@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:48:30 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 15:47:49 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:48:55 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void ftExit(void)
 
 bool ftPrintable(char c)
 {
-    if ((c >= 9 && c <= 13) || (c >= 32 && c <= 126))
+    if (c >= 32 && c <= 126)
         return true;
     return false;
 }
@@ -31,12 +31,6 @@ Convert::Convert(const char *str)
 
     if (!str[0])
         ftExit();
-    if (ftPrintable(str[0]) && !(str[1]))
-    {
-        num = str[0];
-        check_num = toCheckNum(num);
-        return;
-    }
     num = std::strtod(str, &endptr);
     check_num = toCheckNum(num);
     if (*endptr != '\0' && *endptr != 'f')
@@ -76,7 +70,7 @@ double Convert::getNum() const
     return this->num;
 }
 
-double Convert::getCheckNum() const
+long Convert::getCheckNum() const
 {
     return this->check_num;
 }

@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:48:28 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/24 15:39:24 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:48:45 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Convert {
     Convert& operator=(const Convert& obj);
 
     double getNum(void) const;
-    double getCheckNum(void) const;
+    long getCheckNum(void) const;
 
     int toCheckNum(const double& num) const;
 
