@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 13:51:06 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/08 15:13:09 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/26 18:28:25 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,6 @@ void Harl::complain(std::string level)
 		   	(this->*f[i])();
     }
 }
+// Using typedef for func pointer
+// typedef void (Harl::*function)(void);
+// function	f[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};;

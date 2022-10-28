@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:15:21 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/25 20:28:54 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/26 18:47:35 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ Array<T>::Array(const Array& obj)
 {
     std::cout << "Copy constructor called" << std::endl;
     if (obj.size() == 0)
+    {
+        array = NULL;
+        len = 0;
         return;
+    }
     this->len = obj.size();
     this->array = new T[len];
     for (size_t i = 0; i < len; i++)
@@ -56,7 +60,6 @@ Array<T>::~Array()
     {
         delete[] array;
         array = NULL;
-        len = 0;
     }
 }
 
