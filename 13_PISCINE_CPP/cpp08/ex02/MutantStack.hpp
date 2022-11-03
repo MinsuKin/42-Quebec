@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:59:44 by minkim            #+#    #+#             */
-/*   Updated: 2022/10/28 19:54:37 by minkim           ###   ########.fr       */
+/*   Updated: 2022/10/31 10:53:24 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class MutantStack : public std::stack<T> {
     MutantStack& operator=(const MutantStack& obj) {*this = obj; return (*this);};
 
 	typedef typename MutantStack<T>::stack::container_type::iterator iterator;
-	inline iterator begin() {return this->c.begin();};
+	iterator begin() {return this->c.begin();};
 	iterator end() {return this->c.end();}
 
 	typedef typename MutantStack<T>::stack::container_type::reverse_iterator reverse_iterator;
