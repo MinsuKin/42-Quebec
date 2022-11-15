@@ -1,18 +1,22 @@
-# 1. What is minishell?
+<h1 align="center">
+	MINISHELL
+</h1>
 
-This program is the implementation of shell program referenced by Bash.
+##  Summary
 
-# 2. How to compile the implemented program?
+This program is the implementation of shell program referenced by [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
+
+## How to compile the implemented program?
 
 Given `Makefile` which provides the common rules (all, clean, fclean, re). After compiling all of the source codes, the program file will be generated.
 > make all
 
-# 3. How to execute the implemented program?
+## How to execute the implemented program?
 
 Prompt of this shell is accordance with name of the binary file on the initial execution.
 > ./minishell
 
-# 4. Which are the allowed external functions?
+## Which are the allowed external functions?
 
 * For the Mandatory
 1. `open` on \<unistd.h>
