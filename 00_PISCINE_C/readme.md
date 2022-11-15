@@ -12,8 +12,11 @@
 |07|01|**C 05**|C|Completed|[![minkim's 42 C Piscine C 05 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2110698)](https://github.com/JaeSeoKim/badge42)|
 |08|01|**C 06**|C|Completed|[![minkim's 42 C Piscine C 06 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2111785)](https://github.com/JaeSeoKim/badge42)|
 |09|01|**C 07**|C|Completed|[![minkim's 42 C Piscine C 07 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2114930)](https://github.com/JaeSeoKim/badge42)|
-|10|02|**RUSH 00**|C|Completed|[![minkim's 42 C Piscine Rush 00 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2093624)](https://github.com/JaeSeoKim/badge42)|
-|11|02|**C BSQ**|C|Completed|[![minkim's 42 C Piscine BSQ Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2113823)](https://github.com/JaeSeoKim/badge42)|
-|12|02|**Exam 00**|C|Completed|[![minkim's 42 C Piscine Rush 00 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2093624)](https://github.com/JaeSeoKim/badge42)|
-|13|02|**Exam 01**|C|Completed|[![minkim's 42 C Piscine Exam 01 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2101971)](https://github.com/JaeSeoKim/badge42)|
-|14|02|**Final Exam**|C|Completed|[![minkim's 42 C Piscine Final Exam Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2117861)](https://github.com/JaeSeoKim/badge42)|
+|10|01|**C 08**|C|Failed|[![minkim's 42 C Piscine C 08 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2116393)](https://github.com/JaeSeoKim/badge42)|
+|11|02|**RUSH 00**|C|Completed|[![minkim's 42 C Piscine Rush 00 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2093624)](https://github.com/JaeSeoKim/badge42)|
+|12|02|**RUSH 01**|C|Failed|[![minkim's 42 C Piscine Rush 01 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2103583)](https://github.com/JaeSeoKim/badge42)|
+|13|02|**C BSQ**|C|Completed|[![minkim's 42 C Piscine BSQ Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2113823)](https://github.com/JaeSeoKim/badge42)|
+|14|02|**Exam 00**|C|Completed|[![minkim's 42 C Piscine Exam 00 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2093623)](https://github.com/JaeSeoKim/badge42)|
+|15|02|**Exam 01**|C|Completed|[![minkim's 42 C Piscine Exam 01 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2101971)](https://github.com/JaeSeoKim/badge42)|
+|16|02|**Exam 02**|C|Failed|[![minkim's 42 C Piscine Exam 02 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2110562)](https://github.com/JaeSeoKim/badge42)|
+|17|02|**Final Exam**|C|Completed|[![minkim's 42 C Piscine Final Exam Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2117861)](https://github.com/JaeSeoKim/badge42)|
