@@ -1,5 +1,5 @@
 # 42-Quebec
-#### 42 Quebec Coding Bootcamp Projects by MINKIM
+#### 42 Quebec programming school projects by MINKIM
 
 [![minkim's 42 stats](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/stats?cursusId=21&coalitionId=243)](https://github.com/JaeSeoKim/badge42)
 
