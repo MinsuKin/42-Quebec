@@ -20,9 +20,9 @@ Prompt of this shell is accordance with name of the binary file on the initial e
 
 1. Several builtin commands have been implemented. (`echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`)
 2. All other commands run by `execve` function in the child process.
-3. Multi-Piping, Multi-Redirection is ok.
+3. Multi-Piping, Multi-Redirections.
 4. Heredoc `<< [delimiter]`.
-5. The exit status of the last executed command `$?` is implemented(It can be used with `echo` or `expr`).
+5. The exit status of the last executed command `$?` is implemented(It can be  with `echo` or `expr`).
 6. Ctrl + C , Ctrl + D , Ctrl + \ are implemented as same as Bash.
 7. Readline library has been used to produce a bash-like shell.
 8. History management is based on the `add_histroy` function. Thus, arrow keys on the keyboard can be used.
