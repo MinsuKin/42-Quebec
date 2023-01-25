@@ -1,0 +1,49 @@
+
+{
+   <calloc>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:calloc
+   ...
+}
+{
+   <realloc>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:realloc
+   ...
+}
+{
+   <malloc_zone_calloc>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:malloc_zone_calloc
+   ...
+}
+{
+   <malloc_zone_malloc>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:malloc_zone_malloc
+   ...
+}
+{
+   <malloc>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:malloc
+   ...
+}
+{
+   <malloc_zone_memalign>
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:malloc_zone_memalign
+   ...
+}
