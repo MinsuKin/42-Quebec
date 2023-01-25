@@ -20,4 +20,4 @@
 |12|04|**NetPractice**|Network|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
 |13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Completed|Level 4 - 80%|
 |14|04|[**Exam04**](https://github.com/MinsuKin/42-Quebec/tree/main/14_EXAM04)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
-|15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/14_CUB3D)|C|Ongoing|?/100|
+|15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Ongoing|?/100|
