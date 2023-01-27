@@ -6,7 +6,7 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:29:46 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/24 12:26:00 by chughes          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:47:39 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	grab_map(void)
 			exit_error("error reading map ");
 	}
 	get_size();
+	if (data->height == 0 || data->width == 0)
+		exit_error("Error with map file : ");
 	data->map = xalloc(data->height + 1, sizeof(int *));
 	i = -1;
 	while (++i <= data->height)

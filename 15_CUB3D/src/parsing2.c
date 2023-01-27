@@ -6,7 +6,7 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:29:23 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/23 16:42:02 by chughes          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:48:50 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	grab_textures(void)
 
 	d = get_data();
 	i = 0;
-	while (d->map_file[i])
+	while (d->map_file && d->map_file[i])
 	{
 		if (ft_strncmp(d->map_file[i], "NO ", 3) == 0)
 			set_texture(&i, NORTH);
@@ -66,6 +66,9 @@ void	grab_textures(void)
 			set_texture(&i, EAST);
 		++i;
 	}
+	if (!d->tex_path[NORTH] || !d->tex_path[EAST] || !d->tex_path[SOUTH]
+		|| !d->tex_path[WEST])
+		exit_error("Error with map file: ");
 }
 
 // Removed color lines from map_file
@@ -105,6 +108,8 @@ void	set_colors(void)
 	char	**ceiling;
 
 	data = get_data();
+	if (!data->floor_name || !data->ceiling_name)
+		exit_error("Error with map file: ");
 	floor = ft_split(data->floor_name, ',');
 	ceiling = ft_split(data->ceiling_name, ',');
 	data->floor = ft_atoi(floor[0]) << 16 | ft_atoi(floor[1]) << 8 \

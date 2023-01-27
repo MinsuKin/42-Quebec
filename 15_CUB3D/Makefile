@@ -3,11 +3,11 @@
 #------------------------------------------------------------------------------#
 
 # Special variables
-DEFAULT_GOAL: test # RBS
+DEFAULT_GOAL: all
 .DELETE_ON_ERROR: $(NAME)
 .PHONY: all bonus clean fclean re
 
-HIDE =	@
+HIDE =
 
 
 #------------------------------------------------------------------------------#
@@ -16,7 +16,7 @@ HIDE =	@
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra #-fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra
 INCLUDE	=	-I $(INCDIR)
 LIBS	=	-L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 RM		=	rm -f
@@ -26,7 +26,36 @@ NAME	=	cub3D
 
 # Sources are all .c files
 SRCDIR	=	src/
-SRCS	=	$(wildcard $(SRCDIR)*.c) # Wildcard for sources is forbidden by norminette
+SRCS	=	src/array.c			\
+			src/camera.c		\
+			src/controls.c		\
+			src/data.c			\
+			src/exit_error.c	\
+			src/ft_atoi.c		\
+			src/ft_split.c		\
+			src/ft_strchr.c		\
+			src/ft_strdup.c		\
+			src/ft_strjoin.c	\
+			src/ft_strlcpy.c	\
+			src/ft_strlen.c		\
+			src/ft_strncmp.c	\
+			src/ft_strpop.c		\
+			src/ft_substr.c		\
+			src/gnl.c			\
+			src/main.c			\
+			src/map_check.c		\
+			src/map_check2.c	\
+			src/map_check3.c	\
+			src/moves.c			\
+			src/parsing.c		\
+			src/parsing2.c		\
+			src/parsing3.c		\
+			src/pixel_put.c		\
+			src/render_frame.c	\
+			src/render_util.c	\
+			src/str_append.c	\
+			src/textures.c		\
+			src/xalloc.c
 
 # Objects are all .o files
 OBJDIR	=	bin/
@@ -65,17 +94,6 @@ fclean: clean
 
 # Removes objects and executables and remakes
 re: fclean all
-
-val: re
-	$(HIDE)clear
-	$(HIDE)valgrind									\
-			--leak-check=full						\
-			--show-leak-kinds=all					\
-			--show-reachable=yes					\
-			--track-fds=yes							\
-			--error-limit=no						\
-			--suppressions=./config/cub3D.supp	\
-			./$(NAME) ./assets/maps/basic_map.cub
 
 test: re
 	$(HIDE)clear
