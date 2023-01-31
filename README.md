@@ -21,3 +21,27 @@
 |13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Completed|Level 4 - 80%|
 |14|04|[**Exam04**](https://github.com/MinsuKin/42-Quebec/tree/main/14_EXAM04)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
 |15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Ongoing|?/100|
+
+### 써클 개요
+
+| 써클 | 내용 |
+| --- | --- |
+| 0써클 | C프로그래밍 (함수 만들기, 라이브러리, …) |
+| 1써클 | C프로그래밍 (메모리관리, 디버깅, …), 서버 입문(리눅스, VM, …) |
+| 2써클 | 자료구조, 프로세스 통신, 그래픽스(기초 수학) |
+| 3써클 | 운영체제(프로세스 관리・통신・동기화, …) |
+| 4써클 | 객체, 네트워크, 그래픽스 (좀 더 심화된 수학) |
+| 5써클 | 서버(가상머신, 웹서버), docker, container |
+| 6써클 | 0~6 종합 및 서비스 제작 |
+
+### 배우는 것
+
+- 구현한 내용을 전달하기 위한 소프트 스킬
+- 동료 평가를 통한 아는 것 점검 및 코드 리뷰
+- 메뉴얼, 공식문서 보는 방법 익히기(+ 영어)
+- 서브젝트 분석하고, 내가 알아야하는 것이 무엇인지 파악하기
+- 알아야하는 것에 대해서 스스로 공부하기
+- 과제 해결을 위해서 어디까지 구현하고 어느 깊이로 공부할지 스스로 정의하기
+- 함수/프로그램을 정의하고 구현할 때, 자신의 생각의 기준을 정확히 세우기
+- 배워야할 것을 어떻게 습득할 것인지 자신만의 방법 만들기
+- 습득한 지식들 구조화 및 정리(블로그 등)
