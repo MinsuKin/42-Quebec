@@ -58,3 +58,19 @@ Example of a dinner that should never stop:
 <img width="530" alt="스크린샷 2022-12-29 10 24 09" src="https://user-images.githubusercontent.com/50944735/209974156-518b4f82-6aef-49cc-acfd-77a0e8f1e778.png">
 <img width="535" alt="스크린샷 2022-12-29 10 25 11" src="https://user-images.githubusercontent.com/50944735/209974299-866f42bb-0120-4361-948a-1c43204648a2.png">
 <img width="517" alt="스크린샷 2022-12-29 10 25 44" src="https://user-images.githubusercontent.com/50944735/209974339-7e832bd8-76fa-4063-a9f4-e9362f6e8467.png">
+
+# philosopher : multiThread, multiProcess
+
+## 배우는 것
+
+> 먼저는 process에 대한 개념들을 공부해봅시다. OS의 process management 에 대해 먼저 공부해본 다음에 과제에서 직접 필요한 multi Thread, multi process, data race 을 공부해봅시다.  
+이에 대한 이해가 없이 코딩을 시작한다면, 더 오래걸리고 화가 날 수밖에 없습니다.
+그리고 subject에 절대 data race가 발생하면 안된다는 문구가 있더군요…
+> 
+- OS - Process Management
+- 멀티 쓰레드 (User Level Thread, Kernel Level Thread)
+- 멀티 프로세스 (PCB, context switch, race condition, critical section, deadlock, …)
+- 공용메모리
+- 프로세스 자원관리
+- CPU scheduling, process synchronization (Mutex, Semaphore)
+- -fsanitize=thread
