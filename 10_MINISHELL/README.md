@@ -45,3 +45,23 @@ Prompt of this shell is accordance with name of the binary file on the initial e
 
 ### As a Interviewer
 <img width="519" alt="스크린샷 2022-12-29 10 20 44" src="https://user-images.githubusercontent.com/50944735/209973752-fb5bc599-549b-4ca9-9799-d18b88ec432a.png">
+
+# minishell : 나만의 쉘 만들어보기(첫 팀프로젝트)
+
+## 배우는 것
+
+> 자신이 맡은 파트가 아니어도 충분히 설명할 수 있을 정도로 팀원과 같이 고민하고 공부해봅시다.
+파싱과 실행 모두 공부할 수 있는 부분이 많습니다.
+> 
+- 팀프로젝트 일정 관리
+- 팀워크(커뮤니케이션, 의견 조율, 설득 및 이해)
+- 프로젝트를 어느 정도 깊이까지 할지 설정하기
+- git 을 통한 팀 작업
+- 쉘 분석 및 고찰
+- 복잡한 문자열 파싱 (LALR)
+- 멀티프로세싱
+- 파일 디스크립터 관리
+- 파이프, 리다이렉션, 환경변수, 시그널 활용 (2서클의 pipex, minitalk 활용)
+- 컴파일러 또는 인터프리터 동작 방식
+
+##
