@@ -6,22 +6,20 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:32:36 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/23 15:51:51 by chughes          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:44:54 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <math.h>
-# include <OpenGL/gl3.h>
 # include <mlx.h>
+# include <math.h>
 
 # include <stdlib.h>	// malloc, free, exit
 # include <fcntl.h>		// open
 # include <unistd.h>	// close, read
 # include <stdio.h>		// printf, perror
-# include <string.h>	// strerror
 # include <stdbool.h>	// bool
 
 # include "cub3D_defines.h"
@@ -130,6 +128,11 @@ int		flood_fill_first_zero(int x, int y);
 int		check_closed_player(void);
 int		check_space(void);
 int		check_player(void);
+void	check_numbers(char **floor, char **ceiling);
+int		check_division(int i, int j);
+int		check_division_space(int i, int j);
+int		check_right_upndown(int i, int j);
+int		check_left_upndown(int i, int j);
 
 // MLX interop functions
 void	close_window(t_data **data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:32:43 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/23 14:33:21 by chughes          ###   ########.fr       */
+/*   Updated: 2023/02/02 14:43:31 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	t_data	*d;
 
 	d = get_data();
-	d->mlx = mlx_init();
 	init_data(argc, argv);
 	d->win = mlx_new_window(d->mlx, WIDTH, HEIGHT, "cub3D");
 	d->img = mlx_new_image(d->mlx, WIDTH, HEIGHT);

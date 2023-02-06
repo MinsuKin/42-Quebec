@@ -6,7 +6,7 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:29:23 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/25 15:48:50 by chughes          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:47:51 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	read_map(char *map_name)
 	d = get_data();
 	map_fd = open(map_name, O_RDONLY);
 	if (map_fd == -1)
-		exit_error("could not open map file ");
+		exit_error("could not open map file");
 	line = gnl(map_fd);
 	while (line)
 	{
@@ -68,7 +68,7 @@ void	grab_textures(void)
 	}
 	if (!d->tex_path[NORTH] || !d->tex_path[EAST] || !d->tex_path[SOUTH]
 		|| !d->tex_path[WEST])
-		exit_error("Error with map file: ");
+		exit_error("with map file");
 }
 
 // Removed color lines from map_file
@@ -109,13 +109,16 @@ void	set_colors(void)
 
 	data = get_data();
 	if (!data->floor_name || !data->ceiling_name)
-		exit_error("Error with map file: ");
+		exit_error("with map file");
 	floor = ft_split(data->floor_name, ',');
 	ceiling = ft_split(data->ceiling_name, ',');
+	if (arraylen(floor) != 3 || arraylen(ceiling) != 3)
+		exit_error("with colors");
 	data->floor = ft_atoi(floor[0]) << 16 | ft_atoi(floor[1]) << 8 \
 	| ft_atoi(floor[2]);
 	data->ceiling = ft_atoi(ceiling[0]) << 16 | ft_atoi(ceiling[1]) << 8 \
 	| ft_atoi(ceiling[2]);
+	check_numbers(floor, ceiling);
 	floor = free_array(floor);
 	ceiling = free_array(ceiling);
 }

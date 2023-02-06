@@ -6,7 +6,7 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 16:29:46 by chughes           #+#    #+#             */
-/*   Updated: 2023/01/25 15:47:39 by chughes          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:21:15 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	grab_map(void)
 	int		i;
 
 	data = get_data();
+	if (check_division(0, 0))
+		exit_error("multiple maps detected");
 	i = -1;
 	while (data->map_file[++i])
 	{
@@ -28,11 +30,11 @@ void	grab_map(void)
 			--i;
 		}
 		else if (ft_strchr("1 ", data->map_file[i][0]) == NULL)
-			exit_error("error reading map ");
+			exit_error("reading map");
 	}
 	get_size();
 	if (data->height == 0 || data->width == 0)
-		exit_error("Error with map file : ");
+		exit_error("with map file");
 	data->map = xalloc(data->height + 1, sizeof(int *));
 	i = -1;
 	while (++i <= data->height)
@@ -111,6 +113,8 @@ void	get_size(void)
 	i = 0;
 	while (i < data->height)
 	{
+		if (data->map_file[i][ft_strlen(data->map_file[i]) - 1] == '\n')
+			data->map_file[i] = strpop(data->map_file[i], -1);
 		if (ft_strlen(data->map_file[i]) > (size_t)data->width)
 			data->width = ft_strlen(data->map_file[i]) - 1;
 		++i;
@@ -124,8 +128,8 @@ void	check_input(int argc, char *p)
 
 	data = get_data();
 	if (argc != 2)
-		exit_error("no map path given ");
+		exit_error("no map path given");
 	if (ft_strlen(p) >= 4 && ft_strncmp(&p[ft_strlen(p) - 4], ".cub", 4))
-		exit_error("map does not have correct file suffix ");
+		exit_error("map does not have correct file suffix");
 	return ;
 }

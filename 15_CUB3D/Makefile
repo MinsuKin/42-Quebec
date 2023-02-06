@@ -46,6 +46,7 @@ SRCS	=	src/array.c			\
 			src/map_check.c		\
 			src/map_check2.c	\
 			src/map_check3.c	\
+			src/map_check4.c	\
 			src/moves.c			\
 			src/parsing.c		\
 			src/parsing2.c		\
@@ -55,7 +56,8 @@ SRCS	=	src/array.c			\
 			src/render_util.c	\
 			src/str_append.c	\
 			src/textures.c		\
-			src/xalloc.c
+			src/xalloc.c		\
+			src/check_numbers.c	
 
 # Objects are all .o files
 OBJDIR	=	bin/
@@ -95,6 +97,6 @@ fclean: clean
 # Removes objects and executables and remakes
 re: fclean all
 
-test: re
+test: all
 	$(HIDE)clear
 	$(HIDE)./$(NAME) ./assets/maps/basic_map.cub

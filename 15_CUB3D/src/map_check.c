@@ -6,7 +6,7 @@
 /*   By: chughes <chughes@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:47:02 by minkim            #+#    #+#             */
-/*   Updated: 2023/01/23 15:37:37 by chughes          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:43:05 by chughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	flood_fill_player(int x, int y)
 	t_data	*data;
 
 	data = get_data();
-	if (x >= data->height || data->map_file[x][y] == '\n')
+	if (x >= data->height || y >= (int)ft_strlen(data->map_file[x]))
 		exit_error("invalid map ");
 	if (data->map_file[x][y] == '0')
 	{
@@ -103,7 +103,7 @@ int	flood_fill_first_zero(int x, int y)
 	t_data	*data;
 
 	data = get_data();
-	if (x >= data->height || data->map_file[x][y] == '\n'
+	if (x >= data->height || y >= (int)ft_strlen(data->map_file[x])
 		|| data->map_file[x][y] == ' ')
 		exit_error("invalid map ");
 	if (data->map_file[x][y] == '0')
