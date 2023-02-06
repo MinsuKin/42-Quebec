@@ -20,8 +20,8 @@
 |12|04|[**NetPractice**](https://github.com/MinsuKin/42-Quebec/tree/main/12_NETPRACTICE)|Network|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
 |13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Completed|Level 4 - 80%|
 |14|04|[**Exam04**](https://github.com/MinsuKin/42-Quebec/tree/main/14_EXAM04)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
-|15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Completed|105/100|
-|16|05|[**Inception**](https://github.com/MinsuKin/42-Quebec/tree/main/16_INCEPTION)|Docker|Ongoing|?/100|
+|15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Completed|[![minkim's 42 cub3d Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2906111)](https://github.com/JaeSeoKim/badge42)|
+|16|05|[**Inception**](https://github.com/MinsuKin/42-Quebec/tree/main/16_INCEPTION)|Docker|Ongoing|[![minkim's 42 Inception Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2964133)](https://github.com/JaeSeoKim/badge42)|
 
 ### 써클 개요
 
