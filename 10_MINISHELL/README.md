@@ -6,12 +6,12 @@
 
 This program is the implementation of shell program referenced by [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
-## How to compile the implemented program?
+## To compile
 
 Given `Makefile` which provides the common rules (all, clean, fclean, re). After compiling all of the source codes, the program file will be generated.
 > make all
 
-## How to execute the implemented program?
+## To execute
 
 Prompt of this shell is accordance with name of the binary file on the initial execution.
 > ./minishell
