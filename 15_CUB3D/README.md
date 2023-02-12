@@ -6,12 +6,12 @@
 
 A raycaster inspired by [Wolfenstein 3D](http://users.atw.hu/wolf3d/).
 
-## How to compile the implemented program?
+## To compile
 
 Given `Makefile` which provides the common rules (all, clean, fclean, re). After compiling all of the source codes, the program file will be generated.
 > make all
 
-## How to execute the implemented program?
+## To execute
 > ./cub3D assets/maps/basic_map.cub
 
 ##  Screenshot
