@@ -4,7 +4,6 @@ LABEL name="minkim"
 LABEL email="minkim@student.42quebec.com"
 
 RUN apt-get upadte
-RUN apt-get upgrade
 
 # download packages
 RUN apt-get -y install nginx openssl vim
