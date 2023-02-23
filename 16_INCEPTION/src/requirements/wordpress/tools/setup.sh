@@ -29,7 +29,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
 
     # create user
     wp user create --allow-root \
-        ${WP_USER_ID} minkim2@student.42quebec.com -- user_pass=${WP_USER_PW} --role=author
+        ${WP_USER_ID} minus9521@gmail.com -- user_pass=${WP_USER_PW} --role=author
 fi
 
 # not sending process to background, pid remains 1 while the process stays in foreground
