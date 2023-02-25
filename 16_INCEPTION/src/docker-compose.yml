@@ -1,0 +1,13 @@
+version: '2'
+services:
+    mariadb:
+    image: mariadb
+    volumes:
+    restart: always
+    ports:
+    build:
+        context:
+        dockerfile: 
+    networks:
+        inception:
+    env_file: .env
