@@ -1,22 +1,49 @@
 version: '2'
 
 services:
+
     mariadb:
-    image: mariadb
-    volumes:
-    restart: always
-    ports:
-    build:
-        context:
-        dockerfile: 
-    networks:
-        inception:
-    env_file: .env
+        image: mariadb
+        volumes:
+        restart: always
+        ports:
+        build:
+            context:
+            dockerfile: 
+        networks:
+            inception:
+        env_file: .env
+    
+    wordpress:
+
+        ports:
+            - "9000:9000"
+        
+        env_file: .env
+
+    nginx:
+        image: 
+        restart:
+        depends_on:
+
+        extra_hosts:
+            - "minkim.42.fr:127.0.0.1"
+        env_file: .env
 
 volumes:
     mariadb:
+        driver:
+        driver_opts:
+            o:
+            type:
+            device:
 
     wordpress:
+        driver:
+        driver_opts:
+            o:
+            type:
+            device:
 
 networks:
     inception:
