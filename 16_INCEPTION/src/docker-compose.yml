@@ -1,4 +1,5 @@
 version: '2'
+
 services:
     mariadb:
     image: mariadb
@@ -11,3 +12,12 @@ services:
     networks:
         inception:
     env_file: .env
+
+volumes:
+    mariadb:
+
+    wordpress:
+
+networks:
+    inception:
+        driver: bridge
