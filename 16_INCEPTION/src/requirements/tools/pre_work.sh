@@ -10,7 +10,7 @@ echo -e "\e[44;33m@@@It's all been erased@@@\e[0m\n\n"
 # load environment variables
 source ../../.env
 
-echo -e "\e[44;33@@@It's setup@@@\e[0m\n\n"
+echo -e "\e[44;33@@@It's set up@@@\e[0m\n\n"
 
 echo -e "\e[47;35m--Host conversion operation to replace DNS--\e[0m\n"
 
