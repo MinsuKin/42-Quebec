@@ -1,19 +1,26 @@
-#!/bin/bash
+echo "\033[47;35m--Setting for docker--\033[0m\n"
 
-echo -e "\e[47;35m--Remove images and containers--\e[0m\n"
+apt-get remove docker docker-engine docker.io containerd runc
 
-docker-compose down
-docker system prune -a
+apt-get update
+apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
 
-echo -e "\e[44;33m@@@It's all been erased@@@\e[0m\n\n"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -apt-key fingerprint 0EBFCD88
 
-source ../../.env
+add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable "
 
-echo -e "\e[44;33@@@It's setup@@@\e[0m\n\n"
+apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.iodocker run hello-world
 
-echo -e "\e[47;35m--Host conversion operation to replace DNS--\e[0m\n"
+apt-get install docker-compose
 
-echo '127.0.0.1 minkim.42.fr' >> /etc/hosts
-echo '127.0.0.1 www.minkim.42.fr' >> /etc/hosts
+usermod -aG docker ${USER}
 
-echo -e "\e[44;33m@@@Host is set up@@@\e[0m\n\n"
+echo "\003[44;33m@@@It's set up for docker@@@\033[0m\n\n"
