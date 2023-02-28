@@ -5,45 +5,65 @@ services:
     mariadb:
         image: mariadb
         volumes:
+            - ~/data/maria:/var/lib/mysql
         restart: always
         ports:
+            - "3306:3306"
         build:
-            context:
-            dockerfile: 
+            context: ./requirements/mariadb
+            dockerfile: Dockerfile
         networks:
             inception:
         env_file: .env
     
     wordpress:
-
+        depends_on:
+            - mariadb
+        image: wordpress
+        volumes:
+            - ~data/wordpress:/var/www/wordpress
+        restart: always
         ports:
             - "9000:9000"
-        
+        build:
+            context: ./requirements/wordpress
+            dockerfile: Dockerfile
+        networks:
+            inception:
         env_file: .env
 
     nginx:
-        image: 
-        restart:
+        image: nginx
+        restart: always
         depends_on:
-
-        extra_hosts:
-            - "minkim.42.fr:127.0.0.1"
+            - wordpress
+        ports:
+            - "443:443"
+        volumes:
+            - ~/data/wordpress:/var/www/wordpress
+        build:
+            context: ./requirements/nginx
+            dockerfile: Dockerfile
+        networks:
+            inception:
+        # extra_hosts:
+        #     - "minkim.42.fr:127.0.0.1"
         env_file: .env
 
 volumes:
     mariadb:
-        driver:
+        driver: local
         driver_opts:
-            o:
-            type:
-            device:
+            o: bind
+            type: none
+            device: ~/data/maria
 
     wordpress:
-        driver:
+        driver: local
         driver_opts:
-            o:
-            type:
-            device:
+            o: bind
+            type: none
+            device: ~/data/wordpress
 
 networks:
     inception:
