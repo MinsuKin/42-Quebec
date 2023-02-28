@@ -7,7 +7,7 @@ RUN apt-get update
 
 # download packages
 RUN apt-get -y install nginx openssl vim
-RUN rm /etc/nginx/site-available/default
+RUN rm /etc/nginx/sites-available/default
 RUN rm /etc/nginx/sites-enabled/default
 
 # copy default routing path setting file in the container
