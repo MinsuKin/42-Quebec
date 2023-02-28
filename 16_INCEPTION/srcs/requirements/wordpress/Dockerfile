@@ -3,7 +3,7 @@ FROM debian:buster
 LABEL name="minkim"
 LABEL email="minkim@student.42quebec.com"
 
-RUN apt-get upadte
+RUN apt-get update
 
 # # download packages
 RUN apt-get install -y php7.3-fpm \
