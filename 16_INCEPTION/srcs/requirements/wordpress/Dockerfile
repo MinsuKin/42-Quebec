@@ -5,14 +5,15 @@ LABEL email="minkim@student.42quebec.com"
 
 RUN apt-get update
 
-# # download packages
-RUN apt-get install -y php7.3-fpm \
+# download packages
+RUN apt-get install -y \
+    php7.3-fpm \
     php7.3-common \
     php7.3-mysql \
     php7.3-gmp \
     php7.3-curl \
     php7.3-intl \
-    php7.3-mb-string \
+    php7.3-mbstring \
     php7.3-xmlrpc \
     php7.3-gd \
     php7.3-xml \
