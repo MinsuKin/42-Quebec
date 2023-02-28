@@ -53,4 +53,4 @@ WORKDIR /var/www/wordpress
 # port
 EXPOSE 9000
 
-ENTRYPOINT [ "bash", "/setupfile.sh" ]
+ENTRYPOINT [ "bash", "/setup.sh" ]
