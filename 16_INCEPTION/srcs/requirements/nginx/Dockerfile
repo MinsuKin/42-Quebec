@@ -23,7 +23,7 @@ RUN openssl req -newkey rsa:4096 -days 365 -nodes \
 
 # setting auth and ownership
 RUN chmod 777 /etc/nginx/ssl/*
-RUN chmod          777 -R /var/www
+RUN chmod 777 -R /var/www
 RUN chown -R www-data:www-data /var/www/
 
 # port

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
+if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
     mysql -e "CREATE USER '${MARIA_ID}'@'localhost' IDENTIFIED BY '${MARIA_PW}';" &&\
     mysql -e "CREATE DATABASE IF NOT EXISTS wordpress;" &&\
