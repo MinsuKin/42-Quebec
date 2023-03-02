@@ -18,7 +18,7 @@ RUN mkdir /etc/nginx/ssl
 # request SSL cert
 RUN openssl req -newkey rsa:4096 -x509 -days 365 -nodes \
     -out /etc/nginx/ssl/www.minkim.42.fr.crt \
-    -keyout /etc/nginx/ssl/www.minkim.42.kr.key \
+    -keyout /etc/nginx/ssl/www.minkim.42.fr.key \
     -subj "/C=CA/S=Quebec/L=QuebecCity/O=42Quebec/OU=inception/CN=minkim"
 
 # setting auth and ownership
