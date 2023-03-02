@@ -15,7 +15,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -apt-
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
-    stable "
+    stable"
 
 apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.iodocker run hello-world
 
@@ -23,4 +23,4 @@ apt-get install docker-compose
 
 usermod -aG docker ${USER}
 
-echo "\003[44;33m@@@It's set up for docker@@@\033[0m\n\n"
+echo "\003[44;33mIt's set up for docker\033[0m\n\n"

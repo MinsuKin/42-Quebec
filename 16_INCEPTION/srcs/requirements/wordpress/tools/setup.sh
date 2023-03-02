@@ -23,13 +23,13 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
 
     # create wordpress table in database
     wp core install config --allow-root \
-        --url='minkim.42.fr' --title='WordPress for Inception' \
+        --url='minkim.42.fr' --title='Inception' \
         --admin_user=${WP_ID} --admin_password=${WP_PW} --admin_email="minkim@student.42quebec.com" \
         --path='/var/www/wordpress';
 
     # create user
     wp user create --allow-root \
-        ${WP_USER_ID} minus9521@gmail.com -- user_pass=${WP_USER_PW} --role=author
+        ${WP_USER_ID} minus9521@gmail.com --user_pass=${WP_USER_PW} --role=author
 fi
 
 # not sending process to background, pid remains 1 while the process stays in foreground
