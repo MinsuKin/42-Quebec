@@ -13,7 +13,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
         echo -e "\e[31mloading...\e[0m\n"
     done
 
-    wp core --allow-root download --locale=en_CA --force
+    wp core --allow-root download --force
 
     while [ ! -f /var/www/wordpress/wp-config.php ]; do
         # allow wp-cli admin auth, setup db admin
