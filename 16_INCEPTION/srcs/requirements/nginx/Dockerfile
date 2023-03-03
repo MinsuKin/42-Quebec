@@ -7,19 +7,17 @@ RUN apt-get update
 
 # download packages
 RUN apt-get install -y nginx openssl vim
+
 RUN rm /etc/nginx/sites-available/default
 RUN rm /etc/nginx/sites-enabled/default
 
 # copy default routing path setting file in the container
-COPY conf/nginx.conf /etc/nginx/sites-available/default
+COPY conf/nginx.conf /etc/nginx/sites-available/default  
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 RUN mkdir /etc/nginx/ssl
 
 # request SSL cert
-RUN openssl req -newkey rsa:4096 -x509 -days 365 -nodes \
-    -out /etc/nginx/ssl/www.minkim.42.fr.crt \
-    -keyout /etc/nginx/ssl/www.minkim.42.fr.key \
-    -subj "/C=CA/S=Quebec/L=QuebecCity/O=42Quebec/OU=inception/CN=minkim"
+RUN openssl req -newkey rsa:4096 -x509 -days 365 -nodes -out /etc/nginx/ssl/www.minkim.42.fr.crt -keyout /etc/nginx/ssl/www.minkim.42.fr.key -subj "/C=KR/ST=korea/O=42/OU=GON/CN=minkim"
 
 # setting auth and ownership
 RUN chmod 777 /etc/nginx/ssl/*

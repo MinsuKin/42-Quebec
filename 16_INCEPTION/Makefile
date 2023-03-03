@@ -5,7 +5,7 @@ all: clean setup build
 setup:
 	cd ./srcs/requirements/tools && sudo bash pre_work.sh
 
-build:
+build: 
 	cd ./srcs/ && docker-compose up --build
 
 stop:
@@ -15,9 +15,9 @@ volrm:
 	cd ./srcs/ && docker volume prune
 
 clean: stop
-	cd ./srcs && docker system prune -a
+	cd ./srcs/ && docker system prune -a
 
 fclean: clean
-	sudo rm -rf ~/data/
+	sudo rm -Rf ~/data/
 
 .PHONY: setup build stop volrm clean fclean all
