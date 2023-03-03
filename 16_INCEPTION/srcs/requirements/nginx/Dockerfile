@@ -17,7 +17,7 @@ RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 RUN mkdir /etc/nginx/ssl
 
 # request SSL cert
-RUN openssl req -newkey rsa:4096 -x509 -days 365 -nodes -out /etc/nginx/ssl/www.minkim.42.fr.crt -keyout /etc/nginx/ssl/www.minkim.42.fr.key -subj "/C=KR/ST=korea/O=42/OU=GON/CN=minkim"
+RUN openssl req -newkey rsa:4096 -x509 -days 365 -nodes -out /etc/nginx/ssl/www.minkim.42.fr.crt -keyout /etc/nginx/ssl/www.minkim.42.fr.key -subj "/C=CA/ST=canada/O=42/OU=INC/CN=minkim"
 
 # setting auth and ownership
 RUN chmod 777 /etc/nginx/ssl/*
