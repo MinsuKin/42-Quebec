@@ -15,4 +15,6 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
     mysqladmin -uroot -p${MARIA_PW} shutdown
 fi
 
+sleep 3
+
 exec mysqld_safe
