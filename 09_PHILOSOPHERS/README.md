@@ -55,6 +55,7 @@ Example of a dinner that should never stop:
 <img width="521" alt="스크린샷 2022-12-29 10 22 53" src="https://user-images.githubusercontent.com/50944735/209974018-edbee21a-efae-46e4-a07c-b3a314c5ad48.png">
 
 ### As a Interviewer
+<img width="682" alt="Screen Shot 2023-03-16 at 5 40 39 PM" src="https://user-images.githubusercontent.com/50944735/225758898-f2ad3aa9-7bb1-49f5-a9ff-300249ef0d08.png">
 <img width="530" alt="스크린샷 2022-12-29 10 24 09" src="https://user-images.githubusercontent.com/50944735/209974156-518b4f82-6aef-49cc-acfd-77a0e8f1e778.png">
 <img width="535" alt="스크린샷 2022-12-29 10 25 11" src="https://user-images.githubusercontent.com/50944735/209974299-866f42bb-0120-4361-948a-1c43204648a2.png">
 <img width="517" alt="스크린샷 2022-12-29 10 25 44" src="https://user-images.githubusercontent.com/50944735/209974339-7e832bd8-76fa-4063-a9f4-e9362f6e8467.png">
