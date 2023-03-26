@@ -1,5 +1,3 @@
-echo "\033[47;35m--Setting for docker--\033[0m\n"
-
 apt-get remove docker docker-engine docker.io containerd runc
 
 apt-get update
@@ -22,5 +20,3 @@ apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.iodock
 apt-get install docker-compose
 
 usermod -aG docker ${USER}
-
-echo  "\033[44;33mIt's set up for docker\033[0m\n\n"
