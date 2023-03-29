@@ -36,7 +36,7 @@ services:
         depends_on:
             - wordpress
         ports:
-            - "443:443"
+             - "443:443"
         volumes:
             - ~/data/wordpress:/var/www/wordpress
         build:
@@ -63,3 +63,4 @@ volumes:
 networks:
     inception:
         driver: bridge
+        
