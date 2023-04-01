@@ -11,6 +11,7 @@
 |06|01|**CPP 06**|C++|Completed|[![minkim's 42 CPP Module 06 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2847401)](https://github.com/JaeSeoKim/badge42)|
 |07|01|**CPP 07**|C++|Completed|[![minkim's 42 CPP Module 07 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2855992)](https://github.com/JaeSeoKim/badge42)|
 |08|01|**CPP 08**|C++|Completed|[![minkim's 42 CPP Module 08 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2857330)](https://github.com/JaeSeoKim/badge42)|
+|08|01|**CPP 09**|C++|Ongoing|[![minkim's 42 CPP Module 09 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3028249)](https://github.com/JaeSeoKim/badge42)|
 
 # CPP Module : C++ piscine, 객체 지향 프로그래밍
 
@@ -74,3 +75,10 @@
 - STL이 무엇인지, 내부적인 구현이 어떻게 되고 템플릿이 어떻게 사용되는지
 - stack이 왜 어댑터 컨테이너인지 이해하기
 - 이터레이터 이해하고 사용하기
+
+### CPP Module 9 : STL
+
+- Map
+- Vector
+- List
+- Set
