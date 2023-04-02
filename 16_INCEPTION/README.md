@@ -52,11 +52,9 @@ The Inception project consists of the following services:
 - mariadb -- a Docker container that contains MariaDB.
 
 ## Notes
-- The latest tag is prohibited.
 - No password must be present in the Dockerfiles.
 - It is mandatory to use environment variables.
-- It is strongly recommended to use a .env file to store environment variables.
-- Your volumes will be available in the /home/login/data folder of the host machine using Docker.
+- The volumes will be available in the /home/login/data folder of the host machine using Docker.
 - All credentials, API keys, environment variables, etc. must be saved locally in a .env file.
 
 ##  Screenshot
