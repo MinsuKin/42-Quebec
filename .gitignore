@@ -13,3 +13,6 @@
 .vscode/
 
 .DS_Store
+
+/11_EXAM03/*.c
+/14_EXAM04/*.c
