@@ -2,6 +2,8 @@
 
 ### RUN this command [**here**](https://replit.com/@MinsuKin/pipex#outfile)!
 
+```make```
+
 ```./pipex infile "ls -al" "cat -e" outfile```
 
 #### And have a look at the output in outfile.
