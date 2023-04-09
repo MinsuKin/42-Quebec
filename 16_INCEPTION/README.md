@@ -10,7 +10,7 @@ The Inception project is a system administration project that involves creating 
 
 Run `set_for_docker.sh` and `make` in an Ubuntu environment and launch as follows:
 
-    cd ./srcs/requirements/tools/set_for_docker.sh && make
+    ./srcs/requirements/tools/set_for_docker.sh && make
 
 ***Makefile rules***
 
