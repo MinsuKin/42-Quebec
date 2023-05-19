@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:02:16 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/19 17:10:45 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/19 17:24:31 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ Container merge_insert_sort(const Container &input)
         for (it = result.begin() + 1; it != result.end(); ++it)
         {
             // Shift elements greater than the key to the right
-            typename Container::value_type key = *it;
+            int key = *it;
             typename Container::iterator j = it - 1;
-            while (j >= result.begin() && *j > key) {
+            while (j >= result.begin() && *j > key)
+            {
                 *(j + 1) = *j;
                 --j;
             }
@@ -97,6 +98,5 @@ void process_container(const Container &input, const std::string &container_name
     Container sorted = merge_insert_sort(input);
     double duration = static_cast<double>(std::clock() - start) / CLOCKS_PER_SEC;
 
-    std::cout << "Time to process a range of " << input.size() << " elements with " << container_name
-              << " : " << std::fixed << std::setprecision(6) << duration << " μs" << std::endl;
+    std::cout << "Time to process a range of " << input.size() << " elements with " << container_name << " : " << std::fixed << std::setprecision(6) << duration << " μs" << std::endl;
 }
