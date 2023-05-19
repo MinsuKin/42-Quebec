@@ -1,62 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 17:02:16 by minkim            #+#    #+#             */
+/*   Updated: 2023/05/19 17:10:45 by minkim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "PmergeMe.hpp"
-
-template <typename Container>
-void insertion_sort(Container& input, int left, int right) {
-    for (int i = left + 1; i <= right; i++) {
-        typename Container::value_type key = input[i];
-        int j = i - 1;
-        while (j >= left && input[j] > key) {
-            input[j + 1] = input[j];
-            j--;
-        }
-        input[j + 1] = key;
-    }
-}
-
-template <typename Container>
-void merge(Container& input, int left, int mid, int right) {
-    Container temp(right - left + 1);
-    int i = left;
-    int j = mid + 1;
-    int k = 0;
-
-    while (i <= mid && j <= right) {
-        if (input[i] <= input[j]) {
-            temp[k++] = input[i++];
-        } else {
-            temp[k++] = input[j++];
-        }
-    }
-
-    while (i <= mid) {
-        temp[k++] = input[i++];
-    }
-
-    while (j <= right) {
-        temp[k++] = input[j++];
-    }
-
-    for (i = left; i <= right; i++) {
-        input[i] = temp[i - left];
-    }
-}
-
-template <typename Container>
-void merge_insert_sort(Container& input, int left, int right, int size) {
-    if (left >= right) {
-        return;
-    }
-
-    if (right - left + 1 <= size) {
-        insertion_sort(input, left, right);
-        return;
-    }
-
-    int mid = (left + right) / 2;
-    merge_insert_sort(input, left, mid, size);
-    merge_insert_sort(input, mid + 1, right, size);
-    merge(input, left, mid, right);
-}
 
 template <typename Container>
 Container merge_insert_sort(const Container &input)
@@ -71,24 +25,30 @@ Container merge_insert_sort(const Container &input)
     {
         Container result = input;
         typename Container::iterator it;
-        for (it = result.begin() + 1; it != result.end(); ++it) {
+        for (it = result.begin() + 1; it != result.end(); ++it)
+        {
+            // Shift elements greater than the key to the right
             typename Container::value_type key = *it;
             typename Container::iterator j = it - 1;
             while (j >= result.begin() && *j > key) {
                 *(j + 1) = *j;
                 --j;
             }
+            // Place the key at its correct position
             *(j + 1) = key;
         }
         return result;
     }
 
+    // Split the input into two halves
     Container left_half(input.begin(), input.begin() + input.size() / 2);
     Container right_half(input.begin() + input.size() / 2, input.end());
 
+    // Recursively sort the two halves
     left_half = merge_insert_sort(left_half);
     right_half = merge_insert_sort(right_half);
 
+    // Merge the sorted halves
     Container sorted;
     typename Container::iterator left_iter = left_half.begin();
     typename Container::iterator right_iter = right_half.begin();
@@ -97,26 +57,31 @@ Container merge_insert_sort(const Container &input)
     {
         if (left_iter == left_half.end())
         {
+            // If all elements from the left half have been merged, append the remaining elements from the right half
             sorted.insert(sorted.end(), right_iter, right_half.end());
             break;
         }
         else if (right_iter == right_half.end())
         {
+            // If all elements from the right half have been merged, append the remaining elements from the left half
             sorted.insert(sorted.end(), left_iter, left_half.end());
             break;
         }
         else if (*left_iter <= *right_iter)
         {
+            // If the current element from the left half is smaller or equal, append it to the sorted list
             sorted.push_back(*left_iter);
             ++left_iter;
         }
         else
         {
+            // If the current element from the right half is smaller, find the correct position to insert it
             typename Container::iterator next_right = right_iter;
             while (next_right != right_half.end() && *next_right < *left_iter)
             {
                 ++next_right;
             }
+            // Append the range of elements from right_iter to next_right to the sorted list
             sorted.insert(sorted.end(), right_iter, next_right);
             right_iter = next_right;
         }
