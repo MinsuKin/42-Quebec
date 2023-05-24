@@ -6,10 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:02:35 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/19 17:02:37 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/23 18:36:31 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "PmergeMe.hpp"
 #include "PmergeMe.cpp"
 
 int main(int argc, char *argv[])

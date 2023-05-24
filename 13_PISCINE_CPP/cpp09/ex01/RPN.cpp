@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 16:26:22 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/06 17:01:52 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/23 20:03:12 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,28 @@ bool is_operator(const std::string &token)
 
 int perform_operation(const std::string &op, int a, int b)
 {
-    if (op == "+") return a + b;
-    if (op == "-") return a - b;
-    if (op == "*") return a * b;
+    if (op == "+")
+    {
+        return a + b;
+    }
+    
+    if (op == "-")
+    {
+        return a - b;
+    }
+    
+    if (op == "*")
+    {
+        return a * b;
+    }
+    
     if (op == "/")
     {
         if (b == 0)
             throw std::runtime_error("Error: division by zero");
         return a / b;
     }
+    
     throw std::runtime_error("Error: invalid operator");
 }
 

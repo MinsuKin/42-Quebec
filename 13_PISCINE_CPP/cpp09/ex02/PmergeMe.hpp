@@ -6,12 +6,12 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:02:27 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/19 17:02:28 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/20 12:08:13 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PMEAGEME_HPP
-# define PMEAGEME_HPP
+#ifndef PMERGEME_HPP
+# define PMERGEME_HPP
 
 # include <iostream>
 # include <iomanip>

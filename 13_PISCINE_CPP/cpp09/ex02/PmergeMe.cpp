@@ -6,11 +6,11 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:02:16 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/19 17:24:31 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/23 20:08:16 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "PmergeMe.hpp"
+#include "PmergeMe.hpp"
 
 template <typename Container>
 Container merge_insert_sort(const Container &input)
@@ -27,16 +27,16 @@ Container merge_insert_sort(const Container &input)
         typename Container::iterator it;
         for (it = result.begin() + 1; it != result.end(); ++it)
         {
-            // Shift elements greater than the key to the right
             int key = *it;
-            typename Container::iterator j = it - 1;
-            while (j >= result.begin() && *j > key)
+            typename Container::iterator j = it;
+            while (j != result.begin() && *(j - 1) > key)
             {
-                *(j + 1) = *j;
+                // Shift elements greater than the key to the right
+                *j = *(j - 1);
                 --j;
             }
             // Place the key at its correct position
-            *(j + 1) = key;
+            *j = key;
         }
         return result;
     }
@@ -76,15 +76,9 @@ Container merge_insert_sort(const Container &input)
         }
         else
         {
-            // If the current element from the right half is smaller, find the correct position to insert it
-            typename Container::iterator next_right = right_iter;
-            while (next_right != right_half.end() && *next_right < *left_iter)
-            {
-                ++next_right;
-            }
-            // Append the range of elements from right_iter to next_right to the sorted list
-            sorted.insert(sorted.end(), right_iter, next_right);
-            right_iter = next_right;
+            // // If the current element from the right half is smaller, append it to the sorted list
+            sorted.push_back(*right_iter);
+            ++right_iter;
         }
     }
 
