@@ -6,7 +6,7 @@
 /*   By: minkim <minkim@student.42quebec.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:27:27 by minkim            #+#    #+#             */
-/*   Updated: 2023/05/06 16:58:56 by minkim           ###   ########.fr       */
+/*   Updated: 2023/05/27 13:51:12 by minkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,6 @@ void processInput(const std::string &filename, const BitcoinExchange &bitcoin_ex
             Date date = parseDate(date_str);
             isValidValue(value_str);
             float value = static_cast<float>(std::atof(value_str.c_str()));
-
-            if (value == 0)
-            {
-                continue;
-            }
 
             if (value < 0 || value > 1000)
             {
