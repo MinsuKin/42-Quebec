@@ -18,11 +18,12 @@
 |10|03|[**minishell**](https://github.com/MinsuKin/42-Quebec/tree/main/10_MINISHELL)|C|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
 |11|03|[**Exam_03**](https://github.com/MinsuKin/42-Quebec/tree/main/11_EXAM_03)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
 |12|04|[**NetPractice**](https://github.com/MinsuKin/42-Quebec/tree/main/12_NETPRACTICE)|Network|Completed|[![minkim's 42 NetPractice Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2816796)](https://github.com/JaeSeoKim/badge42)|
-|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Ongoing|[![minkim's 42 CPP Module 09 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3028249)](https://github.com/JaeSeoKim/badge42)|
+|13|04|[**Piscine_CPP**](https://github.com/MinsuKin/42-Quebec/tree/main/13_PISCINE_CPP)|C++|Completed|[![minkim's 42 CPP Module 09 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3028249)](https://github.com/JaeSeoKim/badge42)|
 |14|04|[**Exam_04**](https://github.com/MinsuKin/42-Quebec/tree/main/14_EXAM_04)|C|Completed|[![minkim's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2709539)](https://github.com/JaeSeoKim/badge42)|
 |15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Completed|[![minkim's 42 cub3d Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2906111)](https://github.com/JaeSeoKim/badge42)|
 |16|05|[**Inception**](https://github.com/MinsuKin/42-Quebec/tree/main/16_INCEPTION)|Docker|Completed|[![minkim's 42 Inception Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2964133)](https://github.com/JaeSeoKim/badge42)|
 |17|05|[**Exam_05**](https://github.com/MinsuKin/42-Quebec/tree/main/17_EXAM_05)|C++|Completed|[![minkim's 42 Exam Rank 05 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3052008)](https://github.com/JaeSeoKim/badge42)|
+|18|06|[**ft_transcendence**](https://github.com/MinsuKin/42-Quebec/tree/main/17_EXAM_05)|TypeScript|Completed|[![minkim's 42 ft_transcendence Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3107412)](https://github.com/JaeSeoKim/badge42)|
 
 ### 써클 개요
 
