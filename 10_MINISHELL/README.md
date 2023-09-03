@@ -48,6 +48,7 @@ Prompt of this shell is accordance with name of the binary file on the initial e
 <img width="511" alt="Screen Shot 2023-03-16 at 5 45 35 PM" src="https://user-images.githubusercontent.com/50944735/225759736-e01a8b8c-0b89-4dac-829b-d174fbc40050.png">
 <img width="508" alt="Screen Shot 2023-03-16 at 5 45 50 PM" src="https://user-images.githubusercontent.com/50944735/225759739-4a53ebf7-24ad-4abb-a3ef-7ad717182506.png">
 <img width="519" alt="스크린샷 2022-12-29 10 20 44" src="https://user-images.githubusercontent.com/50944735/209973752-fb5bc599-549b-4ca9-9799-d18b88ec432a.png">
+<img width="544" alt="Screen Shot 2023-09-03 at 2 20 51 PM" src="https://github.com/MinsuKin/42-Quebec/assets/50944735/cda4692a-089f-499e-97c1-042db2ab895f">
 
 # minishell : 나만의 쉘 만들어보기(첫 팀프로젝트)
 
