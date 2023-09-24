@@ -23,7 +23,8 @@
 |15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Completed|[![minkim's 42 cub3d Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2906111)](https://github.com/JaeSeoKim/badge42)|
 |16|05|[**Inception**](https://github.com/MinsuKin/42-Quebec/tree/main/16_INCEPTION)|Docker|Completed|[![minkim's 42 Inception Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/2964133)](https://github.com/JaeSeoKim/badge42)|
 |17|05|[**Exam_05**](https://github.com/MinsuKin/42-Quebec/tree/main/17_EXAM_05)|C++|Completed|[![minkim's 42 Exam Rank 05 Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3052008)](https://github.com/JaeSeoKim/badge42)|
-|18|06|[**ft_transcendence**](https://github.com/MinsuKin/42-Quebec)|TypeScript|Ongoing|[![minkim's 42 ft_transcendence Score](https://badge42.vercel.app/api/v2/cl1l62v7k000609ml4ef4u5hc/project/3107412)](https://github.com/JaeSeoKim/badge42)|
+|18|05|[**ft_irc**](https://github.com/MinsuKin/42-Quebec/tree/main/18_FT_IRC)|C++|Completed|100/100|
+|19|06|[**ft_transcendence**](https://github.com/MinsuKin/42-Quebec)|TypeScript|Ongoing|?/100|
 
 ### 써클 개요
 
