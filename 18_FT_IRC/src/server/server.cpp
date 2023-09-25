@@ -122,6 +122,8 @@ bool Server::receive(uint64 id)
 void Server::disconnect(uint64 id)
 {
 	receive(id); // receive any remaining data
+	for(uint64 i = 0; i < _channels.size(); ++i)
+		_channels[i]->removeUser(_clients[id]);
 	delete _clients[id];
 	_clients.erase(_clients.begin() + id);
 	_pollfds.erase(_pollfds.begin() + id);

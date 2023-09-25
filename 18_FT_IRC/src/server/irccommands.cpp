@@ -275,7 +275,7 @@ namespace Command
 					case Channel::MODE_OP:
 						if(command.params.size() <= argi)
 							break;
-						if(!channel->removeChannelOperator(client, Server::client(command.params[argi++])))
+						if(!channel->removeChannelOperator(Server::client(command.params[argi++])))
 						{
 							client->send("ERROR: No such channel operator\r\n");
 							break;

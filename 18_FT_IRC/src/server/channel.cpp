@@ -43,16 +43,16 @@ bool Channel::addUser(Client* user, std::string key)
 
 bool Channel::removeUser(Client* user)
 {
-	removeChannelOperator(user, user);
+	removeChannelOperator(user);
 	for(std::vector<Client*>::iterator it = _userList.begin(); it != _userList.end(); ++it)
 	{
 		if(*it == user)
 		{
 			_userList.erase(it);
-			break;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 bool Channel::isUserInChannel(Client* user) const
@@ -81,19 +81,19 @@ bool Channel::addChannelOperator(Client* op, Client* userTarget)
 	return true;
 }
 
-bool Channel::removeChannelOperator(Client* op, Client* userTarget)
+bool Channel::removeChannelOperator(Client* userTarget)
 {
-	if(!userTarget || (!isUserInChannel(userTarget) || !isUserChannelOperator(op) || !isUserChannelOperator(userTarget)))
+	if(!userTarget)
 		return false;
 	for(std::vector<Client*>::iterator it = _channelOperators.begin(); it != _channelOperators.end(); ++it)
 	{
 		if(*it == userTarget)
 		{
 			_channelOperators.erase(it);
-			break;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 bool Channel::setTopic(Client* user, std::string topic)
@@ -171,7 +171,7 @@ bool Channel::sendUserList(Client* user) const
 			continue; // invisible user
 		if(it != _userList.begin())
 			userList += " ";
-		if((*it)->isoper())
+		if(isUserChannelOperator(*it))
 			userList += "@";
 		userList += (*it)->nick();
 	}

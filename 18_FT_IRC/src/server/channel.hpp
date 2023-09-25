@@ -34,7 +34,7 @@ public:
 
 	bool isUserChannelOperator(Client* user) const;
 	bool addChannelOperator(Client* op, Client* userTarget); // MODE +o
-	bool removeChannelOperator(Client* op, Client* userTarget); // MODE -o
+	bool removeChannelOperator(Client* userTarget); // MODE -o
 
 	bool setTopic(Client* user, std::string topic); // TOPIC #channelName :topic
 	bool getTopic(Client* user) const;
