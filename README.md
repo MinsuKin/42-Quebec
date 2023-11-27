@@ -22,7 +22,7 @@
 |15|04|[**Cub3D**](https://github.com/MinsuKin/42-Quebec/tree/main/15_CUB3D)|C|Completed|100/100|
 |16|05|[**Inception**](https://github.com/MinsuKin/42-Quebec/tree/main/16_INCEPTION)|Docker|Completed|100/100|
 |17|05|[**Exam_05**](https://github.com/MinsuKin/42-Quebec/tree/main/17_EXAM_05)|C++|Completed|100/100|
-|18|05|[**ft_irc**](https://github.com/MinsuKin/42-Quebec/tree/main/18_FT_IRC)|C++|Completed100/100|
+|18|05|[**ft_irc**](https://github.com/MinsuKin/42-Quebec/tree/main/18_FT_IRC)|C++|Completed|100/100|
 |19|06|[**ft_transcendence**](https://github.com/MinsuKin/42-Quebec)|TypeScript|Ongoing|?/100|
 
 ### 써클 개요
