@@ -9,7 +9,7 @@
 |06|01|**CPP 06**|C++|Completed|100/100|
 |07|01|**CPP 07**|C++|Completed|100/100|
 |08|01|**CPP 08**|C++|Completed|100/100|
-|08|01|**CPP 09**|C++|Completed|100/100|
+|09|01|**CPP 09**|C++|Completed|100/100|
 
 # CPP Module : C++ piscine, 객체 지향 프로그래밍
 
