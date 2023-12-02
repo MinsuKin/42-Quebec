@@ -1,8 +1,8 @@
 |Order|Circle|Project|Stack|Status|Score|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|00|00|**CPP 00**|C++|Completed|100/100|
+|00|00|**CPP 00**|C++|Completed|80/100|
 |01|01|**CPP 01**|C++|Completed|100/100|
-|02|01|**CPP 02**|C++|Completed|100/100|
+|02|01|**CPP 02**|C++|Completed|80/100|
 |03|01|**CPP 03**|C++|Completed|100/100|
 |04|01|**CPP 04**|C++|Completed|100/100|
 |05|01|**CPP 05**|C++|Completed|100/100|
