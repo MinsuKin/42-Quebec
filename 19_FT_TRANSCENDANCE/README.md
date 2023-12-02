@@ -16,10 +16,8 @@ Transcendance is a web application for participating in a Pong competition. The 
 ## Technical Overview
 
 - Backend: NestJS
-- Frontend: TypeScript & Vue.js
+- Frontend: Vue.js
 - Database: PostgreSQL
-- Single-page application (SPA)
-- Compatible with the latest stable version of Google Chrome and another browser of your choice
 
 ## Repository Structure
 
