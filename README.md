@@ -24,7 +24,7 @@
 |17|05|[**Exam_05**](https://github.com/MinsuKin/42-Quebec/tree/main/17_EXAM_05)|C++|Completed|100/100|
 |18|05|[**ft_irc**](https://github.com/MinsuKin/42-Quebec/tree/main/18_FT_IRC)|C++|Completed|100/100|
 |19|06|[**ft_transcendence**](https://github.com/MinsuKin/42-Quebec/tree/main/19_FT_TRANSCENDANCE)|Typescript|Completed|99/100|
-|20|06|[**Exam_03**](https://github.com/MinsuKin/42-Quebec/tree/main/19_FT_TRANSCENDANCE)|C|Ongoing|?/100|
+|20|06|[**Exam_06**](https://github.com/MinsuKin/42-Quebec)|C|Ongoing|?/100|
 
 ### 써클 개요
 
