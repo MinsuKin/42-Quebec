@@ -1,0 +1,115 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "/pong/ball-animations.json",
+                "type": "animation",
+                "key": "soccer_ball"
+            },
+            {
+                "url": "/pong/paddles-animation.json",
+                "type": "animation",
+                "key": "paddles"
+            },
+            {
+                "url": "/pong/sport/ball_frames.png",
+                "frameConfig": {
+                    "frameWidth": 48,
+                    "frameHeight": 48,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "soccer_ball"
+            },
+            {
+                "url": "/pong/sport/btn_pause.png",
+                "type": "image",
+                "key": "btn_pause"
+            },
+            {
+                "url": "/pong/sport/court_01.png",
+                "type": "image",
+                "key": "soccer_court"
+            },
+            {
+                "url": "/pong/sport/goal_posts_left.png",
+                "type": "image",
+                "key": "goal_posts_left"
+            },
+            {
+                "url": "/pong/sport/goal_posts_right.png",
+                "type": "image",
+                "key": "goal_posts_right"
+            },
+            {
+                "url": "/pong/sport/numbers_score.png",
+                "frameConfig": {
+                    "frameWidth": 64,
+                    "frameHeight": 64,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "numbers_score"
+            },
+            {
+                "url": "/pong/sport/pud_left.png",
+                "frameConfig": {
+                    "frameWidth": 100,
+                    "frameHeight": 200,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "pad_left"
+            },
+            {
+                "url": "/pong/sport/pud_right.png",
+                "frameConfig": {
+                    "frameWidth": 100,
+                    "frameHeight": 200,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "pad_right"
+            },
+            {
+                "url": "/pong/sport/logo.png",
+                "type": "image",
+                "key": "soccer_goal"
+            },
+            {
+                "url": "/pong/sport/text_goal.png",
+                "type": "image",
+                "key": "text_goal"
+            },
+            {
+                "url": "/pong/sport/text_lose.png",
+                "type": "image",
+                "key": "text_lose"
+            },
+            {
+                "url": "/pong/sport/text_win.png",
+                "type": "image",
+                "key": "text_win"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

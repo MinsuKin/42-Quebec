@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/src/assets/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/loader/loader.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PONG - FTJMR</title>
+</head>
+
+<body class="bg-darkBlue">
+  <div id="app">
+      <div id="AppLoader">
+          <div class="loader-box">
+              <div class="pad01"></div>
+              <div class="loading-text">
+                  <svg viewBox="0 0 480 150">
+                      <symbol id="loading-s-text">
+                          <text text-anchor="middle" x="50%" y="80%">Loading...</text>
+                      </symbol>
+                      <g class="loader-g-ants">
+                          <use xlink:href="#loading-s-text" class="text-loader-copy"></use>
+                          <use xlink:href="#loading-s-text" class="text-loader-copy"></use>
+                          <use xlink:href="#loading-s-text" class="text-loader-copy"></use>
+                          <use xlink:href="#loading-s-text" class="text-loader-copy"></use>
+                          <use xlink:href="#loading-s-text" class="text-loader-copy"></use>
+                      </g>
+                  </svg>
+              </div>
+              <div class="pad02"></div>
+              <div class="ball"></div>
+          </div>
+      </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+  <script>
+      const loader = document.getElementById('AppLoader');
+      const loaderBox = document.querySelector('.loader-box');
+      const loadingSvg = document.querySelector('.loading-text');
+      loaderBox.addEventListener('click', function () {
+          loader.classList.toggle('start')
+          loaderBox.classList.toggle('active')
+          loadingSvg.classList.toggle('hidden')
+      });
+  </script>
+</body>
+
+</html>

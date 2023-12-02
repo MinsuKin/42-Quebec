@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: web
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs # certificats
+      - ./nginx/entrypoint.sh:/docker-entrypoint.d/startup.sh # startup script select dev or prod conf
+      - ./nginx/dev.conf:/dev.conf # dev conf
+      - ./nginx/prod.conf:/prod.conf # prod conf
+      - frontend-prod-data:/usr/share/nginx/html # vite build prod
+      - uploads:/usr/share/nginx/html/uploads # uploads
+    depends_on:
+      - backend
+    networks:
+      - frontend-network
+    environment:
+      - BUILD_TYPE=${BUILD_TYPE:-dev}  # Default to dev if BUILD_TYPE is not set
+
+  frontend:
+    container_name: frontend
+    build: ./transcendance-frontend/
+    volumes:
+      - ./transcendance-frontend/src:/app/src # need to be open for dev, but not necessary in production
+      - ./transcendance-frontend/public:/app/public # need to be open for dev, but not necessary in production
+      - frontend-prod-data:/app/dist
+      - uploads:/app/dist/uploads
+    networks:
+      - frontend-network
+    env_file: .env
+
+  backend:
+    container_name: backend
+    build: ./transcendance-backend/
+    volumes:
+      - ./transcendance-backend/src:/app/src # need to be open for dev, but not necessary in production
+      - ./transcendance-backend/prisma:/app/prisma # need to be open for dev, but not necessary in production
+      - uploads:/app/uploads
+    networks:
+      - frontend-network
+      - backend-network
+    depends_on:
+      - db
+    env_file: .env
+
+  db:
+    container_name: db
+    image: postgres:latest
+    env_file: .env
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+networks:
+  frontend-network:
+    driver: bridge
+  backend-network:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+  frontend-prod-data:
+    driver: local
+  uploads:
+    driver: local

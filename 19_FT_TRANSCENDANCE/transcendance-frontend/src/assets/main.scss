@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input[type='text'],
+  input[type='number'],
+  input[type='password'] {
+    @apply bg-transparent;
+    @apply border-transparent;
+    @apply text-white;
+  }
+
+  input[type='text']:focus,
+  input[type='number']:focus,
+  input[type='password']:focus {
+    //no ring on focus
+    @apply ring-0;
+    outline: none; /* Remove the default outline */
+  }
+
+  textarea {
+    @apply bg-transparent;
+    @apply border-transparent;
+    @apply text-white;
+  }
+}
+
+.message {
+  max-width: 40ch;
+  span {
+    overflow-wrap: break-word;
+  }
+  &::after {
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+}
+
+.hide-scrollbar {
+  scrollbar-width: none !important;
+  /* Firefox */
+  -ms-overflow-style: none !important;
+  /* Internet Explorer 10+ */
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    /* Remove scrollbar space */
+    height: 0;
+    background: transparent !important;
+    /* Optional: just make scrollbar invisible */
+  }
+}
+.hide-scrollbar {
+  /* Hide scrollbar on Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar on WebKit-based browsers (Chrome, Safari, etc.) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.ps__rail-y {
+  display: none !important;
+}

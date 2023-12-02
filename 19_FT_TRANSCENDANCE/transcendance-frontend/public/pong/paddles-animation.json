@@ -1,0 +1,94 @@
+{
+    "anims": [
+        {
+            "key": "pad_left_touch",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "pad_left",
+                    "frame": 0,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_left",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_left",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_left",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_left",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 16,
+            "skipMissedFrames": true,
+            "repeat": 1,
+            "showBeforeDelay": false
+        },
+        {
+            "key": "pad_right_touch",
+            "type": "frame",
+            "frames": [
+                {
+                    "key": "pad_right",
+                    "frame": 0,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_right",
+                    "frame": 1,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_right",
+                    "frame": 2,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_right",
+                    "frame": 3,
+                    "duration": 0,
+                    "keyframe": false
+                },
+                {
+                    "key": "pad_right",
+                    "frame": 4,
+                    "duration": 0,
+                    "keyframe": false
+                }
+            ],
+            "frameRate": 16,
+            "skipMissedFrames": true,
+            "repeat": 1,
+            "showBeforeDelay": false
+        }
+    ],
+    "globalTimeScale": 1,
+    "meta": {
+        "app": "Phaser Editor 2D v3",
+        "contentType": "Phaser v3 Animations"
+    },
+    "settings": {
+        "sourceLang": "JAVA_SCRIPT",
+        "esModule": false,
+        "generateCode": false
+    }
+}

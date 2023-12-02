@@ -1,0 +1,292 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  BAN
+  MUTED
+  USER
+  OWNER
+  ADMIN
+  SUPER_MODERATOR
+}
+
+enum Status {
+  Online
+  Offline
+  Away
+  Busy
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum RoomType {
+  PUBLIC
+  PRIVATE
+  PROTECTED
+}
+
+enum GameEvent {
+  GAME_STARTED
+  GAME_ENDED
+  PLAYER_JOINED
+  PLAYER_LEFT
+  ACTION_PERFORMED
+  IA_ACTION_PERFORMED
+  MATCH_WON
+  MATCH_LOST
+}
+
+model UserSettings {
+  id            Int    @id @default(autoincrement())
+  username      String @unique
+  email         String @unique
+  password      String
+  token         String
+  refresh_token String
+}
+
+model BlockedUser {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation("UserToBlocked", fields: [userId], references: [id], onDelete: Cascade)
+  blockedUserId Int
+  blockedUser   User     @relation("BlockedToUser", fields: [blockedUserId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+}
+
+model User {
+  id                        Int                        @id @default(autoincrement())
+  username                  String                     @unique
+  email                     String                     @unique
+  password                  String
+  role                      Role                       @default(USER)
+  profile                   Profile?
+  sessions                  Session[]
+  games                     Game[]
+  gameParticipations        GameParticipation[]
+  gameObservations          GameObservation[]
+  competitionParticipations CompetitionParticipation[]
+  gameHistories             GameHistory[]
+  contacts                  Contact[]                  @relation("UserToContact")
+  contactedBy               Contact[]                  @relation("ContactToUser")
+  sentContactRequests       ContactRequest[]           @relation("SentContactRequests")
+  receivedContactRequests   ContactRequest[]           @relation("ReceivedContactRequests")
+  googleId                  String?                    @unique
+  facebookId                String?                    @unique
+  api42Id                   String?                    @unique
+  twoFactorSecret           String?
+  twoFactorEnabled          Boolean                    @default(false) // to be changed to true
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  chatRooms                 ChatRoomMember[]           @relation("ChatRoomMember")
+  chatRoomsMessages         ChatRoomMessage[]          @relation("ChatRoomMessage")
+  sentMessages              PrivateMessage[]           @relation("sentMessages")
+  receivedMessages          PrivateMessage[]           @relation("receivedMessages")
+  blockedUsers              BlockedUser[]              @relation("UserToBlocked")
+  blockedFrom               BlockedUser[]              @relation("BlockedToUser")
+  notifications             Notification[]
+}
+
+model Profile {
+  id       Int            @id @default(autoincrement())
+  userId   Int            @unique
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name     String
+  lastname String
+  avatar   String?
+  bio      String?
+  oauth    Json?
+  awards   ProfileAward[]
+  status   Status         @default(Offline)
+}
+
+model ChatRoom {
+  id        Int               @id @default(autoincrement())
+  name      String            @unique
+  type      RoomType          @default(PRIVATE)
+  members   ChatRoomMember[]  @relation("ChatRoomMembers")
+  messages  ChatRoomMessage[] @relation("ChatRoomMessages")
+  password  String?
+  avatar    String?
+  createdAt DateTime          @default(now())
+}
+
+model ChatRoomMember {
+  id         Int      @id @default(autoincrement())
+  memberId   Int
+  member     User     @relation(name: "ChatRoomMember", fields: [memberId], references: [id], onDelete: Cascade)
+  chatroomId Int
+  chatroom   ChatRoom @relation(name: "ChatRoomMembers", fields: [chatroomId], references: [id], onDelete: Cascade)
+  role       Role     @default(USER)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  unMuteAt   DateTime  @default(now())
+}
+
+model ChatRoomMessage {
+  id         Int      @id @default(autoincrement())
+  chatroomId Int
+  chatroom   ChatRoom @relation(name: "ChatRoomMessages", fields: [chatroomId], references: [id], onDelete: Cascade)
+  userId     Int
+  user       User     @relation(name: "ChatRoomMessage", fields: [userId], references: [id], onDelete: Cascade)
+  content    String
+  timestamp  DateTime @default(now())
+}
+
+model PrivateMessage {
+  id         Int      @id @default(autoincrement())
+  text       String
+  senderId   Int
+  receiverId Int
+  sender     User     @relation(name: "sentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation(name: "receivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  timestamp  DateTime @default(now())
+}
+
+model Award {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String
+  image       String
+  profiles    ProfileAward[]
+}
+
+model ProfileAward {
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  awardId   Int
+  award     Award   @relation(fields: [awardId], references: [id], onDelete: Cascade)
+
+  @@id([profileId, awardId])
+}
+
+model ContactRequest {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  sender     User     @relation("SentContactRequests", fields: [senderId], references: [id])
+  receiverId Int
+  receiver   User     @relation("ReceivedContactRequests", fields: [receiverId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([senderId, receiverId])
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation("UserToContact", fields: [userId], references: [id], onDelete: Cascade)
+  contactId Int
+  contact   User     @relation("ContactToUser", fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, contactId])
+}
+
+model Competition {
+  id           Int                        @id @default(autoincrement())
+  name         String
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  visibility   Visibility
+  rules        Json?
+  games        Game[]
+  participants CompetitionParticipation[]
+}
+
+model Game {
+  id            Int                 @id @default(autoincrement())
+  name          String
+  description   String
+  visibility    Visibility          @default(PUBLIC)
+  competitionId Int?
+  competition   Competition?        @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  winnerId      Int?
+  winner        User?               @relation(fields: [winnerId], references: [id], onDelete: Cascade)
+  histories     GameHistory[]
+  participants  GameParticipation[]
+  observers     GameObservation[]
+}
+
+model GameParticipation {
+  gameId Int
+  game   Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([gameId, userId])
+}
+
+model GameObservation {
+  gameId Int
+  game   Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([gameId, userId])
+}
+
+model CompetitionParticipation {
+  competitionId Int
+  competition   Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([competitionId, userId])
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model GameHistory {
+  id        Int       @id @default(autoincrement())
+  gameId    Int
+  game      Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  event     GameEvent
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timestamp DateTime  @default(now())
+}
+
+enum NotificationType {
+  GAME_INVITE
+  FRIEND_REQUEST
+  GAME_EVENT
+  PRIVATE_MESSAGE
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+}
+
+model Notification {
+  id          Int                @id @default(autoincrement())
+  userId      Int
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        NotificationType
+  status      NotificationStatus @default(UNREAD)
+  title       String // Brief description, e.g., "Game Invite"
+  message     String // Detailed notifications, e.g., "User123 has invited you to a game."
+  referenceId Int? // ID of the related entity, e.g., Game ID, Other User ID, etc.
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  expiresAt   DateTime? // Time when the notification or its related action expires
+}

@@ -1,0 +1,6 @@
+[submodule "transcendance-frontend"]
+	path = transcendance-frontend
+	url = https://github.com/ftmjr/transcendance-frontend.git
+[submodule "transcendance-backend"]
+	path = transcendance-backend
+	url = https://github.com/ftmjr/transcendance-backend.git

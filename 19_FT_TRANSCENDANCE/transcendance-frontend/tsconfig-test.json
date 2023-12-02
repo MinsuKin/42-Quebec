@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "strict": false,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "sourceMap": true,
+    "resolveJsonModule": true, // allows import json files
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@themeConfig": [ "./src/vuetify/themeConfig"],
+      "@layouts/*": [ "./src/vuetify/@layouts/*"],
+      "@layouts": ["./src/vuetify/@layouts"],
+      "@core/*": [ "./src/vuetify/@core/*"],
+      "@core": [ "./src/vuetify/@core" ],
+      "@styles/*": ["./src/vuetify/styles/*" ]
+    },
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable",
+      "ScriptHost"
+    ],
+    "skipLibCheck": true,
+    "types": [
+      "vite/client",
+    ]
+  },
+  "include": [
+    "vite.config.*",
+    "env.d.ts",
+    "shims.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "themeConfig.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/@iconify/*",
+    "src/**/__tests__/*"
+  ]
+}

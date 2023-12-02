@@ -1,0 +1,168 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "/pong/ui/B1.png",
+                "type": "image",
+                "key": "B1"
+            },
+            {
+                "url": "/pong/ui/B11.png",
+                "type": "image",
+                "key": "B11"
+            },
+            {
+                "url": "/pong/ui/B12.png",
+                "type": "image",
+                "key": "B12"
+            },
+            {
+                "url": "/pong/ui/B13.png",
+                "type": "image",
+                "key": "B13"
+            },
+            {
+                "url": "/pong/ui/B15.png",
+                "type": "image",
+                "key": "B15"
+            },
+            {
+                "url": "/pong/ui/B16.png",
+                "type": "image",
+                "key": "B16"
+            },
+            {
+                "url": "/pong/ui/B3.png",
+                "type": "image",
+                "key": "B3"
+            },
+            {
+                "url": "/pong/ui/B4.png",
+                "type": "image",
+                "key": "B4"
+            },
+            {
+                "url": "/pong/ui/B5.png",
+                "type": "image",
+                "key": "B5"
+            },
+            {
+                "url": "/pong/ui/B7.png",
+                "type": "image",
+                "key": "B7"
+            },
+            {
+                "url": "/pong/ui/B8.png",
+                "type": "image",
+                "key": "B8"
+            },
+            {
+                "url": "/pong/ui/B9.png",
+                "type": "image",
+                "key": "B9"
+            },
+            {
+                "url": "/pong/ui/Background.png",
+                "type": "image",
+                "key": "Background"
+            },
+            {
+                "url": "/pong/ui/BarDown1.png",
+                "type": "image",
+                "key": "BarDownBlue"
+            },
+            {
+                "url": "/pong/ui/BarDown2.png",
+                "type": "image",
+                "key": "BarDownBrown"
+            },
+            {
+                "url": "/pong/ui/BarDown3.png",
+                "type": "image",
+                "key": "BarDownPink"
+            },
+            {
+                "url": "/pong/ui/BarTop1.png",
+                "type": "image",
+                "key": "BarTopBlue"
+            },
+            {
+                "url": "/pong/ui/BarTop2.png",
+                "type": "image",
+                "key": "BarTopBrown"
+            },
+            {
+                "url": "/pong/ui/BarTop3.png",
+                "type": "image",
+                "key": "BarTopPink"
+            },
+            {
+                "url": "/pong/ui/BgPanelBox2.png",
+                "type": "image",
+                "key": "BgPanelBox2"
+            },
+            {
+                "url": "/pong/ui/BgPanelBox4.png",
+                "type": "image",
+                "key": "BgInstructionBox"
+            },
+            {
+                "url": "/pong/ui/BlueLight.png",
+                "type": "image",
+                "key": "BlueLight"
+            },
+            {
+                "url": "/pong/ui/Btn_EmptyActive.png",
+                "type": "image",
+                "key": "Btn_EmptyActive"
+            },
+            {
+                "url": "/pong/ui/Btn_EmptyDeActive.png",
+                "type": "image",
+                "key": "Btn_EmptyDeActive"
+            },
+            {
+                "url": "/pong/ui/Btn_Home.png",
+                "type": "image",
+                "key": "Btn_Home"
+            },
+            {
+                "url": "/pong/ui/Btn_Home_Active.png",
+                "type": "image",
+                "key": "Btn_Home_Active"
+            },
+            {
+                "url": "/pong/ui/Btn_Option.png",
+                "type": "image",
+                "key": "Btn_Option"
+            },
+            {
+                "url": "/pong/ui/HeroLander.png",
+                "type": "image",
+                "key": "HeroLander"
+            },
+            {
+                "url": "/pong/ui/SideBar1.png",
+                "type": "image",
+                "key": "SideBarBlue"
+            },
+            {
+                "url": "/pong/ui/SideBar2.png",
+                "type": "image",
+                "key": "SideBarBrown"
+            },
+            {
+                "url": "/pong/ui/SideBar3.png",
+                "type": "image",
+                "key": "SideBarPink"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

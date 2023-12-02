@@ -1,0 +1,28 @@
+{
+    "section1": {
+        "files": [
+            {
+                "key": "ball",
+                "type": "image",
+                "url": "/pong/classic/ball.png"
+            },
+            {
+                "key": "paddle",
+                "type": "image",
+                "url": "/pong/classic/paddle.png"
+            },
+            {
+                "key": "center_round",
+                "type": "image",
+                "url": "/pong/classic/center_round.png"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}
