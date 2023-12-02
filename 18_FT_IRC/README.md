@@ -34,5 +34,3 @@ The key requirements for the ft_irc project include:
   - **INVITE:** Invite a client to a channel.
   - **TOPIC:** Change or view the channel topic.
   - **MODE:** Change the channel's mode (i, t, k, o, l).
-
-This README.md serves as a comprehensive guide for understanding the objectives, requirements, and specific features of the ft_irc project. For detailed information on usage, setup, and additional details, refer to the project documentation.
