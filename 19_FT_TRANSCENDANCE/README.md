@@ -1,6 +1,6 @@
-# FT_Transcendance
+# FT_transcendance
 
-FT_Transcendance is a web application for participating in a Pong competition. The web application will allow users to play Pong with each other, providing a user interface, chat, and real-time multiplayer online matches.
+FT_transcendance is a web application for participating in a Pong competition. The web application will allow users to play Pong with each other, providing a user interface, chat, and real-time multiplayer online matches.
 
 ## Features
 
