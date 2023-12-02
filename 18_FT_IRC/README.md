@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The ft_irc project is dedicated to creating a customized IRC (Internet Relay Chat) server that adheres to established internet standards and protocols. IRC is a widely-utilized communication protocol facilitating real-time text messaging among users on a network. The primary objective of this project is to develop a server capable of handling multiple clients simultaneously, placing a specific emphasis on non-blocking I/O operations.
+A customized IRC(Internet Relay Chat) server IRC is a widely-utilized communication protocol facilitating real-time text messaging among users on a network. The primary objective of this project is to develop a server capable of handling multiple clients simultaneously, placing a specific emphasis on non-blocking I/O operations.
 
 ## Project Requirements
 
