@@ -2,35 +2,37 @@
 
 ## Project Overview
 
-The **ft_irc** project focuses on creating a custom IRC (Internet Relay Chat) server, adhering to established internet standards and protocols. IRC is a widely-used communication protocol that enables real-time text messaging between users on a network. In this project, the goal is to implement a server capable of handling multiple clients simultaneously, with a specific emphasis on non-blocking I/O operations.
+The ft_irc project is dedicated to creating a customized IRC (Internet Relay Chat) server that adheres to established internet standards and protocols. IRC is a widely-utilized communication protocol facilitating real-time text messaging among users on a network. The primary objective of this project is to develop a server capable of handling multiple clients simultaneously, placing a specific emphasis on non-blocking I/O operations.
 
 ## Project Requirements
 
-The key requirements for the **ft_irc** project are as follows:
+The key requirements for the ft_irc project include:
 
-1. The server must handle multiple clients concurrently without hanging.
-2. Forking is not allowed; all I/O operations must be non-blocking.
-3. Only one poll() (or equivalent) can be used for handling read, write, listen, etc.
-4. Communication between the server and clients must be done via TCP/IP (v4 or v6).
-5. The project must select a reference IRC client for evaluation purposes.
-6. The reference client should connect to the server without encountering errors.
-7. Implemented features include authentication, setting a nickname, username, joining a channel, sending and receiving private messages.
-8. Messages sent to a channel must be forwarded to every client in that channel.
-9. Support for operators and regular users, with specific commands for operators.
-10. macOS-specific considerations, such as using fcntl() for non-blocking mode.
+- **Concurrent Client Handling:** The server must manage multiple clients concurrently without hanging.
+- **Non-blocking I/O Operations:** Forking is not allowed; all I/O operations must be non-blocking.
+- **Single Poll():** Only one poll() (or equivalent) can be used for handling read, write, listen, etc.
+- **TCP/IP Communication:** Communication between the server and clients must be done via TCP/IP (v4 or v6).
+- **Reference IRC Client:** Choose a reference IRC client for evaluation purposes; it should connect to the server without encountering errors.
+- **Implemented Features:** Features to implement include authentication, setting a nickname, username, joining a channel, and sending/receiving private messages.
+- **Channel Messaging:** Messages sent to a channel must be forwarded to every client in that channel.
+- **Operator Support:** Support for operators and regular users, with specific commands for operators.
 
 ## Specific Features to Implement
 
-1. **Authentication and User Setup:**
-   - Set a nickname and a username.
-   - Join a channel.
-   - Send and receive private messages.
+### Authentication and User Setup:
 
-2. **Channel Operations:**
-   - Forward messages from one client to all others in the channel.
-   - Implement operators and regular users.
-   - Channel-specific operator commands:
-      - KICK: Eject a client from the channel.
-      - INVITE: Invite a client to a channel.
-      - TOPIC: Change or view the channel topic.
-      - MODE: Change the channel's mode (i, t, k, o, l).
+- **Set Nickname and Username:** Users should be able to set a nickname and a username.
+- **Channel Joining:** Implement the ability to join a channel.
+- **Private Messaging:** Allow users to send and receive private messages.
+
+### Channel Operations:
+
+- **Message Forwarding:** Forward messages from one client to all others in the channel.
+- **User Roles:** Implement operators and regular user roles.
+- **Operator Commands:** Include specific commands for operators, such as:
+  - **KICK:** Eject a client from the channel.
+  - **INVITE:** Invite a client to a channel.
+  - **TOPIC:** Change or view the channel topic.
+  - **MODE:** Change the channel's mode (i, t, k, o, l).
+
+This README.md serves as a comprehensive guide for understanding the objectives, requirements, and specific features of the ft_irc project. For detailed information on usage, setup, and additional details, refer to the project documentation.
