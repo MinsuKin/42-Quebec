@@ -1,30 +1,73 @@
 # FT_transcendance
 
-FT_transcendance is a web application for participating in a Pong competition. The web application will allow users to play Pong with each other, providing a user interface, chat, and real-time multiplayer online matches.
+FT_transcendance is a dynamic web application featuring a 1:1 online Pong game alongside a robust set of social and user interaction features. From OAuth authentication and 2FA to a comprehensive chat system, friend management, and personalized user profiles, FT_transcendance offers a diverse and engaging user experience.
 
-## Features
+## Key Features
 
-- User authentication via OAuth (Intranet 42)
-- Unique usernames and avatars
-- Two-factor authentication (2FA) support
-- Friend list and real-time status updates
-- User profiles with stats and match history
-- Chat channels (public, private, password-protected)
-- Direct messaging between users
-- Blocking users
+- **User Authentication via OAuth (Intranet 42):**
+  - Securely log in using OAuth through the Intranet 42 authentication system.
+
+- **Unique Usernames and Avatars:**
+  - Personalize your profile with unique usernames and avatars for a distinctive online presence.
+
+- **Two-Factor Authentication (2FA) Support:**
+  - Enhance account security with 2FA, adding an extra layer of protection to user accounts.
+
+- **Friend List and Real-time Status Updates:**
+  - Build a network of friends and receive real-time updates on their online status.
+
+- **User Profiles with Stats and Match History:**
+  - Explore detailed user profiles showcasing statistics and a comprehensive match history.
+
+- **Chat Channels:**
+  - Engage in public chat channels, create private channels, or set password-protected channels for exclusive conversations.
+
+- **Direct Messaging:**
+  - Communicate seamlessly through direct messages, fostering one-on-one interactions.
+
+- **Blocking Users:**
+  - Manage your online experience by blocking unwanted users.
 
 ## Technical Overview
 
-- Backend: NestJS
-- Frontend: Vue.js
-- Database: PostgreSQL
+- **Language:**
+  - Typescript
+
+- **Infrastructure:**
+  - Docker
+  - Docker Compose
+  - Nginx
+
+- **Frontend:**
+  - Vue.js
+  - Vite
+
+- **Backend:**
+  - NestJS
+  - Socket.io
+  - Prisma
+
+- **Database:**
+  - PostgreSQL
 
 ## Repository Structure
 
-- `/nginx`: Nginx configuration files
-- `/transcendance-backend`: Git submodule for the backend [repository](https://github.com/ftmjr/transcendance-backend)
-- `/transcendance-frontend`: Git submodule for the frontend [repository](https://github.com/ftmjr/transcendance-frontend)
+- **`/nginx`:**
+  - Nginx configuration files.
+
+- **`/transcendance-backend`:**
+  - Git submodule for the backend [repository](https://github.com/ftmjr/transcendance-backend).
+
+- **`/transcendance-frontend`:**
+  - Git submodule for the frontend [repository](https://github.com/ftmjr/transcendance-frontend).
 
 ## Setup and Development
 
-To set up the project, write the .env file and  run `docker-compose up`.
+To set up the project:
+
+1. Create a `.env` file with the necessary configuration.
+2. Run `docker-compose up` to initiate the development environment.
+
+Feel free to explore the backend and frontend repositories for more detailed information on each component.
+
+Enjoy the immersive experience of FT_transcendance, where gaming meets social interaction in a feature-rich web application.
