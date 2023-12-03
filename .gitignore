@@ -4,6 +4,7 @@
 /17_EXAM_05/*/*.hpp
 /20_EXAM_06/*.c
 
+.vscode
 .DS_Store
 
 # 디폴트 무시된 파일
