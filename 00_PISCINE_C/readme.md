@@ -1,3 +1,5 @@
+<img width="2102" alt="스크린샷 2024-05-29 오후 11 26 05" src="https://github.com/MinsuKin/42-Quebec/assets/50944735/42fa8804-e986-4ffa-bf91-da546b5fbb76">
+
 |Order|Circle|Project|Stack|Status|Score|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |00|00|**Shell 00**|C|Completed|70/100|
