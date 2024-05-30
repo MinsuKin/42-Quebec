@@ -1,6 +1,7 @@
 # 42-Quebec
 
 #### 42 Quebec projects 
+<img width="1186" alt="스크린샷 2024-05-29 오후 11 23 51" src="https://github.com/MinsuKin/42-Quebec/assets/50944735/587f094a-d573-464b-bc2a-7d64f47fd446">
 
 |Order|Circle|Project|Stack|Status|Score|
 |:---:|:---:|:---:|:---:|:---:|:---:|
